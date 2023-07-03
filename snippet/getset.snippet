@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>getset</Title>
+			<Shortcut>getset</Shortcut>
+			<Description>getter setterに対するコードスニペット</Description>
+			<Author>barrier</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>type</ID>
+					<Default>T</Default>
+					<ToolTip></ToolTip>
+				</Literal>
+				<Literal>
+					<ID>name</ID>
+					<Default>Name</Default>
+					<ToolTip></ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp"><![CDATA[inline $type$ Get$name$() { return m_$name$; } inline void Set$name$(const $type$ &val){ m_$name$ = val; }]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>objh</Title>
+			<Shortcut>objh</Shortcut>
+			<Description>objectbaseのヘッダーに対するスニペット</Description>
+			<Author>barrier</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>Name</ID>
+					<Default>name</Default>
+					<ToolTip></ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp"><![CDATA[class $Name$ : public ObjectBase {
+public:
+
+	$Name$() { Init(); };
+	~$Name$() { End(); };
+
+	void Init() override;
+	void Update() override;
+	void Draw() override;
+	void End() override;
+
+private:
+
+};]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
