@@ -23,7 +23,9 @@
     <ClCompile Include="src\Game\SampleScene\S_Sample.cpp" />
     <ClCompile Include="src\Library\Config\Config.cpp" />
     <ClCompile Include="src\Library\FileAccess\FileAccess.cpp" />
+    <ClCompile Include="src\Library\FrameWait\FrameWait.cpp" />
     <ClCompile Include="src\Library\Sprite\Sprite.cpp" />
+    <ClCompile Include="src\Library\Timer\Timer.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\System\main.cpp" />
     <ClCompile Include="src\System\sub.cpp" />
@@ -38,9 +40,11 @@
     <ClInclude Include="src\include.h" />
     <ClInclude Include="src\Library\Config\Config.h" />
     <ClInclude Include="src\Library\FileAccess\FileAccess.h" />
+    <ClInclude Include="src\Library\FrameWait\FrameWait.h" />
     <ClInclude Include="src\Library\Json\Json.hpp" />
     <ClInclude Include="src\Library\LibraryInclude.h" />
     <ClInclude Include="src\Library\Sprite\Sprite.h" />
+    <ClInclude Include="src\Library\Timer\Timer.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\System\main.h" />
   </ItemGroup>
@@ -157,7 +161,7 @@
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
@@ -180,7 +184,7 @@
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
@@ -203,7 +207,7 @@
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
@@ -226,7 +230,7 @@
       <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)src</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <EnablePREfast>false</EnablePREfast>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>

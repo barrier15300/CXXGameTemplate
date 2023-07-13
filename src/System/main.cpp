@@ -14,13 +14,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		ScreenFlip();
 		ClearDrawScreen();
+
+		FRAMEWAIT.Sleep();
 	}
 
 	MainEnd();
 
 	return 0;
 }
-
 
 inline bool MainInit() {
 	SetOutApplicationLogValidFlag(FALSE);
@@ -30,6 +31,7 @@ inline bool MainInit() {
 
 	SetDoubleStartValidFlag(TRUE);
 	SetAlwaysRunFlag(TRUE);
+	SetWaitVSyncFlag(FALSE);
 	
 	if (DxLib_Init() == -1) { return false; }
 	
@@ -39,7 +41,5 @@ inline bool MainInit() {
 }
 
 inline void MainEnd() {
-
 	DxLib_End();
-
 }

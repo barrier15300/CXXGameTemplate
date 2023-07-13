@@ -44,8 +44,3 @@
 #include "Base/ObjectBase.h"
 #include "Base/SceneBase.h"
 
-/*
-*  GameSource
-*/
-#include "Game/GameSourceInclude.h"
-
