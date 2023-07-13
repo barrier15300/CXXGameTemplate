@@ -9,12 +9,12 @@ public:
 
 	virtual void Init() { };
 	virtual void Update() {
-		for (const auto& _ptr : m_Objects) {
+		for (auto&& _ptr : m_Objects) {
 			_ptr->Update();
 		}
 	}
 	virtual void Draw() {
-		for (const auto& _ptr : m_Objects) {
+		for (auto&& _ptr : m_Objects) {
 			_ptr->Draw();
 		}
 	}
