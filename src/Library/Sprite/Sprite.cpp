@@ -11,7 +11,6 @@ void SpriteManager::Init() {
 
 	fs.close();
 
-	SpriteDatas.push_back(data["Sample"]);
-
+	m_SpriteDatas = data["Sample"];
 }
 

@@ -13,7 +13,7 @@ class SpriteManager final {
 
 	void Init();
 	
-	std::vector<json> SpriteDatas;
+	json m_SpriteDatas;
 
 public:
 
@@ -22,7 +22,7 @@ public:
 		return _instance;
 	}
 
-	json operator[](size_t index) { return SpriteDatas[index]; }
+	inline json GetSpriteDatas() { return m_SpriteDatas; }
 };
 
 #define SPRITE SpriteManager::GetInstance()
