@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/.vs
+/CXXGameTemplate/x64/Debug
+/x64/Debug/CXXGameTemplate
+/packages
