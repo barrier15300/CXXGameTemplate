@@ -2,7 +2,17 @@
 #include <cmath>
 #define PI (3.1415926535897932384626433832795028841971)
 
-namespace ease {
+class Easing {
+
+	Easing() = delete;
+	Easing(const Easing &) = delete;
+	Easing(Easing &&) = delete;
+
+	Easing &operator=(const Easing &) = delete;
+	Easing &operator=(Easing &&) = delete;
+
+public:
+
 	enum Base {
 		In,
 		Out,
@@ -24,19 +34,19 @@ namespace ease {
 		Bounce
 	};
 
-	inline double GetEasingRate(double x, const Base ebt, const Line elt) {
+	static inline double GetRate(double x, const Base ebt, const Line elt) {
 		if (x <= 0.0) { return 0.0; }
 		if (x >= 1.0) { return 1.0; }
 		switch (ebt) {
 			case Base::InOut:
 				return x < 0.5 ?
-					GetEasingRate(x / 0.5, Base::In, elt) / 2 :
-					0.5 + (GetEasingRate((x - 0.5) / 0.5, Base::Out, elt) / 2);
+					GetRate(x / 0.5, Base::In, elt) / 2 :
+					0.5 + (GetRate((x - 0.5) / 0.5, Base::Out, elt) / 2);
 				break;
 			case Base::OutIn:
 				return x < 0.5 ?
-					GetEasingRate(x / 0.5, Base::Out, elt) / 2 :
-					0.5 + (GetEasingRate((x - 0.5) / 0.5, Base::In, elt) / 2);
+					GetRate(x / 0.5, Base::Out, elt) / 2 :
+					0.5 + (GetRate((x - 0.5) / 0.5, Base::In, elt) / 2);
 				break;
 		}
 
@@ -149,7 +159,7 @@ namespace ease {
 			case Line::Bounce:
 				switch (ebt) {
 					case Base::In:
-						return 1 - GetEasingRate(1 - x, Base::Out, elt);
+						return 1 - GetRate(1 - x, Base::Out, elt);
 						break;
 					case Base::Out:
 					{
@@ -175,6 +185,6 @@ namespace ease {
 		}
 		return 0;
 	}
-}
+};
 
 #undef PI
