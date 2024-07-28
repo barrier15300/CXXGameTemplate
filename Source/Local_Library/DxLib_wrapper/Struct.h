@@ -18,8 +18,10 @@ template<__VA_ARGS__> constexpr inline bool operator==(lvaltype lhs, rvaltype rh
 template<__VA_ARGS__> constexpr inline bool operator!=(lvaltype lhs, rvaltype rhs) { return !(lhs == rhs); }
 
 #define CONSTRUCTURE_DEF(base, to)\
+constexpr to(const to &v) : to::base(v) {}\
+constexpr to(to &&v) : to::base(v) {}\
 constexpr to(const base<T> &v) : to::base(v) {}\
-constexpr to(base<T> &&v) noexcept : to::base(std::move(v)) {}
+constexpr to(base<T> &&v) noexcept : to::base(v) {}
 
 /// <summary>
 /// Value2D
@@ -43,60 +45,64 @@ struct Value2D {
 	Value2D &&plus() { return Value2D(std::abs(x), std::abs(y)); };
 	Value2D &&minus() { return Value2D(-std::abs(x), -std::abs(y)); };
 
-#define OPERATOR_DEF(type, rvaltype) inline Value2D &operator##type##=(rvaltype rhs) { this->x type##= rhs.x; this->y type##= rhs.y; return *this; };
+	template<template<IsArithmetic mT> class tT> constexpr inline operator const tT<T> &() {
+		return tT<T>(this->x, this->y);
+	}
 
-	constexpr OPERATOR_DEF(+, const Value2D &);
-	constexpr OPERATOR_DEF(-, const Value2D &);
-	constexpr OPERATOR_DEF(*, const Value2D &);
-	constexpr OPERATOR_DEF(/, const Value2D &);
-	//constexpr OPERATOR_DEF(,  const Value2D &);
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Value2D &operator##type##=(rvaltype rhs) { this->x type##= rhs.x; this->y type##= rhs.y; return *this; };
 
-	constexpr OPERATOR_DEF(+, Value2D &&);
-	constexpr OPERATOR_DEF(-, Value2D &&);
-	constexpr OPERATOR_DEF(*, Value2D &&);
-	constexpr OPERATOR_DEF(/, Value2D &&);
-	//constexpr OPERATOR_DEF(,  Value2D &&);
+	OPERATOR_DEF(+, const Value2D<fT> &);
+	OPERATOR_DEF(-, const Value2D<fT> &);
+	OPERATOR_DEF(*, const Value2D<fT> &);
+	OPERATOR_DEF(/, const Value2D<fT> &);
+	
+	OPERATOR_DEF(+, Value2D<fT> &&);
+	OPERATOR_DEF(-, Value2D<fT> &&);
+	OPERATOR_DEF(*, Value2D<fT> &&);
+	OPERATOR_DEF(/, Value2D<fT> &&);
+	
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Value2D &operator##type##=(rvaltype rhs) { this->x type##= rhs; this->y type##= rhs; return *this; }
 
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(+, const Value2D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(-, const Value2D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(*, const Value2D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(/, const Value2D<fT> &);
-	//template<IsArithmetic fT> constexpr OPERATOR_DEF(,  const Value2D<fT> &);
+	OPERATOR_DEF(*, const vT &);
+	OPERATOR_DEF(/, const vT &);
+	OPERATOR_DEF(*,       vT &&);
+	OPERATOR_DEF(/,       vT &&);
 
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(+, Value2D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(-, Value2D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(*, Value2D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(/, Value2D<fT> &&);
-	//template<IsArithmetic fT> constexpr OPERATOR_DEF(,  Value2D<fT> &&);
-
-#define OPERATOR_DEF(type, rvaltype) inline Value2D& operator##type##=(rvaltype rhs) { this->x type##= rhs; this->y type##= rhs; return *this; }
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, const vT &);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, const vT &);
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, vT &&);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, vT &&);
 };
 
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Value2D<std::common_type_t<fT1, fT2>> operator##type##(lvalt lhs, rvalt rhs) { return Value2D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs; }
 
-#define OPERATOR_DEF(type) template<IsArithmetic T> constexpr inline Value2D<T> operator##type##(const Value2D<T>& lhs, const Value2D<T>& rhs) { return Value2D<T>(lhs) type##= rhs; }
+OPERATOR_DEF(+, const Value2D<fT1> &,  const Value2D<fT2> &);
+OPERATOR_DEF(+,       Value2D<fT1> &&, const Value2D<fT2> &);
+OPERATOR_DEF(+, const Value2D<fT1> &,        Value2D<fT2> &&);
+OPERATOR_DEF(+,       Value2D<fT1> &&,       Value2D<fT2> &&);
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(-, const Value2D<fT1> &,  const Value2D<fT2> &);
+OPERATOR_DEF(-,       Value2D<fT1> &&, const Value2D<fT2> &);
+OPERATOR_DEF(-, const Value2D<fT1> &,        Value2D<fT2> &&);
+OPERATOR_DEF(-,       Value2D<fT1> &&,       Value2D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Value2D<std::common_type_t<fT1, fT2>> operator##type##(const Value2D<fT1> &lhs, const Value2D<fT2> &rhs) { return Value2D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs; }
+OPERATOR_DEF(*, const Value2D<fT1> &,  const Value2D<fT2> &);
+OPERATOR_DEF(*,       Value2D<fT1> &&, const Value2D<fT2> &);
+OPERATOR_DEF(*, const Value2D<fT1> &,        Value2D<fT2> &&);
+OPERATOR_DEF(*,       Value2D<fT1> &&,       Value2D<fT2> &&);
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(/, const Value2D<fT1> &,  const Value2D<fT2> &);
+OPERATOR_DEF(/,       Value2D<fT1> &&, const Value2D<fT2> &);
+OPERATOR_DEF(/, const Value2D<fT1> &,        Value2D<fT2> &&);
+OPERATOR_DEF(/,       Value2D<fT1> &&,       Value2D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic T, IsArithmetic vT> constexpr inline Value2D<std::common_type_t<T, vT>> operator##type##(const Value2D<T>& lhs, vT rhs) { return Value2D<std::common_type_t<T, vT>>(lhs) type##= rhs; }
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic vT> constexpr inline Value2D<std::common_type_t<fT1, vT>> operator##type##(lvalt lhs, rvalt rhs) { return Value2D<std::common_type_t<fT1, vT>>(lhs) type##= rhs; }
 
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(*, const Value2D<fT1> &,  const vT &);
+OPERATOR_DEF(*,       Value2D<fT1> &&, const vT &);
+OPERATOR_DEF(*, const Value2D<fT1> &,        vT &&);
+OPERATOR_DEF(*,       Value2D<fT1> &&,       vT &&);
+
+OPERATOR_DEF(/, const Value2D<fT1> &,  const vT &);
+OPERATOR_DEF(/,       Value2D<fT1> &&, const vT &);
+OPERATOR_DEF(/, const Value2D<fT1> &,        vT &&);
+OPERATOR_DEF(/,       Value2D<fT1> &&,       vT &&);
 
 #define MIN lhs.x < rhs.x && lhs.y < rhs.y
 
@@ -124,7 +130,7 @@ template<IsArithmetic T>
 struct Pos2D : public Value2D<T> {
 	using Value2D<T>::Value2D;
 
-	CONSTRUCTURE_DEF(Value2D, Pos2D);
+	//CONSTRUCTURE_DEF(Value2D, Pos2D);
 };
 template<IsArithmetic T>
 void to_json(nlohmann::json &j, const Pos2D<T> &v) {
@@ -152,7 +158,7 @@ struct Size2D : public Value2D<T> {
 
 	using Value2D<T>::Value2D;
 
-	CONSTRUCTURE_DEF(Value2D, Size2D);
+	//CONSTRUCTURE_DEF(Value2D, Size2D);
 
 	rename_member<T> width = rename_member(this->x), height = rename_member(this->y);
 };

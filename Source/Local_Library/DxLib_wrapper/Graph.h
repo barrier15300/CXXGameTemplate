@@ -114,8 +114,8 @@ private:
 struct OptimizationGraph {
 
 	void Create(const Size2D<int> &drawsize, bool transflag, auto &&func) {
-		this->_Create(drawsize, transflag, func);
 		m_CallBackIndex = CallBack.Regist([=](){ this->_Create(drawsize, transflag, func); });
+		this->_Create(drawsize, transflag, func);
 	}
 	void Delete() {
 		DeleteGraph(m_Handle);
