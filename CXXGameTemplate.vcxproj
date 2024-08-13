@@ -248,7 +248,10 @@
     <ClInclude Include="Source\Local_Library\DataStorage.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Graph.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Keys.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\SoundDevice.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Timer.h" />
     <ClInclude Include="Source\Local_Library\Easing.h" />
     <ClInclude Include="Source\Local_Library\exstring.h" />
@@ -256,7 +259,10 @@
     <ClInclude Include="Source\Local_Library\LocalLibInclude.h" />
     <ClInclude Include="Source\Local_Library\ObjectBase.h" />
     <ClInclude Include="Source\Local_Library\special.h" />
+    <ClInclude Include="Source\Local_Library\TextAnalizer\Analize.h" />
+    <ClInclude Include="Source\Local_Library\TextAnalizer\strexprconv.h" />
     <ClInclude Include="Source\Local_Library\template_type.h" />
+    <ClInclude Include="Source\Local_Library\TextAnalizer\TextAnalizer.h" />
     <ClInclude Include="Source\Local_Library\Transform.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
@@ -314,6 +320,7 @@
     <Import Project="packages\boost_wave-vc143.1.85.0\build\boost_wave-vc143.targets" Condition="Exists('packages\boost_wave-vc143.1.85.0\build\boost_wave-vc143.targets')" />
     <Import Project="packages\boost-vc143.1.85.0\build\boost-vc143.targets" Condition="Exists('packages\boost-vc143.1.85.0\build\boost-vc143.targets')" />
     <Import Project="packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets" Condition="Exists('packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" />
+    <Import Project="packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets" Condition="Exists('packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -368,5 +375,6 @@
     <Error Condition="!Exists('packages\boost_wave-vc143.1.85.0\build\boost_wave-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_wave-vc143.1.85.0\build\boost_wave-vc143.targets'))" />
     <Error Condition="!Exists('packages\boost-vc143.1.85.0\build\boost-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost-vc143.1.85.0\build\boost-vc143.targets'))" />
     <Error Condition="!Exists('packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets'))" />
   </Target>
 </Project>

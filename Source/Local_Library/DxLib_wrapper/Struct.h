@@ -33,8 +33,6 @@ template<IsArithmetic T>
 struct Value2D {
 
 	constexpr Value2D() : x(0), y(0) {}
-	//constexpr Value2D(const Value2D &v) : x(v.x), y(v.y) {}
-	//constexpr Value2D(Value2D &&v) noexcept : x(v.x), y(v.y) {}
 	constexpr Value2D(T _x, T _y) : x(_x), y(_y) {}
 	template<IsArithmetic fT1, IsArithmetic fT2> constexpr Value2D(fT1 _x, fT2 _y) : x(static_cast<T>(_x)), y(static_cast<T>(_y)) {}
 	template<IsArithmetic fpT> constexpr Value2D(const Value2D<fpT> &v) : Value2D(v.x, v.y) {};
@@ -191,8 +189,8 @@ struct Rect2D {
 	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> Rect2D(fT1 _left, fT2 _top, fT3 _right, fT4 _bottom) : left(static_cast<T>(_left)), top(static_cast<T>(_top)), right(static_cast<T>(_right)), bottom(static_cast<T>(_bottom)) {}
 	template<IsArithmetic fpT> Rect2D(const Rect2D<fpT> &v) : Rect2D(v.left, v.top, v.right, v.bottom) {}
 	template<IsArithmetic fpT> Rect2D(Rect2D<fpT> &&v) : Rect2D(v.left, v.top, v.right, v.bottom) {}
-	template<IsArithmetic fpT> Rect2D(const Value2D<fpT> &p1, const Value2D<fpT> &p2) : m_P1(p1), m_P2(p2) {}
-	template<IsArithmetic fpT> Rect2D(Value2D<fpT> &&p1, Value2D<fpT> &&p2) : m_P1(std::move(p1)), m_P2(std::move(p2)) {}
+	template<IsArithmetic fpT> Rect2D(const Value2D<fpT> &p1, const Value2D<fpT> &p2) : m_P1(p1.x, p1.y), m_P2(p2.x, p2.y) {}
+	template<IsArithmetic fpT> Rect2D(Value2D<fpT> &&p1, Value2D<fpT> &&p2) : m_P1(p1.x, p1.y), m_P2(p2.x, p2.y) {}
 
 	rename_member<T> left = rename_member(this->m_P1.x), top = rename_member(this->m_P1.y), right = rename_member(m_P2.x), bottom = rename_member(this->m_P2.y);
 
@@ -202,39 +200,24 @@ struct Rect2D {
 		return pos > Value2D<fT>{0,0} && pos < distance;
 	}
 
-#define OPERATOR_DEF(type, rvaltype) inline Rect2D &operator##type##=(rvaltype rhs) { this->left type##= rhs.left; this->top type##= rhs.top; this->right type##= rhs.right; this->bottom type##= rhs.bottom; return *this; };
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Rect2D &operator##type##=(rvaltype rhs) { this->left type##= rhs.left; this->top type##= rhs.top; this->right type##= rhs.right; this->bottom type##= rhs.bottom; return *this; };
 
-	constexpr OPERATOR_DEF(+, const Rect2D &);
-	constexpr OPERATOR_DEF(-, const Rect2D &);
-	constexpr OPERATOR_DEF(*, const Rect2D &);
-	constexpr OPERATOR_DEF(/, const Rect2D &);
-	constexpr OPERATOR_DEF(,  const Rect2D &);
+	OPERATOR_DEF(+, const Rect2D<fT> &);
+	OPERATOR_DEF(-, const Rect2D<fT> &);
+	OPERATOR_DEF(*, const Rect2D<fT> &);
+	OPERATOR_DEF(/, const Rect2D<fT> &);
+	
+	OPERATOR_DEF(+, Rect2D<fT> &&);
+	OPERATOR_DEF(-, Rect2D<fT> &&);
+	OPERATOR_DEF(*, Rect2D<fT> &&);
+	OPERATOR_DEF(/, Rect2D<fT> &&);
 
-	constexpr OPERATOR_DEF(+, Rect2D &&);
-	constexpr OPERATOR_DEF(-, Rect2D &&);
-	constexpr OPERATOR_DEF(*, Rect2D &&);
-	constexpr OPERATOR_DEF(/, Rect2D &&);
-	constexpr OPERATOR_DEF(,  Rect2D &&);
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Rect2D &operator##type##=(rvaltype rhs) { this->left type##= rhs; this->top type##= rhs; this->right type##= rhs; this->bottom type##= rhs; return *this; }
 
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(+, const Rect2D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(-, const Rect2D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(*, const Rect2D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(/, const Rect2D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(,  const Rect2D<fT1> &);
-
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(+, Rect2D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(-, Rect2D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(*, Rect2D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(/, Rect2D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(,  Rect2D<fT1> &&);
-
-#define OPERATOR_DEF(type, rvaltype) inline Rect2D& operator##type##=(rvaltype rhs) { this->left type##= rhs; this->top type##= rhs; this->right type##= rhs; this->bottom type##= rhs; return *this;  }
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, const vT &);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, const vT &);
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, vT &&);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, vT &&);
+	OPERATOR_DEF(*, const vT &);
+	OPERATOR_DEF(/, const vT &);
+	OPERATOR_DEF(*,       vT &&);
+	OPERATOR_DEF(/,       vT &&);
 
 private:
 	Value2D<T> m_P1, m_P2;
@@ -256,24 +239,39 @@ void from_json(const nlohmann::json &j, Rect2D<T> &v) {
 	FROM_JSON(bottom);
 }
 
-#define OPERATOR_DEF(type) template<IsArithmetic T> constexpr Rect2D<T> &&operator##type##(const Rect2D<T>& lhs, const Rect2D<T>& rhs) { return std::move(Rect2D<T>(lhs) type##= rhs); }
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Rect2D<std::common_type_t<fT1, fT2>> operator##type##(lvalt lhs, rvalt rhs) { return Rect2D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs; }
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(+, const Rect2D<fT1> &,  const Rect2D<fT2> &);
+OPERATOR_DEF(+,       Rect2D<fT1> &&, const Rect2D<fT2> &);
+OPERATOR_DEF(+, const Rect2D<fT1> &,        Rect2D<fT2> &&);
+OPERATOR_DEF(+,       Rect2D<fT1> &&,       Rect2D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Rect2D<std::common_type_t<fT1, fT2>> &&operator##type##(const Rect2D<fT1>& lhs, const Rect2D<fT2>& rhs) { return std::move(Rect2D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs); }
+OPERATOR_DEF(-, const Rect2D<fT1> &,  const Rect2D<fT2> &);
+OPERATOR_DEF(-,       Rect2D<fT1> &&, const Rect2D<fT2> &);
+OPERATOR_DEF(-, const Rect2D<fT1> &,        Rect2D<fT2> &&);
+OPERATOR_DEF(-,       Rect2D<fT1> &&,       Rect2D<fT2> &&);
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(*, const Rect2D<fT1> &,  const Rect2D<fT2> &);
+OPERATOR_DEF(*,       Rect2D<fT1> &&, const Rect2D<fT2> &);
+OPERATOR_DEF(*, const Rect2D<fT1> &,        Rect2D<fT2> &&);
+OPERATOR_DEF(*,       Rect2D<fT1> &&,       Rect2D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic T, IsArithmetic vT> constexpr inline Rect2D<std::common_type_t<T, vT>> &&operator##type##(const Rect2D<T>& lhs, vT rhs) { return std::move(Rect2D<std::common_type_t<T, vT>>(lhs) type##= rhs); }
+OPERATOR_DEF(/, const Rect2D<fT1> &,  const Rect2D<fT2> &);
+OPERATOR_DEF(/,       Rect2D<fT1> &&, const Rect2D<fT2> &);
+OPERATOR_DEF(/, const Rect2D<fT1> &,        Rect2D<fT2> &&);
+OPERATOR_DEF(/,       Rect2D<fT1> &&,       Rect2D<fT2> &&);
 
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic vT> constexpr inline Rect2D<std::common_type_t<fT1, vT>> operator##type##(lvalt lhs, rvalt rhs) { return Rect2D<std::common_type_t<fT1, vT>>(lhs) type##= rhs; }
+
+OPERATOR_DEF(*, const Rect2D<fT1> &,  const vT &);
+OPERATOR_DEF(*,       Rect2D<fT1> &&, const vT &);
+OPERATOR_DEF(*, const Rect2D<fT1> &,        vT &&);
+OPERATOR_DEF(*,       Rect2D<fT1> &&,       vT &&);
+
+OPERATOR_DEF(/, const Rect2D<fT1> &,  const vT &);
+OPERATOR_DEF(/,       Rect2D<fT1> &&, const vT &);
+OPERATOR_DEF(/, const Rect2D<fT1> &,        vT &&);
+OPERATOR_DEF(/,       Rect2D<fT1> &&,       vT &&);
 
 #undef OPERATOR_DEF
 
@@ -299,60 +297,59 @@ struct Value3D {
 	Value3D &&plus() { return Value3D(std::abs(x), std::abs(y), std::abs(z)); };
 	Value3D &&minus() { return Value3D(-std::abs(x), -std::abs(y), -std::abs(z)); };
 
-#define OPERATOR_DEF(type, rvaltype) inline Value3D &operator##type##=(rvaltype rhs) { this->x type##= rhs.x; this->y type##= rhs.y; this->z type##= rhs.z; return *this; };
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Value3D &operator##type##=(rvaltype rhs) { this->x type##= rhs.x; this->y type##= rhs.y; this->z type##= rhs.z; return *this; };
 
-	constexpr OPERATOR_DEF(+, const Value3D &);
-	constexpr OPERATOR_DEF(-, const Value3D &);
-	constexpr OPERATOR_DEF(*, const Value3D &);
-	constexpr OPERATOR_DEF(/, const Value3D &);
-	constexpr OPERATOR_DEF(,  const Value3D &);
+	OPERATOR_DEF(+, const Value3D<fT> &);
+	OPERATOR_DEF(-, const Value3D<fT> &);
+	OPERATOR_DEF(*, const Value3D<fT> &);
+	OPERATOR_DEF(/, const Value3D<fT> &);
+	
+	OPERATOR_DEF(+, Value3D<fT> &&);
+	OPERATOR_DEF(-, Value3D<fT> &&);
+	OPERATOR_DEF(*, Value3D<fT> &&);
+	OPERATOR_DEF(/, Value3D<fT> &&);
 
-	constexpr OPERATOR_DEF(+, Value3D &&);
-	constexpr OPERATOR_DEF(-, Value3D &&);
-	constexpr OPERATOR_DEF(*, Value3D &&);
-	constexpr OPERATOR_DEF(/, Value3D &&);
-	constexpr OPERATOR_DEF(,  Value3D &&);
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Value3D &operator##type##=(rvaltype rhs) { this->x type##= rhs; this->y type##= rhs; this->z type##= rhs; return *this; }
 
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(+, const Value3D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(-, const Value3D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(*, const Value3D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(/, const Value3D<fT> &);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(,  const Value3D<fT> &);
-
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(+, Value3D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(-, Value3D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(*, Value3D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(/, Value3D<fT> &&);
-	template<IsArithmetic fT> constexpr OPERATOR_DEF(,  Value3D<fT> &&);
-
-#define OPERATOR_DEF(type, rvaltype) inline Value3D& operator##type##=(rvaltype rhs) { this->x type##= rhs; this->y type##= rhs; this->z type##= rhs; return *this; }
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, const vT &);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, const vT &);
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, vT &&);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, vT &&);
+	OPERATOR_DEF(*, const vT &);
+	OPERATOR_DEF(/, const vT &);
+	OPERATOR_DEF(*,       vT &&);
+	OPERATOR_DEF(/,       vT &&);
 };
 
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Value3D<std::common_type_t<fT1, fT2>> operator##type##(lvalt lhs, rvalt rhs) { return Value3D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs; }
 
-#define OPERATOR_DEF(type) template<IsArithmetic T> constexpr inline Value3D<T> &&operator##type##(const Value3D<T>& lhs, const Value3D<T>& rhs) { return std::move(Value3D<T>(lhs) type##= rhs); }
+OPERATOR_DEF(+, const Value3D<fT1> &,  const Value3D<fT2> &);
+OPERATOR_DEF(+,       Value3D<fT1> &&, const Value3D<fT2> &);
+OPERATOR_DEF(+, const Value3D<fT1> &,        Value3D<fT2> &&);
+OPERATOR_DEF(+,       Value3D<fT1> &&,       Value3D<fT2> &&);
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(-, const Value3D<fT1> &,  const Value3D<fT2> &);
+OPERATOR_DEF(-,       Value3D<fT1> &&, const Value3D<fT2> &);
+OPERATOR_DEF(-, const Value3D<fT1> &,        Value3D<fT2> &&);
+OPERATOR_DEF(-,       Value3D<fT1> &&,       Value3D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Value3D<std::common_type_t<fT1, fT2>> &&operator##type##(const Value3D<fT1> &lhs, const Value3D<fT2> &rhs) { return std::move(Value3D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs); }
+OPERATOR_DEF(*, const Value3D<fT1> &,  const Value3D<fT2> &);
+OPERATOR_DEF(*,       Value3D<fT1> &&, const Value3D<fT2> &);
+OPERATOR_DEF(*, const Value3D<fT1> &,        Value3D<fT2> &&);
+OPERATOR_DEF(*,       Value3D<fT1> &&,       Value3D<fT2> &&);
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(/, const Value3D<fT1> &,  const Value3D<fT2> &);
+OPERATOR_DEF(/,       Value3D<fT1> &&, const Value3D<fT2> &);
+OPERATOR_DEF(/, const Value3D<fT1> &,        Value3D<fT2> &&);
+OPERATOR_DEF(/,       Value3D<fT1> &&,       Value3D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic T, IsArithmetic vT> constexpr inline Value3D<std::common_type_t<T, vT>> &&operator##type##(const Value3D<T>& lhs, vT rhs) { return std::move(Value3D<std::common_type_t<T, vT>>(lhs) type##= rhs); }
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic vT> constexpr inline Value3D<std::common_type_t<fT1, vT>> operator##type##(lvalt lhs, rvalt rhs) { return Value3D<std::common_type_t<fT1, vT>>(lhs) type##= rhs; }
 
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(*, const Value3D<fT1> &,  const vT &);
+OPERATOR_DEF(*,       Value3D<fT1> &&, const vT &);
+OPERATOR_DEF(*, const Value3D<fT1> &,        vT &&);
+OPERATOR_DEF(*,       Value3D<fT1> &&,       vT &&);
+
+OPERATOR_DEF(/, const Value3D<fT1> &,  const vT &);
+OPERATOR_DEF(/,       Value3D<fT1> &&, const vT &);
+OPERATOR_DEF(/, const Value3D<fT1> &,        vT &&);
+OPERATOR_DEF(/,       Value3D<fT1> &&,       vT &&);
 
 #define MIN lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z
 
@@ -445,8 +442,8 @@ struct Rect3D {
 	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4, IsArithmetic fT5, IsArithmetic fT6> Rect3D(fT1 _left, fT2 _top, fT3 _front, fT4 _right, fT5 _bottom, fT6 &&_back) : left(static_cast<T>(_left)), top(static_cast<T>(_top)), front(static_cast<T>(_front)), right(static_cast<T>(_right)), bottom(static_cast<T>(_bottom)), back(static_cast<T>(_back)) {}
 	template<IsArithmetic fpT> Rect3D(const Rect3D<fpT> &v) : Rect3D(v.left, v.top, v.front, v.right, v.bottom, v.back) {}
 	template<IsArithmetic fpT> Rect3D(Rect3D<fpT> &&v) : Rect3D(v.left, v.top, v.front, v.right, v.bottom, v.back) {}
-	template<IsArithmetic fpT> Rect3D(const Value3D<fpT> &p1, const Value3D<fpT> &p2) : m_P1(p1), m_P2(p2) {}
-	template<IsArithmetic fpT> Rect3D(Value3D<fpT> &&p1, Value3D<fpT> &&p2) : m_P1(std::move(p1)), m_P2(std::move(p2)) {}
+	template<IsArithmetic fpT> Rect3D(const Value3D<fpT> &p1, const Value3D<fpT> &p2) : m_P1(p1.x, p1.y, p1.z), m_P2(p2.x, p2.y, p2.z) {}
+	template<IsArithmetic fpT> Rect3D(Value3D<fpT> &&p1, Value3D<fpT> &&p2) : m_P1(p1.x, p1.y, p1.z), m_P2(p2.x, p2.y, p2.z) {}
 
 	rename_member<T> left = rename_member(m_P1.x), top = rename_member(m_P1.y), front = rename_member(m_P1.z), right = rename_member(m_P1.x), bottom = rename_member(m_P2.y), back = rename_member(m_P2.z);
 
@@ -456,39 +453,24 @@ struct Rect3D {
 		return pos > Value3D<fT>{0, 0, 0} && pos < distance;
 	}
 
-#define OPERATOR_DEF(type, rvaltype) inline Rect3D &operator##type##=(rvaltype rhs) { this->left type##= rhs.left; this->top type##= rhs.top; this->front type##= rhs.front; this->right type##= rhs.right; this->bottom type##= rhs.bottom; this->back type##= rhs.back; return *this; };
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Rect3D &operator##type##=(rvaltype rhs) { this->left type##= rhs.left; this->top type##= rhs.top; this->front type##= rhs.front; this->right type##= rhs.right; this->bottom type##= rhs.bottom; this->back type##= rhs.back; return *this; };
 
-	constexpr OPERATOR_DEF(+, const Rect3D &);
-	constexpr OPERATOR_DEF(-, const Rect3D &);
-	constexpr OPERATOR_DEF(*, const Rect3D &);
-	constexpr OPERATOR_DEF(/, const Rect3D &);
-	constexpr OPERATOR_DEF(, const Rect3D &);
+	OPERATOR_DEF(+, const Rect3D<fT> &);
+	OPERATOR_DEF(-, const Rect3D<fT> &);
+	OPERATOR_DEF(*, const Rect3D<fT> &);
+	OPERATOR_DEF(/, const Rect3D<fT> &);
+	
+	OPERATOR_DEF(+, Rect3D<fT> &&);
+	OPERATOR_DEF(-, Rect3D<fT> &&);
+	OPERATOR_DEF(*, Rect3D<fT> &&);
+	OPERATOR_DEF(/, Rect3D<fT> &&);
 
-	constexpr OPERATOR_DEF(+, Rect3D &&);
-	constexpr OPERATOR_DEF(-, Rect3D &&);
-	constexpr OPERATOR_DEF(*, Rect3D &&);
-	constexpr OPERATOR_DEF(/, Rect3D &&);
-	constexpr OPERATOR_DEF(, Rect3D &&);
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Rect3D &operator##type##=(rvaltype rhs) { this->left type##= rhs; this->top type##= rhs; this->front type##= rhs; this->right type##= rhs; this->bottom type##= rhs; this->back type##= rhs; return *this; }
 
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(+, const Rect3D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(-, const Rect3D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(*, const Rect3D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(/, const Rect3D<fT1> &);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(, const Rect3D<fT1> &);
-
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(+, Rect3D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(-, Rect3D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(*, Rect3D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(/, Rect3D<fT1> &&);
-	template<IsArithmetic fT1> constexpr OPERATOR_DEF(, Rect3D<fT1> &&);
-
-#define OPERATOR_DEF(type, rvaltype) inline Rect3D& operator##type##=(rvaltype rhs) { this->left type##= rhs; this->top type##= rhs; this->front type##= rhs; this->right type##= rhs; this->bottom type##= rhs; this->back type##= rhs; return *this; }
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, const vT &);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, const vT &);
-
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(*, vT &&);
-	template<IsArithmetic vT> constexpr OPERATOR_DEF(/, vT &&);
+	OPERATOR_DEF(*, const vT &);
+	OPERATOR_DEF(/, const vT &);
+	OPERATOR_DEF(*,       vT &&);
+	OPERATOR_DEF(/,       vT &&);
 
 private:
 	Value3D<T> m_P1, m_P2;
@@ -514,24 +496,39 @@ void from_json(const nlohmann::json &j, Rect3D<T> &v) {
 	FROM_JSON(back);
 }
 
-#define OPERATOR_DEF(type) template<IsArithmetic T> constexpr inline Rect3D<T> &&operator##type##(const Rect3D<T>& lhs, const Rect3D<T>& rhs) { return Rect3D<T>(lhs) type##= rhs; }
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Rect3D<std::common_type_t<fT1, fT2>> operator##type##(lvalt lhs, rvalt rhs) { return Rect3D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs; }
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(+, const Rect3D<fT1> &,  const Rect3D<fT2> &);
+OPERATOR_DEF(+,       Rect3D<fT1> &&, const Rect3D<fT2> &);
+OPERATOR_DEF(+, const Rect3D<fT1> &,        Rect3D<fT2> &&);
+OPERATOR_DEF(+,       Rect3D<fT1> &&,       Rect3D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic fT1, IsArithmetic fT2> constexpr inline Rect3D<std::common_type_t<fT1, fT2>> &&operator##type##(const Rect3D<fT1>& lhs, const Rect3D<fT2>& rhs) { return Rect3D<std::common_type_t<fT1, fT2>>(lhs) type##= rhs; }
+OPERATOR_DEF(-, const Rect3D<fT1> &,  const Rect3D<fT2> &);
+OPERATOR_DEF(-,       Rect3D<fT1> &&, const Rect3D<fT2> &);
+OPERATOR_DEF(-, const Rect3D<fT1> &,        Rect3D<fT2> &&);
+OPERATOR_DEF(-,       Rect3D<fT1> &&,       Rect3D<fT2> &&);
 
-OPERATOR_DEF(+);
-OPERATOR_DEF(-);
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+OPERATOR_DEF(*, const Rect3D<fT1> &,  const Rect3D<fT2> &);
+OPERATOR_DEF(*,       Rect3D<fT1> &&, const Rect3D<fT2> &);
+OPERATOR_DEF(*, const Rect3D<fT1> &,        Rect3D<fT2> &&);
+OPERATOR_DEF(*,       Rect3D<fT1> &&,       Rect3D<fT2> &&);
 
-#define OPERATOR_DEF(type) template<IsArithmetic T, IsArithmetic vT> constexpr inline Rect3D<T> &&operator##type##(const Rect3D<T>& lhs, vT rhs) { return Rect3D<T>(lhs) type##= rhs; }
+OPERATOR_DEF(/, const Rect3D<fT1> &,  const Rect3D<fT2> &);
+OPERATOR_DEF(/,       Rect3D<fT1> &&, const Rect3D<fT2> &);
+OPERATOR_DEF(/, const Rect3D<fT1> &,        Rect3D<fT2> &&);
+OPERATOR_DEF(/,       Rect3D<fT1> &&,       Rect3D<fT2> &&);
 
-OPERATOR_DEF(*);
-OPERATOR_DEF(/);
+#define OPERATOR_DEF(type, lvalt, rvalt) template<IsArithmetic fT1, IsArithmetic vT> constexpr inline Rect3D<std::common_type_t<fT1, vT>> operator##type##(lvalt lhs, rvalt rhs) { return Rect3D<std::common_type_t<fT1, vT>>(lhs) type##= rhs; }
+
+OPERATOR_DEF(*, const Rect3D<fT1> &,  const vT &);
+OPERATOR_DEF(*,       Rect3D<fT1> &&, const vT &);
+OPERATOR_DEF(*, const Rect3D<fT1> &,        vT &&);
+OPERATOR_DEF(*,       Rect3D<fT1> &&,       vT &&);
+
+OPERATOR_DEF(/, const Rect3D<fT1> &,  const vT &);
+OPERATOR_DEF(/,       Rect3D<fT1> &&, const vT &);
+OPERATOR_DEF(/, const Rect3D<fT1> &,        vT &&);
+OPERATOR_DEF(/,       Rect3D<fT1> &&,       vT &&);
 
 #undef OPERATOR_DEF
 

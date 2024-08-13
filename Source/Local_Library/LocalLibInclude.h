@@ -6,4 +6,7 @@
 #include "exstring.h"
 #include "special.h"
 #include "template_type.h"
-#include "Transform.h"
+
+// TODO:
+//#include "Transform.h"
+//#include "TextAnalizer/TextAnalizer.h"

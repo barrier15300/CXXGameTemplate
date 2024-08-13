@@ -1,7 +1,24 @@
 #pragma once
 #include "DxLib.h"
+#include "Keys.h"
+#include "Struct.h"
+#include "../special.h"
+
+inline byte __gotkeyinput[256]{};
+inline LRESULT CALLBACK KeyInputMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	switch (message) {
+		case WM_KEYDOWN:
+			__gotkeyinput[wParam] = 1;
+			break;
+		case WM_KEYUP:
+			__gotkeyinput[wParam] = 0;
+			break;
+	}
+	return 0;
+}
 
 struct InputState {
+
 	bool Down() const { return static_cast<byte>(State) & static_cast<byte>(_State::Down); }
 	bool Press() const { return static_cast<byte>(State) & static_cast<byte>(_State::Press); }
 	bool Up() const { return static_cast<byte>(State) & static_cast<byte>(_State::Up); }
@@ -56,19 +73,18 @@ private:
 
 template<size_t inputcount = 1>
 class __baseInputDevice {
-	bool* m_inputlock = nullptr;
+	static inline bool m_inputlock = false;
 protected:
-	InputState States[inputcount];
+	InputState States[inputcount]{};
 
 public:
 
 	__baseInputDevice() {}
-	__baseInputDevice(bool* inputlock) { m_inputlock = inputlock; }
 
 	virtual void Update() = 0;
 
 	InputState operator[](size_t idx) const {
-		return *m_inputlock ? InputState{} : States[idx];
+		return m_inputlock ? InputState{} : States[idx];
 	}
 
 	InputState at(size_t idx) const {
@@ -77,56 +93,72 @@ public:
 		}
 		return (*this)[idx];
 	}
+
+	static void SetInputLock(bool flag) {
+		m_inputlock = flag;
+	}
 };
 
 class __keyboardInput_sc : public __baseInputDevice<256> {
-	char rawInput[256];
+	
+	byte *rawInput = __gotkeyinput;
 
 public:
 
-	using __baseInputDevice::__baseInputDevice;
+	__keyboardInput_sc() : __baseInputDevice() {
+		SetHookWinProc(KeyInputMessage);
+	}
 
 	void Update() {
-		GetHitKeyStateAll(rawInput);
 		for (auto&& item : States) {
 			item.Update(rawInput[(size_t)(&item - States)]);
 		}
 	}
+
+	
 };
 
-class __mouseInput_sc : public __baseInputDevice<8> {
-	int rawInput = 0;
+class __mouseInput_sc : public __baseInputDevice<> {
+	Pos2D<int> _MousePos{};
 public:
 
 	using __baseInputDevice::__baseInputDevice;
 
 	void Update() {
-		rawInput = GetMouseInput();
-		for (size_t i = 0; i < 8; ++i) {
-			int shift = (1 << i);
-			States[i].Update(rawInput & shift);
-		}
+		GetMousePoint(&_MousePos.x, &_MousePos.y);
+	}
+
+	const Pos2D<int> &GetMousePos() {
+		return _MousePos;
 	}
 };
 
 class InputDevices {
+
 public:
 
 	void Update() {
-		KeyBoard.Update();
-		Mouse.Update();
+		_Keyboard.Update();
+		_Mouse.Update();
 	}
 
 	void Lock() {
-		InputLock = true;
+		__baseInputDevice<>::SetInputLock(true);
 	}
 
 	void UnLock() {
-		InputLock = false;
+		__baseInputDevice<>::SetInputLock(false);
+	}
+
+	const __keyboardInput_sc &Keyboard() {
+		return _Keyboard;
+	}
+	const __mouseInput_sc &Mouse() {
+		return _Mouse;
 	}
 
 private:
-	inline static bool InputLock = false;
-	inline static __keyboardInput_sc KeyBoard = __keyboardInput_sc(&InputLock);
-	inline static __mouseInput_sc Mouse = __mouseInput_sc(&InputLock);
+
+	inline static __keyboardInput_sc _Keyboard{};
+	inline static __mouseInput_sc _Mouse{};
 };

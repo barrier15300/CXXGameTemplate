@@ -29,7 +29,7 @@ public:
 		Write();
 	};
 
-	nlohmann::json Data;
+	nlohmann::ordered_json Data;
 
 	void Read() {
 		ifs.open(_filepath.buf);
@@ -60,23 +60,27 @@ public:
 
 	template<class _type = int>
 	_type& Get(const std::string& keyname, _type&& defaultval = _type()) {
-		nlohmann::json* accessdata = &Storage.Data;
+#define STATIC_MESSAGE "This data type is not available in json."
+		if constexpr (std::is_integral_v<_type>) { static_assert(std::is_same_v<_type, int64_t> || std::is_same_v<_type, bool>, STATIC_MESSAGE); } else {}
+		if constexpr (std::is_floating_point_v<_type>) { static_assert(std::is_same_v<_type, double_t>, STATIC_MESSAGE); } else {}
+#undef STATIC_MESSAGE
+
+		auto *accessdata = &Storage.Data;
 		auto keys = split(keyname, '/');
 
 		for (size_t i = 0, size = keys.size() - 1; i < size; ++i) {
-			auto key = keys[i];
+			auto& key = keys[i];
 			if (accessdata->find(key) == accessdata->end()) {
 				(*accessdata)[key] = nlohmann::json{};
 			}
 			accessdata = &(*accessdata)[key];
 		}
 		
-		auto key = keys.back();
+		auto& key = keys.back();
 		if (accessdata->find(key) == accessdata->end()) {
 			(*accessdata)[key] = defaultval;
 		}
-
-		return (*accessdata)[key].get_ref<_type&>();
+		return *(*accessdata)[key].get_ptr<_type*>();
 	}
 
 	inline static __DataStorage_sc<Filepath> Storage = __DataStorage_sc<Filepath>();

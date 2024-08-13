@@ -3,11 +3,20 @@
 
 bool Game::Init() {
 
-	ChangeWindowMode(Config.Get("system/windowmode", true));
-	SetWaitVSyncFlag(Config.Get("system/waitvsync", true));
-	SetMainWindowText(Name.c_str());
-
-	if (DxLib_Init() == -1) { return false; }
+	if (!System.
+		AlwaysRunFlag(true).
+		FullScreenFlag(Config.Get("system/windowmode", false)).
+		WaitVSyncFlag(Config.Get("system/waitvsync", true)).
+		WindowText(Name.c_str()).
+		UseSoundDevice(
+			magic_enum::enum_cast<SoundDevice::SoundDeviceType>(Config.Get<std::string>("sound/device/type", "WASAPI")).value(),
+			Config.Get("sound/device/is_exclusive", false),
+			Config.Get<int64_t>("sound/device/bufsize", 480),
+			Config.Get<int64_t>("sound/device/samplerate", 192000)
+			).
+		Init()) {
+		return false;
+	}
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
@@ -17,7 +26,7 @@ bool Game::Init() {
 }
 
 void Game::Proc() {
-	while (ProcessMessage() != -1) {
+	while (ProcessMessage() == 0) {
 		Scene->Proc();
 		Scene->Draw();
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "FPS:%d", (int)GetFPS());
@@ -31,5 +40,5 @@ void Game::Draw() {
 }
 
 void Game::End() {
-	DxLib_End();
+	System.End();
 }

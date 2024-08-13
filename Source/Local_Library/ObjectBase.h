@@ -1,9 +1,9 @@
 #pragma once
 #include <algorithm>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
-#include <map>
 
 #include "DataStorage.h"
 #include "DxLib_wrapper/DxLib_wrapper.h"
@@ -83,6 +83,8 @@ protected:
 
 	InputDevices Input;
 
+	DxLibSystem System;
+
 	IObjectBase* m_ParentObject = nullptr;
 };
 
@@ -96,7 +98,7 @@ class ObjectSwitcher {
 		void operator()(IObjectBase* source, IObjectBase* parent) {
 			((_SetParent*)source)->m_ParentObject = parent;
 		}
-	} SetParent = _SetParent();
+	} SetParent{};
 
 public:
 
@@ -147,7 +149,7 @@ private:
 };
 
 inline IObjectBase::IObjectBase() {
-	Scene = (new ObjectSwitcher(this));
+	Scene = new ObjectSwitcher(this);
 }
 
 inline IObjectBase::~IObjectBase() {

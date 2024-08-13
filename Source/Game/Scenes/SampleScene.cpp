@@ -8,12 +8,29 @@ bool SampleScene::Init() {
 }
 
 void SampleScene::Proc() {
-
+	
 	return;
 }
 
 void SampleScene::Draw() {
-	Graph.Draw({200,200});
+	Size2D<int> size{80,80};
+	Pos2D<int> pos{0, 0};
+
+	if (Input.Keyboard()[(int)Keys::C].Press()) {
+		DrawBox(size.width * pos.x, size.height * pos.y, size.width * pos.x + size.width, size.height * pos.y + size.height, GetColor(255, 255, 255), TRUE);
+	} pos.x += 1;
+	if (Input.Keyboard()[(int)Keys::V].Press()) {
+		DrawBox(size.width * pos.x, size.height * pos.y, size.width * pos.x + size.width, size.height * pos.y + size.height, GetColor(255, 255, 255), TRUE);
+	} pos.x += 1;
+	if (Input.Keyboard()[(int)Keys::Oem2].Press()) {
+		DrawBox(size.width * pos.x, size.height * pos.y, size.width * pos.x + size.width, size.height * pos.y + size.height, GetColor(255, 255, 255), TRUE);
+	} pos.x += 1;
+	if (Input.Keyboard()[(int)Keys::Oem102].Press()) {
+		DrawBox(size.width * pos.x, size.height * pos.y, size.width * pos.x + size.width, size.height * pos.y + size.height, GetColor(255, 255, 255), TRUE);
+	}
+	
+
+
 	return;
 }
 

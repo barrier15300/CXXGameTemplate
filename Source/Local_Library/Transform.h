@@ -14,7 +14,7 @@ concept MotionFunc = IsFunction<T> && requires (T x) {
 template<MotionFunc Func>
 class Transform {
 
-	Transform() : m_start(0), m_end(0), m_diff {}
+	Transform() : m_start(0), m_end(0), m_diff(0) {}
 	Transform(double start, double end, Func func) { this->set(start, end); m_motionfunc = func; }
 
 	void set(double start, double end) {
