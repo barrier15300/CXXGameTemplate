@@ -17,4 +17,7 @@ public:
 	virtual void End();
 
 	OptimizationGraph Graph;
+	Size2D<int> size{80, 80};
+	Pos2D<int> pos{0, 0};
+
 };

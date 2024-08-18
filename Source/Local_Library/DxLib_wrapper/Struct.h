@@ -43,6 +43,8 @@ struct Value2D {
 	Value2D &&plus() { return Value2D(std::abs(x), std::abs(y)); };
 	Value2D &&minus() { return Value2D(-std::abs(x), -std::abs(y)); };
 
+	double abs() { return std::abs(std::complex<double>(x, y)); }
+
 	template<template<IsArithmetic mT> class tT> constexpr inline operator const tT<T> &() {
 		return tT<T>(this->x, this->y);
 	}
@@ -185,7 +187,7 @@ template<IsArithmetic T>
 struct Rect2D {
 
 	Rect2D() : m_P1({}), m_P2({}) {}
-	Rect2D(T _left, T _top, T _right, T _bottom) : left(_left), top(_top), right(_right), bottom(_bottom) {};
+	Rect2D(T _left, T _top, T _right, T _bottom) { left = _left; top = _top; right = _right; bottom = _bottom; };
 	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> Rect2D(fT1 _left, fT2 _top, fT3 _right, fT4 _bottom) : left(static_cast<T>(_left)), top(static_cast<T>(_top)), right(static_cast<T>(_right)), bottom(static_cast<T>(_bottom)) {}
 	template<IsArithmetic fpT> Rect2D(const Rect2D<fpT> &v) : Rect2D(v.left, v.top, v.right, v.bottom) {}
 	template<IsArithmetic fpT> Rect2D(Rect2D<fpT> &&v) : Rect2D(v.left, v.top, v.right, v.bottom) {}
@@ -195,12 +197,13 @@ struct Rect2D {
 	rename_member<T> left = rename_member(this->m_P1.x), top = rename_member(this->m_P1.y), right = rename_member(m_P2.x), bottom = rename_member(this->m_P2.y);
 
 	template<IsArithmetic fT>
-	bool InRect(const Value2D<fT>& pos) {
-		Value2D<fT> distance = (this->m_P2 - this->m_P1).plus();
-		return pos > Value2D<fT>{0,0} && pos < distance;
+	bool InRect(Value2D<fT> pos) {
+		Value2D<fT> distance = Value2D<fT>(this->m_P2 - this->m_P1).plus();
+		pos -= Value2D<fT>(this->m_P1 - this->m_P2).plus();
+		return pos > Value2D<fT>{0, 0} && pos < distance;
 	}
 
-#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Rect2D &operator##type##=(rvaltype rhs) { this->left type##= rhs.left; this->top type##= rhs.top; this->right type##= rhs.right; this->bottom type##= rhs.bottom; return *this; };
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Rect2D &operator##type##=(rvaltype rhs) { this->m_P1 type##= rhs.m_P1; this->m_P2 type##= rhs.m_P2; return *this; };
 
 	OPERATOR_DEF(+, const Rect2D<fT> &);
 	OPERATOR_DEF(-, const Rect2D<fT> &);
@@ -212,7 +215,7 @@ struct Rect2D {
 	OPERATOR_DEF(*, Rect2D<fT> &&);
 	OPERATOR_DEF(/, Rect2D<fT> &&);
 
-#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Rect2D &operator##type##=(rvaltype rhs) { this->left type##= rhs; this->top type##= rhs; this->right type##= rhs; this->bottom type##= rhs; return *this; }
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Rect2D &operator##type##=(rvaltype rhs) { this->m_P1 type##= rhs; this->m_P2 type##= rhs; return *this; }
 
 	OPERATOR_DEF(*, const vT &);
 	OPERATOR_DEF(/, const vT &);
@@ -453,7 +456,7 @@ struct Rect3D {
 		return pos > Value3D<fT>{0, 0, 0} && pos < distance;
 	}
 
-#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Rect3D &operator##type##=(rvaltype rhs) { this->left type##= rhs.left; this->top type##= rhs.top; this->front type##= rhs.front; this->right type##= rhs.right; this->bottom type##= rhs.bottom; this->back type##= rhs.back; return *this; };
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic fT> constexpr inline Rect3D &operator##type##=(rvaltype rhs) { this->m_P1 type##= rhs.m_P1; this->m_P2 type##= rhs.m_P2; return *this; };
 
 	OPERATOR_DEF(+, const Rect3D<fT> &);
 	OPERATOR_DEF(-, const Rect3D<fT> &);
@@ -465,7 +468,7 @@ struct Rect3D {
 	OPERATOR_DEF(*, Rect3D<fT> &&);
 	OPERATOR_DEF(/, Rect3D<fT> &&);
 
-#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Rect3D &operator##type##=(rvaltype rhs) { this->left type##= rhs; this->top type##= rhs; this->front type##= rhs; this->right type##= rhs; this->bottom type##= rhs; this->back type##= rhs; return *this; }
+#define OPERATOR_DEF(type, rvaltype) template<IsArithmetic vT> constexpr inline Rect3D &operator##type##=(rvaltype rhs) { this->m_P1 type##= rhs; this->m_P2 type##= rhs; return *this; }
 
 	OPERATOR_DEF(*, const vT &);
 	OPERATOR_DEF(/, const vT &);

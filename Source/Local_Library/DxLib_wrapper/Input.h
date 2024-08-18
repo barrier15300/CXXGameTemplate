@@ -128,7 +128,7 @@ public:
 		GetMousePoint(&_MousePos.x, &_MousePos.y);
 	}
 
-	const Pos2D<int> &GetMousePos() {
+	const Pos2D<int> &GetMousePos() const {
 		return _MousePos;
 	}
 };
