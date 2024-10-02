@@ -44,7 +44,7 @@ class IObjectBase {
 public:
 
 	inline IObjectBase();
-	inline ~IObjectBase();
+	virtual inline ~IObjectBase();
 
 	virtual IObjectBase* ObjectInit() = 0;
 
@@ -72,18 +72,18 @@ public:
 
 	IObjectBase* GetParent() { return m_ParentObject; };
 
-	ObjectSwitcher* Scene;
+	std::unique_ptr<ObjectSwitcher> Scene = std::make_unique<ObjectSwitcher>(this);
 
 protected:
 
 	std::string Name = "Base";
 
-	DataStorage<"config.json"> Config;
-	DataStorage<"Asset/asset.json"> Asset;
+	Storage::Data<"config.json"> Config;
+	Storage::Data<"Asset/asset.json"> Asset;
 
 	InputDevices Input;
 
-	DxLibSystem System;
+	DxLibSystem DXSystem;
 
 	IObjectBase* m_ParentObject = nullptr;
 };
@@ -103,29 +103,25 @@ class ObjectSwitcher {
 public:
 
 	ObjectSwitcher(IObjectBase* parent) { m_ParentObject = parent; }
-	~ObjectSwitcher() {}
+	~ObjectSwitcher() { if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); } }
 
 	void Regist(const std::string& name, IObjectBase* obj) {
 		if (obj == nullptr) {
 			return;
 		}
 		SetParent(obj, m_ParentObject);
-		m_ObjectList[name] = std::unique_ptr<IObjectBase>(obj);
+		m_RegistObjects[name] = [=] { return obj->ObjectInit(); };
 		if (m_NowObject == nullptr) {
 			this->Change(name);
 		}
 	}
 
-	void Change(const std::string& name, bool objinitflag = true) {
+	void Change(const std::string& name) {
 		if (name.empty()) {
 			return;
 		}
 		if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); }
-		m_NowObject = m_ObjectList[name].get();
-		if (objinitflag) { 
-			m_NowObject = m_NowObject->ObjectInit();
-			m_ObjectList[name].reset(m_NowObject);
-		}
+		m_NowObject.reset(m_RegistObjects[name]());
 		m_NowObject->Invoke_Init();
 	}
 
@@ -144,15 +140,14 @@ public:
 private:
 
 	IObjectBase* m_ParentObject = nullptr;
-	IObjectBase* m_NowObject = nullptr;
-	std::unordered_map<std::string, std::unique_ptr<IObjectBase>> m_ObjectList;
+	std::unique_ptr<IObjectBase> m_NowObject = nullptr;
+	std::unordered_map<std::string, std::function<IObjectBase*()>> m_RegistObjects;
 };
 
 inline IObjectBase::IObjectBase() {
-	Scene = new ObjectSwitcher(this);
+
 }
 
 inline IObjectBase::~IObjectBase() {
-	delete Scene;
-	Scene = nullptr;
+
 }

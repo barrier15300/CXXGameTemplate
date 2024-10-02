@@ -16,7 +16,7 @@ public:
 		nanosecond  = 1
 	};
 
-	void Start() { m_tp = GetNowNanoSeconds() - m_stp; m_isrunning = true; m_isstopping = false; }
+	void Start() { m_tp = GetNowNanoSeconds() - (m_stp - m_tp); m_isrunning = true; m_isstopping = false; }
 	void Stop() { m_stp = GetNowNanoSeconds(); m_isstopping = true; }
 	void Reset() { *this = Timer(); }
 	void Restart() {
@@ -24,13 +24,14 @@ public:
 		this->Start();
 	}
 
-	double Elapsed(Type divscale = millisecond) const {
-		if (m_isrunning) { return 0; }
-		return ((m_isstopping ? m_stp - m_tp : GetNowNanoSeconds()) - m_tp) / static_cast<double>(divscale);
+	template<Type t = millisecond>
+	double Elapsed() const {
+		if (!m_isrunning) { return 0; }
+		return ((m_isstopping ? m_stp - m_tp : GetNowNanoSeconds()) - m_tp) / static_cast<double>(t);
 	}
 
 	ULONGLONG ElapsedFrameCount() const {
-		return (ULONGLONG)(Elapsed(second) * m_framerefreshrate);
+		return (ULONGLONG)(Elapsed<second>() * m_framerefreshrate);
 	}
 	double ElapsedFrameTime(Type scale = second) const {
 		return (ElapsedFrameCount() / static_cast<double>(m_framerefreshrate)) * (second / scale);

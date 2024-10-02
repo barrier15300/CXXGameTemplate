@@ -16,8 +16,8 @@ public:
 	virtual void Draw();
 	virtual void End();
 
-	OptimizationGraph Graph;
-	Size2D<int> size{80, 80};
-	Pos2D<int> pos{0, 0};
-
+	GraphData Graph;
+	Val2D<int> size = {80, 80};
+	decltype(Asset)::Value<"Sample/DrawPos", Val2D<float>> pos{{}};
+	Timer timer[4];
 };

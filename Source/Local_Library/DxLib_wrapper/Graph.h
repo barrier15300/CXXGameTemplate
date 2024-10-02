@@ -9,16 +9,16 @@
 struct GraphData {
 
 	GraphData() {}
-	GraphData(const std::string &filepath, bool transflag = false, const Pos2D<int> &div = {1, 1}, const Size2D<int> &drawsize = {0, 0}) {
+	GraphData(const std::string &filepath, bool transflag = false, const Val2D<int> &div = {1, 1}, const Val2D<int> &drawsize = {0, 0}) {
 		this->Load(filepath, transflag, div, drawsize);
 	}
 	~GraphData() { this->Delete(); }
 
-	void Load(const std::string &filepath, bool transflag = false, const Pos2D<int> &div = {1, 1}, const Size2D<int> &drawsize = {0, 0}) {
+	void Load(const std::string &filepath, bool transflag = false, const Val2D<int> &div = {1, 1}, const Val2D<int> &drawsize = {0, 0}) {
 
 		Div = div;
-		if (drawsize.width == 0 || drawsize.height == 0) {
-			GetImageSize_File(filepath.c_str(), &Size.width, &Size.height);
+		if (drawsize.x == 0 || drawsize.y == 0) {
+			GetImageSize_File(filepath.c_str(), &Size.x, &Size.y);
 		}
 		else {
 			Size = drawsize;
@@ -31,8 +31,8 @@ struct GraphData {
 			filepath.c_str(),
 			Div.x * Div.y,
 			Div.x, Div.y,
-			Size.width,
-			Size.height,
+			Size.x,
+			Size.y,
 			m_Handles.begin()._Ptr
 		);
 
@@ -42,30 +42,16 @@ struct GraphData {
 		DeleteSharingGraph(m_Handles.front());
 		m_Handles = {-1};
 	}
-	void Draw(const Pos2D<float> &pos = {0, 0}, size_t index = 0) {
+	void Draw(const Val2D<float> &pos = {0, 0}, size_t index = 0, const Val2D<float> &origin = {0.5, 0.5}) {
 		if (index >= m_Handles.size()) {
 			return;
 		}
-		Rect2D<float> offset = {Size * Origin, Size - Size * Origin};
+		Rect2D<float> offset = {Size * origin, Size + (Size * -origin)};
 		DrawExtendGraphF(
-			pos.x - offset.left,
-			pos.y - offset.top,
-			pos.x + offset.right,
-			pos.y + offset.bottom,
-			m_Handles[index],
-			TransFlag
-			);
-	}
-	void Draw(const Pos2D<float> &pos = {0, 0}, const Size2D<float> &origin = {0.5, 0.5}, size_t index = 0) {
-		if (index >= m_Handles.size()) {
-			return;
-		}
-		Rect2D<float> offset = {Size * origin, Size - (Size * origin)};
-		DrawExtendGraphF(
-			pos.x - offset.left,
-			pos.y - offset.top,
-			pos.x + offset.right,
-			pos.y + offset.bottom,
+			pos.x - offset.x,
+			pos.y - offset.y,
+			pos.x + offset.w,
+			pos.y + offset.h,
 			m_Handles[index],
 			TransFlag
 			);
@@ -74,9 +60,8 @@ struct GraphData {
 	const int GetHandle(size_t index = 0) const { return m_Handles.at(index); }
 
 	bool TransFlag = false;
-	Size2D<float> Origin{0.5, 0.5};
-	Size2D<int> Size;
-	Pos2D<int> Div;
+	Val2D<int> Size;
+	Val2D<int> Div;
 
 private:
 	std::vector<int> m_Handles = {-1};
@@ -113,9 +98,15 @@ private:
 
 struct OptimizationGraph {
 
-	void Create(const Size2D<int> &drawsize, bool transflag, auto &&func) {
-		m_CallBackIndex = CallBack.Regist([=](){ this->_Create(drawsize, transflag, func); });
-		this->_Create(drawsize, transflag, func);
+	void Create(const Val2D<int> &drawsize, bool transflag, auto &&func) {
+		m_Handle = MakeScreen(Size.x, Size.y, TransFlag);
+		auto callback = [=]() {
+			SetDrawScreen(m_Handle);
+			func();
+			SetDrawScreen(DX_SCREEN_BACK);
+		};
+		callback();
+		m_CallBackIndex = CallBack.Regist(std::move(callback));
 	}
 	void Delete() {
 		DeleteGraph(m_Handle);
@@ -123,8 +114,8 @@ struct OptimizationGraph {
 		CallBack.Remove(m_CallBackIndex);
 		m_CallBackIndex = 0;
 	}
-	void Draw(const Pos2D<float>& pos = {0, 0}) const {
-		Pos2D<float> offset = Size * Origin;
+	void Draw(const Val2D<float>& pos = {0, 0}) const {
+		Val2D<float> offset = Size * Origin;
 		DrawGraphF(
 			pos.x - offset.x,
 			pos.y - offset.y,
@@ -134,34 +125,22 @@ struct OptimizationGraph {
 	}
 
 	bool TransFlag = false;
-	Size2D<float> Origin{0.5, 0.5};
-	Size2D<int> Size;
+	Val2D<float> Origin{0.5, 0.5};
+	Val2D<int> Size;
 
 private:
-
-	void _Create(const Size2D<int> &drawsize, bool transflag, auto &&func) {
-		TransFlag = transflag;
-		Size = drawsize;
-
-		m_Handle = MakeScreen(Size.width, Size.height, TransFlag);
-		SetDrawScreen(m_Handle);
-
-		func();
-
-		SetDrawScreen(DX_SCREEN_BACK);
-	}
 
 	size_t m_CallBackIndex = 0;
 	int m_Handle = -1;
 
 	inline static struct _CallBack {
 		_CallBack() {
-			static auto f = [&]() { GraphCallBack(); };
+			static auto f = [&]() { Restore(); };
 			auto pf = (void(*)())((void *)&f);
 			SetRestoreGraphCallback(pf);
 		}
 
-		size_t Regist(auto &&callbackfunc) {
+		size_t Regist(std::function<void()> &&callbackfunc) {
 			size_t ret = 0;
 			for (size_t i = 0; auto && find : Funcs) {
 				size_t diff = find.first - i;
@@ -182,7 +161,7 @@ private:
 		}
 
 	private:
-		void GraphCallBack() {
+		void Restore() {
 			for (auto&& func : Funcs) {
 				func.second();
 			}

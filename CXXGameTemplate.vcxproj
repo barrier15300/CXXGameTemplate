@@ -259,6 +259,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Keys.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\SoundDevice.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\_Struct.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\System.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Timer.h" />
     <ClInclude Include="Source\Local_Library\Easing.h" />

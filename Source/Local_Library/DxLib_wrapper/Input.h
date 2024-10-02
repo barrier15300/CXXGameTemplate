@@ -20,9 +20,9 @@ inline LRESULT CALLBACK KeyInputMessage(HWND hWnd, UINT message, WPARAM wParam, 
 struct InputState {
 
 	bool Down() const { return static_cast<byte>(State) & static_cast<byte>(_State::Down); }
-	bool Press() const { return static_cast<byte>(State) & static_cast<byte>(_State::Press); }
+	bool Press() const { return static_cast<byte>(State) & static_cast<byte>(_State::Press) || Down(); }
 	bool Up() const { return static_cast<byte>(State) & static_cast<byte>(_State::Up); }
-	bool Release() const { return static_cast<byte>(State) & static_cast<byte>(_State::Release); }
+	bool Release() const { return static_cast<byte>(State) & static_cast<byte>(_State::Release) || Up(); }
 
 	void Update(bool press) {
 		if (press) {
@@ -119,7 +119,7 @@ public:
 };
 
 class __mouseInput_sc : public __baseInputDevice<> {
-	Pos2D<int> _MousePos{};
+	Val2D<int> _MousePos{};
 public:
 
 	using __baseInputDevice::__baseInputDevice;
@@ -128,8 +128,12 @@ public:
 		GetMousePoint(&_MousePos.x, &_MousePos.y);
 	}
 
-	const Pos2D<int> &GetMousePos() const {
+	const Val2D<int> &GetMousePos() const {
 		return _MousePos;
+	}
+
+	int GetDoubleClickTime() {
+		return ::GetDoubleClickTime();
 	}
 };
 

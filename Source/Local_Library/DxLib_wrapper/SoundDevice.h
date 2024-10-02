@@ -17,7 +17,7 @@
 /// https://resemblances.click3.org/product_list/index.cgi/detail/87
 /// </summary>
 
-void CheckError(HRESULT hr) {
+inline void CheckError(HRESULT hr) {
 	if (!FAILED(hr)) {
 		return;
 	}

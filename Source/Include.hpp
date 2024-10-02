@@ -222,11 +222,6 @@
 #include "Local_Library/LocalLibInclude.h"
 
 /*
-*  namespace
-*/
-namespace fs = std::filesystem;
-
-/*
 *  using
 */
 using uchar = unsigned char;
@@ -238,4 +233,4 @@ using ulonglong = unsigned long long;
 /*
 *  const val
 */
-static constexpr inline double PI = (3.1415926535897932384626433832795028841971);
+static constexpr inline double PI = 3.1415926535897932384626433832795028841971;

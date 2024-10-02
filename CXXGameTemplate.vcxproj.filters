@@ -71,7 +71,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\_Struct.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Timer.h">
@@ -108,6 +108,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\SoundDevice.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

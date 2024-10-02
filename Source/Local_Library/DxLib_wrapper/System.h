@@ -32,11 +32,11 @@ public:
 	DxLibSystem &WindowStyle(				WindowStyles mode)				{ SetWindowStyleMode((int)mode); return *this; }
 	DxLibSystem &WindowIcon(				int id)							{ SetWindowIconID(id); return *this; }
 	DxLibSystem &WindowSizeChangeFlag(		bool flag)						{ SetWindowSizeChangeEnableFlag(flag); return *this; }
-	DxLibSystem &WindowExtendRate(			const Size2D<double> &size)		{ SetWindowSizeExtendRate(size.width, size.height); return *this; }
-	DxLibSystem &WindowSize(				const Size2D<int> &size)		{ SetWindowSize(size.width, size.height); return *this; }
-	DxLibSystem &WindowMaxSize(				const Size2D<int> &size)		{ SetWindowMaxSize(size.width, size.height); return *this; }
-	DxLibSystem &WindowMinSize(				const Size2D<int> &size)		{ SetWindowMinSize(size.width, size.height); return *this; }
-	DxLibSystem &WindowPos(					const Pos2D<int> &pos)			{ SetWindowPosition(pos.x, pos.y); return *this; }
+	DxLibSystem &WindowExtendRate(			const Val2D<double> &size)		{ SetWindowSizeExtendRate(size.x, size.y); return *this; }
+	DxLibSystem &WindowSize(				const Val2D<int> &size)		{ SetWindowSize(size.x, size.y); return *this; }
+	DxLibSystem &WindowMaxSize(				const Val2D<int> &size)		{ SetWindowMaxSize(size.x, size.y); return *this; }
+	DxLibSystem &WindowMinSize(				const Val2D<int> &size)		{ SetWindowMinSize(size.x, size.y); return *this; }
+	DxLibSystem &WindowPos(					const Val2D<int> &pos)			{ SetWindowPosition(pos.x, pos.y); return *this; }
 	DxLibSystem &SysCommandOffFlag(			bool flag)						{ SetSysCommandOffFlag(flag); return *this; }
 	DxLibSystem &HookWndproc(				WNDPROC wndproc)				{ SetHookWinProc(wndproc); return *this; }
 	DxLibSystem &DoubleStartFlag(			bool flag)						{ SetDoubleStartValidFlag(flag); return *this; }

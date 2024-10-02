@@ -3,20 +3,24 @@
 
 bool Game::Init() {
 
-	if (!System.
+	SetGraphMode(ScreenSize.x, ScreenSize.y, ColorBit);
+
+	if (!DXSystem.
 		AlwaysRunFlag(true).
-		FullScreenFlag(Config.Get("system/windowmode", false)).
-		WaitVSyncFlag(Config.Get("system/waitvsync", true)).
+		FullScreenFlag(System.FullScreenFlag).
+		WaitVSyncFlag(System.VSyncFlag).
 		WindowText(Name.c_str()).
 		UseSoundDevice(
-			magic_enum::enum_cast<SoundDevice::SoundDeviceType>(Config.Get<std::string>("sound/device/type", "WASAPI")).value(),
-			Config.Get("sound/device/is_exclusive", false),
-			Config.Get<int64_t>("sound/device/bufsize", 480),
-			Config.Get<int64_t>("sound/device/samplerate", 192000)
+			magic_enum::enum_cast<SoundDevice::SoundDeviceType>(Sound.Device.Type.Get()).value(),
+			Sound.Device.ExclusiveFlag,
+			Sound.Device.BufferSize,
+			Sound.Device.SampleRate
 			).
 		Init()) {
 		return false;
 	}
+
+	DXSystem.SoundDevice.SetVolume(Sound.Mastar);
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
@@ -40,5 +44,6 @@ void Game::Draw() {
 }
 
 void Game::End() {
-	System.End();
+	Scene.reset(nullptr);
+	DXSystem.End();
 }

@@ -14,74 +14,112 @@ public:
 		buf[length] = '\0';
 	}
 
-	char buf[Size];
+	char buf[Size]{};
 };
 
-template<static_string Filepath>
-class __DataStorage_sc {
-	static constexpr static_string _filepath = Filepath;
-	std::ifstream ifs;
-	std::ofstream ofs;
-public:
+namespace Storage {
+	template<class T>
+	concept ValueType = std::is_copy_constructible_v<T>;
 
-	__DataStorage_sc() { Read(); }
-	~__DataStorage_sc() {
-		Write();
+	template<static_string Filepath>
+	class __Data_sc {
+		static inline std::filesystem::path _filepath = Filepath.buf;
+		std::ifstream ifs;
+		std::ofstream ofs;
+	public:
+
+		__Data_sc() { Read(); }
+		~__Data_sc() { Write(); };
+
+		nlohmann::ordered_json Data;
+
+		void Read() {
+			ifs.open(_filepath);
+			if (!ifs.is_open()) {
+				return;
+			}
+
+			ifs >> Data;
+
+			ifs.close();
+		}
+
+		void Write() {
+			if (_filepath.has_parent_path()) {
+				std::filesystem::create_directories(_filepath.parent_path());
+			}
+
+			ofs.open(_filepath);
+			if (!ofs.is_open()) {
+				return;
+			}
+
+			ofs << std::setw(4) << Data;
+
+			ofs.close();
+		}
+
+		template<ValueType _type>
+		auto &keyfind(const std::string &keyname, const _type &defaultval = _type()) {
+			auto *accessdata = &Data;
+			auto keys = split(keyname, '/');
+
+			for (size_t i = 0, size = keys.size() - 1; i < size; ++i) {
+				auto &key = keys[i];
+				if (accessdata->find(key) == accessdata->end()) {
+					(*accessdata)[key] = nlohmann::json{};
+				}
+				accessdata = &(*accessdata)[key];
+			}
+
+			auto &key = keys.back();
+			if (accessdata->find(key) == accessdata->end()) {
+				(*accessdata)[key] = defaultval;
+			}
+
+			return (*accessdata)[key];
+		}
+
+		template<ValueType _type>
+		_type Get(const std::string &keyname, const _type &defaultval = _type()) {
+			return keyfind(keyname, defaultval).get<_type>();
+		}
+
+		template<ValueType _type>
+		void Set(const std::string &keyname, const _type &setval) {
+			keyfind<_type>(keyname) = setval;
+		}
 	};
 
-	nlohmann::ordered_json Data;
-
-	void Read() {
-		ifs.open(_filepath.buf);
-		if (!ifs.is_open()) {
-			return;
-		}
-
-		ifs >> Data;
-
-		ifs.close();
-	}
-
-	void Write() {
-		ofs.open(_filepath.buf);
-		if (!ofs.is_open()) {
-			return;
-		}
-
-		ofs << std::setw(4) << Data;
-
-		ofs.close();
-	}
-};
-
-template<static_string Filepath = static_string{"none.json"}>
-class DataStorage {
-public:
-
-	template<class _type = int>
-	_type& Get(const std::string& keyname, _type&& defaultval = _type()) {
-#define STATIC_MESSAGE "This data type is not available in json."
-		if constexpr (std::is_integral_v<_type>) { static_assert(std::is_same_v<_type, int64_t> || std::is_same_v<_type, bool>, STATIC_MESSAGE); } else {}
-		if constexpr (std::is_floating_point_v<_type>) { static_assert(std::is_same_v<_type, double_t>, STATIC_MESSAGE); } else {}
-#undef STATIC_MESSAGE
-
-		auto *accessdata = &Storage.Data;
-		auto keys = split(keyname, '/');
-
-		for (size_t i = 0, size = keys.size() - 1; i < size; ++i) {
-			auto& key = keys[i];
-			if (accessdata->find(key) == accessdata->end()) {
-				(*accessdata)[key] = nlohmann::json{};
-			}
-			accessdata = &(*accessdata)[key];
-		}
+	template<static_string Filepath = static_string{"none.json"} >
+	class Data {
+		using StorageType = Data<Filepath>;
+		using Storage_sc_Type = __Data_sc<Filepath>;
 		
-		auto& key = keys.back();
-		if (accessdata->find(key) == accessdata->end()) {
-			(*accessdata)[key] = defaultval;
-		}
-		return *(*accessdata)[key].get_ptr<_type*>();
-	}
+	public:
 
-	inline static __DataStorage_sc<Filepath> Storage = __DataStorage_sc<Filepath>();
-};
+		template<static_string Jsonpath, class T>
+		struct Value {
+
+			Value(const T &defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
+			~Value() { StorageType::Storage.Set(Jsonpath.buf, m_value); }
+
+			template<std::constructible_from<T> fT>
+			Value &operator=(fT &&lhs) & { m_value = lhs; }
+
+			operator T &() & {
+				return m_value;
+			}
+			operator const T &() const & {
+				return m_value;
+			}
+
+			T &Get() & { return m_value; }
+			const T &Get() const & { return m_value; }
+
+			inline static T m_value = T();
+		};
+
+		inline static __Data_sc<Filepath> Storage = __Data_sc<Filepath>();
+	};
+}
