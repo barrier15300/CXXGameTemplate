@@ -8,19 +8,19 @@
 #include "DataStorage.h"
 #include "DxLib_wrapper/DxLib_wrapper.h"
 
-#define INTERFACE_INLINE_H(cls_t)\
+#define OBJECT_INTERFACE_INLINE_H(cls_t)\
 class cls_t : public IObjectBase {\
 public:\
-	cls_t() { Name = __func__; }\
 	\
 	IObjectBase* ObjectInit() { return new cls_t(); }\
+	\
 	virtual bool Init();\
 	virtual void Proc();\
 	virtual void Draw();\
 	virtual void End();\
 };
 
-#define INTERFACE_INLINE_CPP(cls_t) \
+#define OBJECT_INTERFACE_INLINE_CPP(cls_t) \
 bool cls_t::Init() {\
 	return true;\
 }\
@@ -74,12 +74,15 @@ public:
 
 	std::unique_ptr<ObjectSwitcher> Scene = std::make_unique<ObjectSwitcher>(this);
 
+private:
+
+	Storage::Data<"config.json"> m_Config;
+	Storage::Data<"Asset/asset.json"> m_Asset;
+
 protected:
 
-	std::string Name = "Base";
-
-	Storage::Data<"config.json"> Config;
-	Storage::Data<"Asset/asset.json"> Asset;
+	using Config = decltype(m_Config);
+	using Asset = decltype(m_Asset);
 
 	InputDevices Input;
 
@@ -105,10 +108,10 @@ public:
 	ObjectSwitcher(IObjectBase* parent) { m_ParentObject = parent; }
 	~ObjectSwitcher() { if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); } }
 
-	void Regist(const std::string& name, IObjectBase* obj) {
-		if (obj == nullptr) {
-			return;
-		}
+	template<std::derived_from<IObjectBase> T>
+	void Regist() {
+		IObjectBase* obj = new T();
+		std::string name = std::string(typeid(T).name()).substr(6);
 		SetParent(obj, m_ParentObject);
 		m_RegistObjects[name] = [=] { return obj->ObjectInit(); };
 		if (m_NowObject == nullptr) {

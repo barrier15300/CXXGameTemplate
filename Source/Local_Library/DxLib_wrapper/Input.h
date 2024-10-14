@@ -109,13 +109,19 @@ public:
 		SetHookWinProc(KeyInputMessage);
 	}
 
+	InputState operator[](size_t idx) const {
+		return (*(__baseInputDevice*)this)[idx];
+	}
+
+	InputState operator[](Keys key) const {
+		return (*(__baseInputDevice*)this)[static_cast<unsigned int>(key)];
+	}
+
 	void Update() {
 		for (auto&& item : States) {
 			item.Update(rawInput[(size_t)(&item - States)]);
 		}
 	}
-
-	
 };
 
 class __mouseInput_sc : public __baseInputDevice<> {

@@ -1,7 +1,8 @@
 #include "SampleScene.h"
 
 bool SampleScene::Init() {
-	Graph.Load("coursesymbol_oni.png", true);
+	Don.Create(Donfilepath);
+	Ka.Create(Kafilepath);
 	return true;
 }
 
@@ -9,59 +10,43 @@ void SampleScene::Proc() {
 	auto &&pos = this->pos.Get();
 
 	InputState inputs[4] = {
-		Input.Keyboard()[(int)Keys::Left],
-		Input.Keyboard()[(int)Keys::Up],
-		Input.Keyboard()[(int)Keys::Right],
-		Input.Keyboard()[(int)Keys::Down]
+		Input.Keyboard()[(int)Keys::D],
+		Input.Keyboard()[(int)Keys::F],
+		Input.Keyboard()[(int)Keys::J],
+		Input.Keyboard()[(int)Keys::K]
 	};
 
-	for (size_t i = 0; i < 4; ++i) {
-		if (inputs[i].Down()) {
-			timer[i].Start();
-		}
-		if (inputs[i].Up()) {
-			timer[i].Reset();
-		}
+	if (inputs[0].Down()) {
+		Ka.Play();
 	}
-
-	float base = 10, add = 1, mul = 4;
-	auto valf = [&](size_t idx) { return (1 / (std::pow(timer[idx].Elapsed<Timer::second>() + add, mul))) * base; };
-	if (inputs[0].Press()) {
-		pos.x -= valf(0);
+	if (inputs[1].Down()) {
+		Don.Play();
 	}
-	if (inputs[1].Press()) {
-		pos.y -= valf(1);
+	if (inputs[2].Down()) {
+		Don.Play();
 	}
-	if (inputs[2].Press()) {
-		pos.x += valf(2);
-	}
-	if (inputs[3].Press()) {
-		pos.y += valf(3);
-	}
-
-	if (pos.x < 0) {
-		pos.x = 0;
-	}
-	if (pos.x > 1280) {
-		pos.x = 1280;
-	}
-	if (pos.y < 0) {
-		pos.y = 0;
-	}
-	if (pos.y > 720) {
-		pos.y = 720;
+	if (inputs[3].Down()) {
+		Ka.Play();
 	}
 	
+	if (Input.Keyboard()[(int)Keys::Left].Down()) {
+		timer.Start();
+	}
+	if (Input.Keyboard()[(int)Keys::Down].Down()) {
+		timer.Stop();
+	}
+	if (Input.Keyboard()[(int)Keys::Right].Down()) {
+		timer.Reset();
+	}
+
 	return;
 }
 
 void SampleScene::Draw() {
-	auto &pos = this->pos.Get();
-	Graph.Draw(pos, 0);
-	DrawFormatStringF(pos.x, pos.y, Color3{255, 255, 255}, "[%-.8f, %-.8f]", pos.x, pos.y);
-	for (size_t i = 0; i < 4; ++i) {
-		DrawFormatString(0, 16 + (16 * i), Color3{255, 255, 255}, "timer[%d]:%lf", i, timer[i].Elapsed());
-	}
+
+	DrawBoxAA(0, 360, timer.Elapsed().Second() * 50, 376, Color3{0,255,0}, TRUE);
+
+	
 	return;
 }
 

@@ -9,7 +9,7 @@ bool Game::Init() {
 		AlwaysRunFlag(true).
 		FullScreenFlag(System.FullScreenFlag).
 		WaitVSyncFlag(System.VSyncFlag).
-		WindowText(Name.c_str()).
+		WindowText(Title.c_str()).
 		UseSoundDevice(
 			magic_enum::enum_cast<SoundDevice::SoundDeviceType>(Sound.Device.Type.Get()).value(),
 			Sound.Device.ExclusiveFlag,
@@ -24,7 +24,7 @@ bool Game::Init() {
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	Scene->Regist("Sample", new SampleScene());
+	Scene->Regist<SampleScene>();
 	
 	return true;
 }
