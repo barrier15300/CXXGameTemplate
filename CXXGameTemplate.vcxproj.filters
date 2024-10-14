@@ -71,9 +71,6 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\_Struct.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Timer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -113,8 +110,14 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Sound.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODOLIST.txt" />
   </ItemGroup>
 </Project>

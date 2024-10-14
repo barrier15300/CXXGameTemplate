@@ -3,10 +3,7 @@
 
 class SampleScene : public IObjectBase {
 public:
-	SampleScene() {
-		Name = __func__;
-	}
-
+	
 	IObjectBase* ObjectInit() {
 		return new SampleScene();
 	}
@@ -17,7 +14,11 @@ public:
 	virtual void End();
 
 	GraphData Graph;
+	SoundData Don;
+	SoundData Ka;
 	Val2D<int> size = {80, 80};
-	decltype(Asset)::Value<"Sample/DrawPos", Val2D<float>> pos{{}};
-	Timer timer[4];
+	Asset::Value<Val2D<float>, "Sample/DrawPos"> pos{{}};
+	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
+	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
+	Timer timer;
 };

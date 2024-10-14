@@ -98,7 +98,7 @@ namespace Storage {
 		
 	public:
 
-		template<static_string Jsonpath, class T>
+		template<class T, static_string Jsonpath>
 		struct Value {
 
 			Value(const T &defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }

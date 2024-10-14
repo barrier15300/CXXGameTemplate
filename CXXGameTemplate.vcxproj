@@ -121,7 +121,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -152,7 +152,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -184,7 +184,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -215,7 +215,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -257,9 +257,9 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Graph.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Keys.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Sound.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\SoundDevice.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\_Struct.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\System.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Timer.h" />
     <ClInclude Include="Source\Local_Library\Easing.h" />
@@ -277,6 +277,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODOLIST.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

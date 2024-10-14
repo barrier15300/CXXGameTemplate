@@ -1,4 +1,4 @@
-enum class Keys {
+enum class Keys : unsigned int {
 	/// <summary>
 	///  The bit mask to extract a key code from a key value.
 	/// </summary>

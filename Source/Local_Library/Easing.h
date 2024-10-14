@@ -11,6 +11,10 @@ class Easing {
 	Easing &operator=(const Easing &) = delete;
 	Easing &operator=(Easing &&) = delete;
 
+	static inline bool valuecheck(double &x) {
+		return x <= 0 ? (bool)(x = 0) && false : x >= 1 ? (bool)(x = 1) && false : (bool)(x) || true;
+	}
+
 public:
 
 	enum Base {
@@ -35,18 +39,18 @@ public:
 	};
 
 	static inline double GetRate(double x, const Base ebt, const Line elt) {
-		if (x <= 0.0) { return 0.0; }
-		if (x >= 1.0) { return 1.0; }
+		if (!valuecheck(x)) { return x; }
+
 		switch (ebt) {
 			case Base::InOut:
 				return x < 0.5 ?
-					GetRate(x / 0.5, Base::In, elt) / 2 :
-					0.5 + (GetRate((x - 0.5) / 0.5, Base::Out, elt) / 2);
+					GetRate(x * 2, Base::In, elt) * 0.5 :
+					0.5 + (GetRate((x - 0.5) * 2, Base::Out, elt) * 0.5);
 				break;
 			case Base::OutIn:
 				return x < 0.5 ?
-					GetRate(x / 0.5, Base::Out, elt) / 2 :
-					0.5 + (GetRate((x - 0.5) / 0.5, Base::In, elt) / 2);
+					GetRate(x * 2, Base::Out, elt) * 0.5 :
+					0.5 + (GetRate((x - 0.5) * 2, Base::In, elt) * 0.5);
 				break;
 		}
 
@@ -184,6 +188,56 @@ public:
 				break;
 		}
 		return 0;
+	}
+	static inline double GetSigmoidRate(double x, const Base sbt, double a = 1) {
+		static auto sigmoidfunc = [&](double x, double a){
+			return (
+				1 +
+				(
+					(
+						(1 - std::pow(std::numbers::e, -a * (2 * x - 1)))
+						/
+						(1 + std::pow(std::numbers::e, -a * (2 * x - 1)))
+					)
+					*
+					(
+						(1 + std::pow(std::numbers::e, -a))
+						/
+						(1 - std::pow(std::numbers::e, -a))
+					)
+				)
+			) * 0.5;
+		};
+		
+		if (!valuecheck(x)) { return x; }
+
+		switch (sbt) {
+			case Base::In:
+				return sigmoidfunc(x / 2, a) * 2;
+				break;
+			case Base::Out:
+				return (sigmoidfunc((x / 2) + 0.5, a) - 0.5) * 2;
+				break;
+			case Base::InOut:
+				return sigmoidfunc(x, a);
+				break;
+			case Base::OutIn:
+				return x < 0.5 ?
+					GetSigmoidRate(x * 2, Base::Out, a) * 0.5 :
+					0.5 + (GetSigmoidRate((x - 0.5) * 2, Base::In, a) * 0.5);
+				break;
+		}
+	}
+	static inline double GetBounceRate(double x, double a) {
+		static auto bouncefunc = [&](double x, double a) {
+			return x < 0.5 ?
+				1 - std::pow(1 - (x * 2), a) :
+				1 - std::pow(((x - 0.5) * 2), a);
+		};
+		
+		if (!valuecheck(x)) { return x; }
+
+		return bouncefunc(x, a);
 	}
 };
 
