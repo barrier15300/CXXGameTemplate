@@ -45,25 +45,25 @@ struct DXHandle {
 	}
 	
 	int GetLimitHandleCount() const {
-		return GetMaxHandleNum((int)m_type);
+		return GetMaxHandleNum(static_cast<int>(m_type));
 	}
 	int GetUsingHandleCount() const {
-		return GetHandleNum((int)m_type);
+		return GetHandleNum(static_cast<int>(m_type));
 	}
 	int GetAvaliableCount() const {
 		return GetUsingHandleCount() - GetLimitHandleCount();
 	}
 
 private:
-	DXHandleType m_type = handletype;
 	int m_handle;
+	inline static DXHandleType m_type = handletype;
 };
 
 template<DXHandleType handletype>
 class std::hash<DXHandle<handletype>> {
 public:
 	size_t operator()(const DXHandle<handletype>& key) const {
-		return (size_t)((void*)(&key));
+		return (size_t)(key);
 	}
 };
 
