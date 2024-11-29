@@ -111,7 +111,7 @@ public:
 	template<std::derived_from<IObjectBase> T>
 	void Regist() {
 		IObjectBase* obj = new T();
-		std::string name = std::string(typeid(T).name()).substr(6);
+		std::string name = std::string_view(typeid(T).name()).substr(6).data();
 		SetParent(obj, m_ParentObject);
 		m_RegistObjects[name] = [=] { return obj->ObjectInit(); };
 		if (m_NowObject == nullptr) {

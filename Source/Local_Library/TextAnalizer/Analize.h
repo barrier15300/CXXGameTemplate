@@ -32,7 +32,7 @@ namespace TextAnalize {
 		return str.substr(s, e - s);
 	}
 	
-	std::string_view GetForChar(std::string_view str, char c, size_t off = 0) {
+	std::string_view GetToChar(std::string_view str, char c, size_t off = 0) {
 		return str.substr(off, str.find(c, off) - off);
 	}
 

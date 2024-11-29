@@ -102,10 +102,14 @@ namespace Storage {
 		struct Value {
 
 			Value(const T &defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
+			Value(T &&defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
 			~Value() { StorageType::Storage.Set(Jsonpath.buf, m_value); }
 
 			template<std::constructible_from<T> fT>
-			Value &operator=(fT &&lhs) & { m_value = lhs; }
+			Value &operator=(const fT &lhs) & { m_value = lhs; return *this; }
+			
+			template<std::constructible_from<T> fT>
+			Value &operator=(fT &&lhs) & { m_value = std::move(lhs); return *this; }
 
 			operator T &() & {
 				return m_value;

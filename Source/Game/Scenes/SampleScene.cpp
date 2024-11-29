@@ -1,8 +1,8 @@
 #include "SampleScene.h"
 
 bool SampleScene::Init() {
-	Don.Create(Donfilepath);
-	Ka.Create(Kafilepath);
+	//Don.Create(Donfilepath);
+	//Ka.Create(Kafilepath);
 	return true;
 }
 
@@ -16,18 +16,18 @@ void SampleScene::Proc() {
 		Input.Keyboard()[(int)Keys::K]
 	};
 
-	if (inputs[0].Down()) {
-		Ka.Play();
-	}
-	if (inputs[1].Down()) {
-		Don.Play();
-	}
-	if (inputs[2].Down()) {
-		Don.Play();
-	}
-	if (inputs[3].Down()) {
-		Ka.Play();
-	}
+	//if (inputs[0].Down()) {
+	//	Ka.Play();
+	//}
+	//if (inputs[1].Down()) {
+	//	Don.Play();
+	//}
+	//if (inputs[2].Down()) {
+	//	Don.Play();
+	//}
+	//if (inputs[3].Down()) {
+	//	Ka.Play();
+	//}
 	
 	if (Input.Keyboard()[(int)Keys::Left].Down()) {
 		timer.Start();

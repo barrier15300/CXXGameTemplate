@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -255,16 +255,29 @@
     <ClInclude Include="Source\Library\LibraryInclude.h" />
     <ClInclude Include="Source\Local_Library\DataStorage.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Graph.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Keys.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Sound.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\SoundDevice.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Timer.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Keys.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\SoundDevice.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\DXHandle.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\DeviceBase.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\InputState.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Keyboard.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Mouse.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Font.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Sound.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color3.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Rect3D.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Graph.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\JsonHelper.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Rect2D.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\StructHelper.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val2D.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val3D.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Value.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\System.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Timer.h" />
     <ClInclude Include="Source\Local_Library\Easing.h" />
     <ClInclude Include="Source\Local_Library\exstring.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Input.h" />
     <ClInclude Include="Source\Local_Library\LocalLibInclude.h" />
     <ClInclude Include="Source\Local_Library\ObjectBase.h" />
     <ClInclude Include="Source\Local_Library\special.h" />

@@ -1,7 +1,6 @@
 #pragma once
 #include "DxLib.h"
 #include "SoundDevice.h"
-#include "Struct.h"
 
 class DxLibSystem final {
 public:

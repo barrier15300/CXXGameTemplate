@@ -13,9 +13,9 @@ public:
 	virtual void Draw();
 	virtual void End();
 
-	GraphData Graph;
-	SoundData Don;
-	SoundData Ka;
+	//GraphData Graph;
+	//SoundData Don;
+	//SoundData Ka;
 	Val2D<int> size = {80, 80};
 	Asset::Value<Val2D<float>, "Sample/DrawPos"> pos{{}};
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};

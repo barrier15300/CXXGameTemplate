@@ -1,8 +1,8 @@
 #pragma once
-#include "Graph.h"
-#include "Input.h"
-#include "Sound.h"
+#include "Struct/Value/Value.h"
+#include "Struct/Input/Input.h"
+//#include "Graph.h"
+//#include "Sound.h"
 #include "SoundDevice.h"
-#include "Struct.h"
 #include "System.h"
 #include "Timer.h"
