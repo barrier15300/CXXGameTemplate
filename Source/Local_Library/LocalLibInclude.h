@@ -3,7 +3,8 @@
 
 #include "DataStorage.h"
 #include "Easing.h"
-#include "exstring.h"
+#include "ExMath.h"
+#include "ExString.h"
 #include "special.h"
 #include "template_type.h"
 

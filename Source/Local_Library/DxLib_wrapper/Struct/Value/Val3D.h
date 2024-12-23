@@ -46,10 +46,10 @@ struct Val3D {
 
 };
 
-OPERATOR2_BASE(Val3D, +);
-OPERATOR2_BASE(Val3D, -);
-OPERATOR2_BASE(Val3D, *);
-OPERATOR2_BASE(Val3D, / );
+TEMPLATE_OPERATOR_BASE(Val3D, +);
+TEMPLATE_OPERATOR_BASE(Val3D, -);
+TEMPLATE_OPERATOR_BASE(Val3D, *);
+TEMPLATE_OPERATOR_BASE(Val3D, / );
 
 TO_JSON(template<class T>, Val3D<T>, {
 	j = nlohmann::json{v.x, v.y, v.z};

@@ -21,4 +21,6 @@ public:
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	Timer timer;
+	Timer inputtimer[4]{};
+	InputState input{};
 };

@@ -55,10 +55,10 @@ struct Rect2D {
 
 };
 
-OPERATOR2_BASE(Rect2D, +);
-OPERATOR2_BASE(Rect2D, -);
-OPERATOR2_BASE(Rect2D, *);
-OPERATOR2_BASE(Rect2D, / );
+TEMPLATE_OPERATOR_BASE(Rect2D, +);
+TEMPLATE_OPERATOR_BASE(Rect2D, -);
+TEMPLATE_OPERATOR_BASE(Rect2D, *);
+TEMPLATE_OPERATOR_BASE(Rect2D, / );
 
 TO_JSON(template<class T>, Rect2D<T>, {
 	j = nlohmann::json{

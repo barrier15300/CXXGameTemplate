@@ -47,10 +47,10 @@ struct Rect3D {
 
 };
 
-OPERATOR2_BASE(Rect3D, +);
-OPERATOR2_BASE(Rect3D, -);
-OPERATOR2_BASE(Rect3D, *);
-OPERATOR2_BASE(Rect3D, / );
+TEMPLATE_OPERATOR_BASE(Rect3D, +);
+TEMPLATE_OPERATOR_BASE(Rect3D, -);
+TEMPLATE_OPERATOR_BASE(Rect3D, *);
+TEMPLATE_OPERATOR_BASE(Rect3D, / );
 
 TO_JSON(template<class T>, Rect3D<T>, {
 	j = nlohmann::json{

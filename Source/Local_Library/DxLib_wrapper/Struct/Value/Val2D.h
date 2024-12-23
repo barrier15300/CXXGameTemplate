@@ -46,10 +46,10 @@ struct Val2D {
 
 };
 
-OPERATOR2_BASE(Val2D, +);
-OPERATOR2_BASE(Val2D, -);
-OPERATOR2_BASE(Val2D, *);
-OPERATOR2_BASE(Val2D, / );
+TEMPLATE_OPERATOR_BASE(Val2D, +);
+TEMPLATE_OPERATOR_BASE(Val2D, -);
+TEMPLATE_OPERATOR_BASE(Val2D, *);
+TEMPLATE_OPERATOR_BASE(Val2D, / );
 
 TO_JSON(template<class T>, Val2D<T>, {
 	j = nlohmann::json{v.x, v.y};

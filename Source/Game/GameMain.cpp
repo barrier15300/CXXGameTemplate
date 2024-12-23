@@ -33,7 +33,6 @@ void Game::Proc() {
 	while (ProcessMessage() == 0) {
 		Scene->Proc();
 		Scene->Draw();
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "FPS:%d", (int)GetFPS());
 		ScreenFlip();
 		ClearDrawScreen();
 	}

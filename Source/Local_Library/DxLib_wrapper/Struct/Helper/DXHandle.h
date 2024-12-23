@@ -29,30 +29,28 @@ enum class DXHandleType : int {
 template<DXHandleType handletype>
 struct DXHandle {
 
-	DXHandle() : m_handle(-1) {}
-	DXHandle(int from) : m_handle(from) {}
-	~DXHandle() { InitImpl(); };
+	DXHandle() : m_Handle(-1) {}
+	DXHandle(int from) : m_Handle(from) {}
+	~DXHandle() { Init(); };
 
-	operator const int() {
-		return m_handle;
-	}
 	operator const int() const {
-		return m_handle;
+		return m_Handle;
 	}
 
 	int GetLimitHandleCount() const {
-		return GetMaxHandleNum(static_cast<int>(m_type));
+		return GetMaxHandleNum(static_cast<int>(handletype));
 	}
 	int GetUsingHandleCount() const {
-		return GetHandleNum(static_cast<int>(m_type));
+		return GetHandleNum(static_cast<int>(handletype));
 	}
 	int GetAvaliableCount() const {
 		return GetUsingHandleCount() - GetLimitHandleCount();
 	}
 
-	virtual int InitImpl() = 0;
+	void Init() { InitImpl(); m_Handle = -1; }
 
 protected:
-	int m_handle;
-	inline static DXHandleType m_type = handletype;
+	virtual int InitImpl() = 0;
+
+	int m_Handle = -1;
 };

@@ -1,0 +1,4 @@
+// ヒント ファイルは、Visual Studio IDE が Visual C++ 識別子を解釈するのに役立ちます
+// 関数およびマクロの名前などです。
+// 詳細については次を参照してください https://go.microsoft.com/fwlink/?linkid=865984
+#define TO_JSON(temp, type, __VA_ARGS__) temp void to_json(nlohmann::json &j, const type &v) __VA_ARGS__ temp void to_json(nlohmann::ordered_json &j, const type &v) __VA_ARGS__

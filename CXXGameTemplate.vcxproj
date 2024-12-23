@@ -276,7 +276,8 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\System.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Timer.h" />
     <ClInclude Include="Source\Local_Library\Easing.h" />
-    <ClInclude Include="Source\Local_Library\exstring.h" />
+    <ClInclude Include="Source\Local_Library\ExMath.h" />
+    <ClInclude Include="Source\Local_Library\ExString.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Input.h" />
     <ClInclude Include="Source\Local_Library\LocalLibInclude.h" />
     <ClInclude Include="Source\Local_Library\ObjectBase.h" />
@@ -289,6 +290,7 @@
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

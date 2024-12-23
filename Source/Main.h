@@ -14,7 +14,7 @@ public:
 	int _InitCheckProc() {
 		if (!InitSuccessFlag) {
 			End();
-			return -1;
+			return 1;
 		}
 		return Proc();
 	}
