@@ -34,6 +34,13 @@ struct Val2D {
 		return ret;
 	}
 
+	std::string ToString(int digit = 6) {
+		std::stringstream buf;
+		buf.precision(digit);
+		buf << "{" << x << ", " << y << "}";
+		return buf.str();
+	}
+
 #define OPERATOR_BASE(type)\
 	template<IsArithmetic fT> Val2D &operator##type##=(const Val2D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }\
 	template<IsArithmetic fT> Val2D &operator##type##=(Val2D<fT> &&v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }\

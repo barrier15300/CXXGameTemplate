@@ -10,10 +10,10 @@ struct Color3 {
 
 	Color3() : r(0), g(0), b(0) {}
 	Color3(int _r, int _g, int _b) : r(_r), g(_g), b(_b) {}
-	Color3(unsigned int color) : _dxcolor(color) {}
+	Color3(unsigned int color) : hexcolor(color) {}
 
 	operator unsigned int() const {
-		return _dxcolor;
+		return hexcolor;
 	}
 
 	operator COLOR_U8() const {
@@ -25,8 +25,20 @@ struct Color3 {
 			byte r, g, b;
 		};
 		std::array<byte, 3> arr;
-		unsigned int _dxcolor;
+		unsigned int hexcolor;
 	};
+
+	std::string ToString(bool hex) {
+		std::stringstream buf;
+		if (hex) {
+			buf << std::setbase(16)
+				<< "#" << hexcolor;
+		}
+		else {
+			buf << "{" << r << ", " << g << ", " << b << "}";
+		}
+		return buf.str();
+	}
 };
 
 TO_JSON(, Color3, {

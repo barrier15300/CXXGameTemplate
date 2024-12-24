@@ -33,6 +33,13 @@ struct Rect3D {
 		};
 	};
 
+	std::string ToString(int digit = 6) {
+		std::stringstream buf;
+		buf.precision(digit);
+		buf << "{" << p1.ToString() << ", " << p2.ToString() << "}";
+		return buf.str();
+	}
+
 #define OPERATOR_BASE(type)\
 	template<IsArithmetic fT> Rect3D &operator##type##=(const Rect3D<fT> &v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }\
 	template<IsArithmetic fT> Rect3D &operator##type##=(Rect3D<fT> &&v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }\
