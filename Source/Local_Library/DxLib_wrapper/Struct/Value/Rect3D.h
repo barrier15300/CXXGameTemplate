@@ -9,7 +9,7 @@ template<IsArithmetic T>
 struct Rect3D {
 
 	Rect3D() : x(0), y(0), z(0), w(0), h(0), d(0) {}
-	Rect3D(T &&_x, T &&_y, T &&_z, T &&_w, T &&_h, T &&_d) : x(_x), y(_y), z(_z), w(_w), h(_h), d(_d) {}
+	Rect3D(T _x, T _y, T _z, T _w, T _h, T _d) : x(_x), y(_y), z(_z), w(_w), h(_h), d(_d) {}
 	template<IsArithmetic fT_x, IsArithmetic fT_y, IsArithmetic fT_z, IsArithmetic fT_w, IsArithmetic fT_h, IsArithmetic fT_d> Rect3D(fT_x &&_x, fT_y &&_y, fT_z &&_z, fT_w &&_w, fT_h &&_h, fT_d &&_d) : x(SCAST(_x)), y(SCAST(_y)), z(SCAST(_z)), w(SCAST(_w)), h(SCAST(_h)), d(SCAST(_d)) {};
 	template<IsArithmetic fT> Rect3D(const Rect3D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)), w(SCAST(v.w)), h(SCAST(v.h)), d(SCAST(v.d)) {}
 	template<IsArithmetic fT> Rect3D(Rect3D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)), w(SCAST(v.w)), h(SCAST(v.h)), d(SCAST(v.d)) {}

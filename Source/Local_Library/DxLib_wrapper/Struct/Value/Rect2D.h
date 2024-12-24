@@ -9,7 +9,7 @@ template<IsArithmetic T>
 struct Rect2D {
 
 	Rect2D() : x(0), y(0), w(0), h(0) {}
-	Rect2D(T &&_x, T &&_y, T &&_w, T &&_h) : x(_x), y(_y), w(_w), h(_h) {}
+	Rect2D(T _x, T _y, T _w, T _h) : x(_x), y(_y), w(_w), h(_h) {}
 	template<IsArithmetic fT_x, IsArithmetic fT_y, IsArithmetic fT_w, IsArithmetic fT_h> Rect2D(fT_x &&_x, fT_y &&_y, fT_w &&_w, fT_h &&_h) : x(SCAST(_x)), y(SCAST(_y)), w(SCAST(_w)), h(SCAST(_h)) {};
 	template<IsArithmetic fT> Rect2D(const Rect2D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), w(SCAST(v.w)), h(SCAST(v.h)) {}
 	template<IsArithmetic fT> Rect2D(Rect2D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.y)), w(SCAST(v.w)), h(SCAST(v.h)) {}
@@ -33,7 +33,7 @@ struct Rect2D {
 		};
 	};
 
-	explicit operator RECT() {
+	explicit operator RECT() const {
 		union {
 			Rect2D<LONG> temp = Rect2D<LONG>(*this);
 			RECT ret;

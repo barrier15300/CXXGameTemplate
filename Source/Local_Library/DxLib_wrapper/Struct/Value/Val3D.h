@@ -11,7 +11,7 @@ template<IsArithmetic T>
 struct Val3D {
 
 	Val3D() : x(0), y(0), z(0) {}
-	Val3D(T &&_x, T &&_y, T &&_z) : x(_x), y(_y), z(_z) {}
+	Val3D(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
 	template<IsArithmetic fT_x, IsArithmetic fT_y, IsArithmetic fT_z> Val3D(fT_x &&_x, fT_y &&_y, fT_z &&_z) : x(SCAST(_x)), y(SCAST(_y)), z(SCAST(_z)) {};
 	template<IsArithmetic fT> Val3D(const Val3D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), y(SCAST(v.z)) {}
 	template<IsArithmetic fT> Val3D(Val3D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.z)) {}
@@ -23,10 +23,10 @@ struct Val3D {
 		std::array<T, 3> arr;
 	};
 
-	Val3D operator+() const & {
+	Val3D operator+() const {
 		return *this;
 	}
-	Val3D operator-() const & {
+	Val3D operator-() const {
 		Val3D ret;
 		for (size_t i = 0, size = this->arr.size(); i < size; ++i) { ret.arr[i] = -this->arr[i]; }
 		return ret;

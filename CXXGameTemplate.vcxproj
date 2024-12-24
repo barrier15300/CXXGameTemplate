@@ -255,6 +255,11 @@
     <ClInclude Include="Source\Library\LibraryInclude.h" />
     <ClInclude Include="Source\Local_Library\DataStorage.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Geometry.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Polygon.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Square.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Triangle.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Keys.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\SoundDevice.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\DXHandle.h" />
@@ -281,7 +286,6 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Input.h" />
     <ClInclude Include="Source\Local_Library\LocalLibInclude.h" />
     <ClInclude Include="Source\Local_Library\ObjectBase.h" />
-    <ClInclude Include="Source\Local_Library\special.h" />
     <ClInclude Include="Source\Local_Library\TextAnalizer\Analize.h" />
     <ClInclude Include="Source\Local_Library\TextAnalizer\strexprconv.h" />
     <ClInclude Include="Source\Local_Library\template_type.h" />

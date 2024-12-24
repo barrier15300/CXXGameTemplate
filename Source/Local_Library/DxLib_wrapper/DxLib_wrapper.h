@@ -1,4 +1,5 @@
 #pragma once
+#include "Struct/Geometry/Geometry.h"
 #include "Struct/Value/Value.h"
 #include "Struct/Input/Input.h"
 #include "Struct/Media/Graph.h"

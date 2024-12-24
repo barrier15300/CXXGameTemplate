@@ -1,5 +1,6 @@
 #pragma once
 #include "Color3.h"
+#include "Color4.h"
 #include "Rect2D.h"
 #include "Rect3D.h"
 #include "Val2D.h"

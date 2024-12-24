@@ -4,36 +4,36 @@
 #include <array>
 
 /// <summary>
-/// Color3
+/// Color4
 /// </summary>
-struct Color3 {
+struct Color4 {
 
-	Color3() : r(0), g(0), b(0) {}
-	Color3(int _r, int _g, int _b) : r(_r), g(_g), b(_b) {}
-	Color3(unsigned int color) : _dxcolor(color) {}
+	Color4() : r(0), g(0), b(0), a(0) {}
+	Color4(int _r, int _g, int _b, int _a) : r(_r), g(_g), b(_b), a(_a) {}
+	Color4(unsigned int color) : _dxcolor(color) {}
 
 	operator unsigned int() const {
 		return _dxcolor;
 	}
 
 	operator COLOR_U8() const {
-		return GetColorU8(r, g, b, 255);
+		return GetColorU8(r, g, b, a);
 	}
 
 	union {
 		struct {
-			byte r, g, b;
+			byte a, r, g, b;
 		};
-		std::array<byte, 3> arr;
+		std::array<byte, 4> arr;
 		unsigned int _dxcolor;
 	};
 };
 
-TO_JSON(, Color3, {
+TO_JSON(, Color4, {
 	j = nlohmann::json{v.r, v.g, v.b};
 		});
 
-FROM_JSON(, Color3, {
+FROM_JSON(, Color4, {
 	for (size_t i = 0, size = v.arr.size(); i < size; ++i) {
 		j.at(i).get_to(v.arr[i]);
 	}
