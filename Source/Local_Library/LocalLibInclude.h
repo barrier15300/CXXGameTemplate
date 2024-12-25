@@ -5,7 +5,6 @@
 #include "Easing.h"
 #include "ExMath.h"
 #include "ExString.h"
-#include "special.h"
 #include "template_type.h"
 
 // TODO:

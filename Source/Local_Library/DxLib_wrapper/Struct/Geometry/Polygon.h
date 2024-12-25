@@ -23,6 +23,11 @@ struct Polygon2D {
 		Vertex[1].dif = c2;
 		Vertex[2].dif = c3;
 	}
+	void SetColor(const Color4 &c1, const Color4 &c2, const Color4 &c3) {
+		Vertex[0].dif = c1;
+		Vertex[1].dif = c2;
+		Vertex[2].dif = c3;
+	}
 
 	void Draw() {
 		DrawPolygon2D(

@@ -1,15 +1,13 @@
 #pragma once
-#include "DxLib.h"
-#include "../Helper/JsonHelper.h"
-#include <array>
+#include "_structhelper.h"
 
 /// <summary>
 /// Color4
 /// </summary>
 struct Color4 {
 
-	Color4() : r(0), g(0), b(0), a(0) {}
-	Color4(int _r, int _g, int _b, int _a) : r(_r), g(_g), b(_b), a(_a) {}
+	Color4() : a(0), r(0), g(0), b(0) {}
+	Color4(int _r, int _g, int _b, int _a) : a(_a), r(_r), g(_g), b(_b) {}
 	Color4(unsigned int color) : hexcolor(color) {}
 
 	operator unsigned int() const {
@@ -22,22 +20,21 @@ struct Color4 {
 
 	union {
 		struct {
-			byte a, r, g, b;
+			byte b, g, r, a;
 		};
 		std::array<byte, 4> arr;
 		unsigned int hexcolor;
 	};
 
-	std::string ToString(bool hex) {
-		std::stringstream buf;
+	std::string ToString(bool hex = true) {
+		std::string ret;
 		if (hex) {
-			buf << std::setbase(16)
-				<< "#" << hexcolor;
+			ret = fmt::format("#{:0>8X}", hexcolor);
 		}
 		else {
-			buf << "{" << a << ", " << r << ", " << g << ", " << b << "}";
+			ret = fmt::format("{}{:>{}}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), 3, '}');
 		}
-		return buf.str();
+		return ret;
 	}
 };
 

@@ -34,10 +34,7 @@ struct Rect3D {
 	};
 
 	std::string ToString(int digit = 6) {
-		std::stringstream buf;
-		buf.precision(digit);
-		buf << "{" << p1.ToString() << ", " << p2.ToString() << "}";
-		return buf.str();
+		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}
 
 #define OPERATOR_BASE(type)\

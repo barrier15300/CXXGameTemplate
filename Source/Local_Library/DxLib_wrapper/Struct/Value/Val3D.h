@@ -1,7 +1,5 @@
 #pragma once
-#include "../Helper/JsonHelper.h"
-#include "../Helper/StructHelper.h"
-#include <array>
+#include "_structhelper.h"
 
 /// <summary>
 /// Val3D
@@ -32,11 +30,8 @@ struct Val3D {
 		return ret;
 	}
 
-	std::string ToString(int digit = 6) {
-		std::stringstream buf;
-		buf.precision(digit);
-		buf << "{" << x << ", " << y << ", " << z << "}";
-		return buf.str();
+	std::string ToString(int spacewidth = 4, int digit = 6) {
+		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 
 #define OPERATOR_BASE(type)\

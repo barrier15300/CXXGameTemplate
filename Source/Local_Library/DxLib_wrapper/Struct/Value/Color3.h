@@ -1,7 +1,5 @@
 #pragma once
-#include "DxLib.h"
-#include "../Helper/JsonHelper.h"
-#include <array>
+#include "_structhelper.h"
 
 /// <summary>
 /// Color3
@@ -22,22 +20,21 @@ struct Color3 {
 
 	union {
 		struct {
-			byte r, g, b;
+			byte b, g, r;
 		};
 		std::array<byte, 3> arr;
 		unsigned int hexcolor;
 	};
 
-	std::string ToString(bool hex) {
-		std::stringstream buf;
+	std::string ToString(bool hex = true) {
+		std::string ret;
 		if (hex) {
-			buf << std::setbase(16)
-				<< "#" << hexcolor;
+			ret = fmt::format("#{:0>6X}", hexcolor);
 		}
 		else {
-			buf << "{" << r << ", " << g << ", " << b << "}";
+			ret = fmt::format("{}{:>{}}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), 3, '}');
 		}
-		return buf.str();
+		return ret;
 	}
 };
 
