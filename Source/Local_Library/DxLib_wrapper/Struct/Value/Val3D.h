@@ -36,7 +36,8 @@ struct Val3D {
 	}
 
 #define OPERATOR_BASE(type)\
-	template<IsArithmetic fT> Val3D &operator##type##=(const Val3D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; this->z ##type##= v.z; return *this; }
+	template<IsArithmetic fT> Val3D &operator##type##=(const Val3D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; this->z ##type##= v.z; return *this; }\
+	template<IsArithmetic fT> Val3D &operator##type##=(Val3D<fT> &&v) { this->x ##type##= v.x; this->y ##type##= v.y; this->z ##type##= v.z;  return *this; }
 
 	OPERATOR_BASE(+);
 	OPERATOR_BASE(-);

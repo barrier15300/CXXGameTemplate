@@ -38,7 +38,8 @@ struct Val2D {
 	}
 
 #define OPERATOR_BASE(type)\
-	template<IsArithmetic fT> Val2D &operator##type##=(const Val2D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }
+	template<IsArithmetic fT> Val2D &operator##type##=(const Val2D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }\
+	template<IsArithmetic fT> Val2D &operator##type##=(Val2D<fT> &&v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }
 
 	OPERATOR_BASE(+);
 	OPERATOR_BASE(-);
