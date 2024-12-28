@@ -41,16 +41,17 @@ struct Rect2D {
 		return ret;
 	}
 
+	template<IsArithmetic fT>
+	bool InRect(const Val2D<fT>& pos) {
+		return p1 < pos && p2 > pos;
+	}
+
 	std::string ToString(int digit = 6) {
 		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}
 
 #define OPERATOR_BASE(type)\
-	template<IsArithmetic fT> Rect2D &operator##type##=(const Rect2D<fT> &v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }\
-	template<IsArithmetic fT> Rect2D &operator##type##=(Rect2D<fT> &&v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }\
-	\
-	template<IsArithmetic fT> Rect2D &operator##type##=(const fT &v) { this->p1 ##type##= v; this->p2 ##type##= v; return *this; }\
-	template<IsArithmetic fT> Rect2D &operator##type##=(fT &&v) { this->p1 ##type##= v; this->p2 ##type##= v; return *this; }
+	template<IsArithmetic fT> Rect2D &operator##type##=(const Rect2D<fT> &v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }
 
 	OPERATOR_BASE(+);
 	OPERATOR_BASE(-);

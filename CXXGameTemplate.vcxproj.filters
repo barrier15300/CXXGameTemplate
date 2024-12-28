@@ -125,9 +125,6 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Rect2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\StructHelper.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

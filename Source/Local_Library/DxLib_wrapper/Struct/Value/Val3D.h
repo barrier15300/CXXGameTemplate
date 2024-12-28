@@ -9,6 +9,7 @@ template<IsArithmetic T>
 struct Val3D {
 
 	Val3D() : x(0), y(0), z(0) {}
+	Val3D(T _all) : x(_all), y(_all), z(_all) {}
 	Val3D(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
 	template<IsArithmetic fT_x, IsArithmetic fT_y, IsArithmetic fT_z> Val3D(fT_x &&_x, fT_y &&_y, fT_z &&_z) : x(SCAST(_x)), y(SCAST(_y)), z(SCAST(_z)) {};
 	template<IsArithmetic fT> Val3D(const Val3D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), y(SCAST(v.z)) {}
@@ -35,11 +36,7 @@ struct Val3D {
 	}
 
 #define OPERATOR_BASE(type)\
-	template<IsArithmetic fT> Val3D &operator##type##=(const Val3D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; this->z ##type##= v.z; return *this; }\
-	template<IsArithmetic fT> Val3D &operator##type##=(Val3D<fT> &&v) { this->x ##type##= v.x; this->y ##type##= v.y; this->z ##type##= v.z;  return *this; }\
-	\
-	template<IsArithmetic fT> Val3D &operator##type##=(const fT &v) { this->x ##type##= v; this->y ##type##= v; this->z ##type##= v; return *this; }\
-	template<IsArithmetic fT> Val3D &operator##type##=(fT &&v) { this->x ##type##= v; this->y ##type##= v; this->z ##type##= v; return *this; }
+	template<IsArithmetic fT> Val3D &operator##type##=(const Val3D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; this->z ##type##= v.z; return *this; }
 
 	OPERATOR_BASE(+);
 	OPERATOR_BASE(-);
@@ -47,6 +44,8 @@ struct Val3D {
 	OPERATOR_BASE(/ );
 
 };
+
+COMPARE_OPERATOR_BASE(Val3D, lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z);
 
 TEMPLATE_OPERATOR_BASE(Val3D, +);
 TEMPLATE_OPERATOR_BASE(Val3D, -);

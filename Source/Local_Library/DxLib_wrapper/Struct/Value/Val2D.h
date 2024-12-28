@@ -9,6 +9,7 @@ template<IsArithmetic T>
 struct Val2D {
 
 	Val2D() : x(0), y(0) {}
+	Val2D(T _all) : x(_all), y(_all) {}
 	Val2D(T _x, T _y) : x(_x), y(_y) {}
 	Val2D(const std::complex<T> &_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
 	Val2D(std::complex<T> &&_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
@@ -37,11 +38,7 @@ struct Val2D {
 	}
 
 #define OPERATOR_BASE(type)\
-	template<IsArithmetic fT> Val2D &operator##type##=(const Val2D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }\
-	template<IsArithmetic fT> Val2D &operator##type##=(Val2D<fT> &&v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }\
-	\
-	template<IsArithmetic fT> Val2D &operator##type##=(const fT &v) { this->x ##type##= v; this->y ##type##= v; return *this; }\
-	template<IsArithmetic fT> Val2D &operator##type##=(fT &&v) { this->x ##type##= v; this->y ##type##= v; return *this; }
+	template<IsArithmetic fT> Val2D &operator##type##=(const Val2D<fT> &v) { this->x ##type##= v.x; this->y ##type##= v.y; return *this; }
 
 	OPERATOR_BASE(+);
 	OPERATOR_BASE(-);
@@ -49,6 +46,8 @@ struct Val2D {
 	OPERATOR_BASE(/ );
 
 };
+
+COMPARE_OPERATOR_BASE(Val2D, lhs.x < rhs.x && lhs.y < rhs.y);
 
 TEMPLATE_OPERATOR_BASE(Val2D, +);
 TEMPLATE_OPERATOR_BASE(Val2D, -);

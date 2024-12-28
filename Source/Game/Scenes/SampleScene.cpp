@@ -67,7 +67,7 @@ void SampleScene::Draw() {
 	Color4 c1{0x00ff0000};
 	Color4 c2{0x0000ff00};
 	Color4 c3{0x000000ff};
-	Color4 c4{0x00ffffff};
+	Color4 c4{0x00000000};
 	
 	p1 = rotatevector[0] * p1.x + rotatevector[1] * p1.y;
 	p2 = rotatevector[0] * p2.x + rotatevector[1] * p2.y;

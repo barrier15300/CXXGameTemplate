@@ -278,7 +278,6 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Graph.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\JsonHelper.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Rect2D.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\StructHelper.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val2D.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val3D.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Value.h" />
