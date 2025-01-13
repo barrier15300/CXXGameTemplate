@@ -5,7 +5,14 @@ struct GraphData : public DXHandle<DXHandleType::Graph> {
 
 	using DXHandle::DXHandle;
 
-	bool Create(const std::string &path, bool alpha = true) {
+	bool Create(const std::string &path) {
+
+		*this = LoadGraph(path.c_str());
+
+		return true;
+	}
+	
+	bool Create(const std::string &path, bool alpha) {
 
 		*this = LoadGraph(path.c_str());
 		Alpha = alpha;
@@ -37,9 +44,9 @@ struct GraphData : public DXHandle<DXHandleType::Graph> {
 
 	Val2D<int> Size{};
 	bool Alpha = true;
-	
+
 private:
 	int InitImpl() {
-		DeleteGraph(m_Handle);
+		DeleteGraph(*this);
 	}
 };

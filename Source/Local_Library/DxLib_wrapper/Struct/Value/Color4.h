@@ -32,14 +32,14 @@ struct Color4 {
 			ret = fmt::format("#{:0>8X}", hexcolor);
 		}
 		else {
-			ret = fmt::format("{}{:>{}}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), 3, '}');
+			ret = fmt::format("{}{:>3}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), '}');
 		}
 		return ret;
 	}
 };
 
 TO_JSON(, Color4, {
-	j = nlohmann::json{v.r, v.g, v.b};
+	j = nlohmann::json{v.r, v.g, v.b, v.a};
 		});
 
 FROM_JSON(, Color4, {

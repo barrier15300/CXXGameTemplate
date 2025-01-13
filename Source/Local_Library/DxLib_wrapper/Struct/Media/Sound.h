@@ -12,6 +12,13 @@ struct SoundData : public DXHandle<DXHandleType::Sound> {
 		Stream = DX_SOUNDDATATYPE_FILE,
 	};
 
+	bool Create(const std::string &path) {
+
+		*this = LoadSoundMem(path.c_str());
+
+		return true;
+	}
+
 	bool Create(const std::string &path, int buffernum = 3) {
 
 		*this = LoadSoundMem(path.c_str(), buffernum);

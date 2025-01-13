@@ -167,6 +167,12 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\_structhelper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\MV1.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color32.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

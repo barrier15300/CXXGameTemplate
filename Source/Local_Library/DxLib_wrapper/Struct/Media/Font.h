@@ -5,8 +5,9 @@ struct FontData : public DXHandle<DXHandleType::Font> {
 
 	using DXHandle::DXHandle;
 
-	void Create() {
+	bool Create(const std::string &path) {
 
+		return true;
 	}
 
 	

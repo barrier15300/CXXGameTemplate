@@ -32,7 +32,7 @@ struct Color3 {
 			ret = fmt::format("#{:0>6X}", hexcolor);
 		}
 		else {
-			ret = fmt::format("{}{:>{}}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), 3, '}');
+			ret = fmt::format("{}{:>3}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), '}');
 		}
 		return ret;
 	}

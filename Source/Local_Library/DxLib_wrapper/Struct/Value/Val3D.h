@@ -31,6 +31,22 @@ struct Val3D {
 		return ret;
 	}
 
+	operator VECTOR() const {
+		union {
+			Val3D<float> temp = Val3D<float>(*this);
+			VECTOR ret;
+		};
+		return ret;
+	}
+
+	operator VECTOR_D() const {
+		union {
+			Val3D<double> temp = Val3D<double>(*this);
+			VECTOR ret;
+		};
+		return ret;
+	}
+
 	std::string ToString(int spacewidth = 4, int digit = 6) {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}

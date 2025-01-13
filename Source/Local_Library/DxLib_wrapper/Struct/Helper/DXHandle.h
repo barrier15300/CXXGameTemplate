@@ -47,10 +47,36 @@ struct DXHandle {
 		return GetUsingHandleCount() - GetLimitHandleCount();
 	}
 
-	void Init() { InitImpl(); m_Handle = -1; }
+	virtual bool Create(const std::string &) = 0;
+	void Init() { InitImpl(); *this = -1; }
 
 protected:
 	virtual int InitImpl() = 0;
+
+
+	int m_Handle = -1;
+};
+
+template<>
+struct DXHandle<DXHandleType::None> {
+
+	DXHandle(): m_Handle(-1) {}
+	DXHandle(int from): m_Handle(from) {}
+	~DXHandle() {
+		Init();
+	};
+
+	operator const int() const {
+		return m_Handle;
+	}
+
+private:
+	virtual bool Create(const std::string &) {};
+	void Init() {
+		InitImpl(); *this = -1;
+	}
+
+	virtual int InitImpl() {};
 
 	int m_Handle = -1;
 };
