@@ -17,10 +17,9 @@ public:
 	//SoundData Don;
 	//SoundData Ka;
 	Val2D<int> size = {80, 80};
+	Val2D<double> p1{160, 360}, p2{1120, 360};
 	Asset::Value<Val2D<float>, "Sample/DrawPos"> pos{{}};
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	Timer timer;
-	Timer inputtimer[4]{};
-	InputState input{};
 };

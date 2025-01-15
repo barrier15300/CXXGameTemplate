@@ -9,23 +9,29 @@ struct SoundData : public DXHandle<DXHandleType::Sound> {
 		Stable = DX_SOUNDDATATYPE_MEMNOPRESS,
 		DataStreamPlus = DX_SOUNDDATATYPE_MEMNOPRESS_PLUS,
 		DataStream = DX_SOUNDDATATYPE_MEMPRESS,
-		Stream = DX_SOUNDDATATYPE_FILE,
+		FileStream = DX_SOUNDDATATYPE_FILE,
 	};
 
+	/// 
+	/// Data Create
+	/// 
 	bool Create(const std::string &path) {
 
 		*this = LoadSoundMem(path.c_str());
 
-		return true;
+		return !IsNull();
 	}
 
-	bool Create(const std::string &path, int buffernum = 3) {
+	bool Create(const std::string &path, int buffernum) {
 
 		*this = LoadSoundMem(path.c_str(), buffernum);
 
-		return true;
+		return !IsNull();
 	}
 
+	/// 
+	/// Data Use
+	/// 
 	void Play() {
 		PlaySoundMem(m_Handle, DX_PLAYTYPE_BACK, TopPositionPlay);
 	}
@@ -42,6 +48,9 @@ struct SoundData : public DXHandle<DXHandleType::Sound> {
 		SetVolumeSoundMem(std::log(1 + (pal / 10)) * 10000, m_Handle);
 	}
 
+	/// 
+	/// Base Data
+	/// 
 	static void SetDataType(DataType type) {
 		SetCreateSoundDataType(static_cast<int>(type));
 	}

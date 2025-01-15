@@ -33,6 +33,16 @@ struct Rect3D {
 		};
 	};
 
+	template<IsArithmetic fT>
+	bool InRect(const Val3D<fT>& pos) {
+		Rect3D<fT> rect = {
+			std::min(this->p1.x, this->p2.x), std::max(this->p1.x, this->p1.x),
+			std::min(this->p1.y, this->p2.y), std::max(this->p1.y, this->p1.y),
+			std::min(this->p1.z, this->p2.z), std::max(this->p1.z, this->p1.z)
+		};
+		return rect.p1 <= pos && rect.p2 >= pos;
+	}
+
 	std::string ToString(int digit = 6) {
 		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}

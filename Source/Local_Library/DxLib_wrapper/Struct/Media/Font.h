@@ -1,6 +1,9 @@
 #pragma once
 #include "../Helper/DXHandle.h"
 
+/// <summary>
+/// TODO: Implementation Now
+/// </summary>
 struct FontData : public DXHandle<DXHandleType::Font> {
 
 	using DXHandle::DXHandle;

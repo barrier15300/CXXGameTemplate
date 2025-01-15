@@ -9,7 +9,7 @@ struct GraphData : public DXHandle<DXHandleType::Graph> {
 
 		*this = LoadGraph(path.c_str());
 
-		return true;
+		return !IsNull();
 	}
 	
 	bool Create(const std::string &path, bool alpha) {
@@ -17,7 +17,7 @@ struct GraphData : public DXHandle<DXHandleType::Graph> {
 		*this = LoadGraph(path.c_str());
 		Alpha = alpha;
 
-		return true;
+		return !IsNull();
 	}
 	
 	template<class T>

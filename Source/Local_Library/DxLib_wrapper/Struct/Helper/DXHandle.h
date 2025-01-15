@@ -29,7 +29,7 @@ enum class DXHandleType : int {
 template<DXHandleType handletype>
 struct DXHandle {
 
-	DXHandle() : m_Handle(-1) {}
+	DXHandle() : m_Handle(HandleNull) {}
 	DXHandle(int from) : m_Handle(from) {}
 	~DXHandle() { Init(); };
 
@@ -48,13 +48,18 @@ struct DXHandle {
 	}
 
 	virtual bool Create(const std::string &) = 0;
-	void Init() { InitImpl(); *this = -1; }
+	void Init() { InitImpl(); m_Handle = HandleNull; }
 
 protected:
 	virtual int InitImpl() = 0;
 
+	bool IsNull() {
+		return m_Handle == HandleNull;
+	}
 
-	int m_Handle = -1;
+	int m_Handle = HandleNull;
+
+	inline static const int HandleNull = -1;
 };
 
 template<>

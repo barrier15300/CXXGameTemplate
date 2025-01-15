@@ -10,7 +10,7 @@ struct MV1Data: public DXHandle<DXHandleType::Model> {
 
 		*this = MV1LoadModel(path.c_str());
 		
-		return true;
+		return !IsNull();
 	}
 
 	void Draw() {

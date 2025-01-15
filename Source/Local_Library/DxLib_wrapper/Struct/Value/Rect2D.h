@@ -43,7 +43,11 @@ struct Rect2D {
 
 	template<IsArithmetic fT>
 	bool InRect(const Val2D<fT>& pos) {
-		return p1 < pos && p2 > pos;
+		Rect2D<fT> rect = {
+			std::min(this->p1.x, this->p2.x), std::max(this->p1.x, this->p1.x),
+			std::min(this->p1.y, this->p2.y), std::max(this->p1.y, this->p1.y)
+		};
+		return rect.p1 <= pos && rect.p2 >= pos;
 	}
 
 	std::string ToString(int digit = 6) {

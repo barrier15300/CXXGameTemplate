@@ -123,8 +123,15 @@ public:
 		if (name.empty()) {
 			return;
 		}
+
+		auto it = m_RegistObjects.find(name);
+		if (it == m_RegistObjects.end()) {
+			throw std::runtime_error("Object name not found: " + name);
+		}
+
 		if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); }
-		m_NowObject.reset(m_RegistObjects[name]());
+		
+		m_NowObject.reset(it->second());
 		m_NowObject->Invoke_Init();
 	}
 

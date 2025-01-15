@@ -36,10 +36,16 @@ namespace Storage {
 		void Read() {
 			ifs.open(_filepath);
 			if (!ifs.is_open()) {
+				// No Touch
 				return;
 			}
 
-			ifs >> Data;
+			try {
+				ifs >> Data;
+			}
+			catch (const std::exception &e) {
+				return;
+			}
 
 			ifs.close();
 		}
@@ -59,35 +65,45 @@ namespace Storage {
 			ofs.close();
 		}
 
-		template<ValueType _type>
-		auto &keyfind(const std::string &keyname, const _type &defaultval = _type()) {
-			auto *accessdata = &Data;
-			auto keys = split(keyname, '/');
+		auto* TraverseToKey(const std::vector<std::string> &keys) {
+			auto *data = &Data;
 
-			for (size_t i = 0, size = keys.size() - 1; i < size; ++i) {
+			for(size_t i = 0; i < keys.size() - 1; ++i) {
+			
 				auto &key = keys[i];
-				if (accessdata->find(key) == accessdata->end()) {
-					(*accessdata)[key] = nlohmann::json{};
+				
+				if (data->find(key) == data->end()) {
+					(*data)[key] = nlohmann::json{};
 				}
-				accessdata = &(*accessdata)[key];
+				data = &(*data)[key];
 			}
+			
+			return data;
+		}
+
+		template<ValueType _type>
+		auto &KeyFind(const std::string &keyname, const _type &defaultval = _type()) {
+			auto *accessdata = &Data;
+			const auto keys = split(keyname, '/');
+
+			auto* target = TraverseToKey(keys);
 
 			auto &key = keys.back();
-			if (accessdata->find(key) == accessdata->end()) {
-				(*accessdata)[key] = defaultval;
+			if (target->find(key) == target->end()) {
+				(*target)[key] = defaultval;
 			}
 
-			return (*accessdata)[key];
+			return (*target)[key];
 		}
 
 		template<ValueType _type>
 		_type Get(const std::string &keyname, const _type &defaultval = _type()) {
-			return keyfind(keyname, defaultval).get<_type>();
+			return KeyFind(keyname, defaultval).get<_type>();
 		}
 
 		template<ValueType _type>
 		void Set(const std::string &keyname, const _type &setval) {
-			keyfind<_type>(keyname) = setval;
+			KeyFind<_type>(keyname) = setval;
 		}
 	};
 
