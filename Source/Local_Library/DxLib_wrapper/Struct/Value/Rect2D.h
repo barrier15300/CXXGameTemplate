@@ -33,24 +33,25 @@ struct Rect2D {
 		};
 	};
 
-	explicit operator RECT() const {
+	operator RECT() const {
 		union {
-			Rect2D<LONG> temp = Rect2D<LONG>(*this);
+			Rect2D<LONG> temp{};
 			RECT ret;
 		};
+		temp = *this;
 		return ret;
 	}
 
 	template<IsArithmetic fT>
 	bool InRect(const Val2D<fT>& pos) {
 		Rect2D<fT> rect = {
-			std::min(this->p1.x, this->p2.x), std::max(this->p1.x, this->p1.x),
-			std::min(this->p1.y, this->p2.y), std::max(this->p1.y, this->p1.y)
+			min(this->p1.x, this->p2.x), max(this->p1.x, this->p1.x),
+			min(this->p1.y, this->p2.y), max(this->p1.y, this->p1.y)
 		};
 		return rect.p1 <= pos && rect.p2 >= pos;
 	}
 
-	std::string ToString(int digit = 6) {
+	std::string ToString(int digit = 6) const {
 		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}
 

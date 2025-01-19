@@ -4,6 +4,7 @@
 #include "Struct/Input/Input.h"
 #include "Struct/Media/Graph.h"
 #include "Struct/Media/Sound.h"
+#include "Struct/Media/MV1.h"
 #include "Struct/System/SoundDevice.h"
 #include "Struct/System/System.h"
 #include "Struct/System/Timer.h"

@@ -4,7 +4,7 @@
 /// <summary>
 /// TODO: Implementation Now
 /// </summary>
-struct FontData : public DXHandle<DXHandleType::Font> {
+struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 
 	using DXHandle::DXHandle;
 
@@ -16,8 +16,4 @@ struct FontData : public DXHandle<DXHandleType::Font> {
 	
 
 
-private:
-	int InitImpl() {
-		DeleteFontToHandle(m_Handle);
-	}
 };

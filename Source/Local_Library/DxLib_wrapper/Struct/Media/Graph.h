@@ -1,7 +1,7 @@
 #pragma once
 #include "../Helper/DXHandle.h"
 
-struct GraphData : public DXHandle<DXHandleType::Graph> {
+struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	using DXHandle::DXHandle;
 
@@ -44,9 +44,4 @@ struct GraphData : public DXHandle<DXHandleType::Graph> {
 
 	Val2D<int> Size{};
 	bool Alpha = true;
-
-private:
-	int InitImpl() {
-		DeleteGraph(*this);
-	}
 };

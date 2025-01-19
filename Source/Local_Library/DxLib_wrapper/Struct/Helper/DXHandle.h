@@ -26,12 +26,14 @@ enum class DXHandleType : int {
 	HandleTypeCount
 };
 
-template<DXHandleType handletype>
+template<DXHandleType handletype, int (*deleter)(int) = nullptr>
 struct DXHandle {
 
-	DXHandle() : m_Handle(HandleNull) {}
-	DXHandle(int from) : m_Handle(from) {}
-	~DXHandle() { Init(); };
+	DXHandle(): m_Handle(HandleNull) { }
+	DXHandle(int from): m_Handle(from) { }
+	~DXHandle() {
+		Init();
+	};
 
 	operator const int() const {
 		return m_Handle;
@@ -48,16 +50,18 @@ struct DXHandle {
 	}
 
 	virtual bool Create(const std::string &) = 0;
-	void Init() { InitImpl(); m_Handle = HandleNull; }
+	void Init() {
+		deleter(*this);
+		m_Handle = HandleNull;
+	}
 
 protected:
-	virtual int InitImpl() = 0;
 
 	bool IsNull() {
 		return m_Handle == HandleNull;
 	}
 
-	int m_Handle = HandleNull;
+	int m_Handle;
 
 	inline static const int HandleNull = -1;
 };
@@ -65,23 +69,14 @@ protected:
 template<>
 struct DXHandle<DXHandleType::None> {
 
-	DXHandle(): m_Handle(-1) {}
-	DXHandle(int from): m_Handle(from) {}
-	~DXHandle() {
-		Init();
-	};
-
+	DXHandle() : m_Handle(HandleNull) { }
+	DXHandle(int from) : m_Handle(from) { }
 	operator const int() const {
 		return m_Handle;
 	}
 
-private:
-	virtual bool Create(const std::string &) {};
-	void Init() {
-		InitImpl(); *this = -1;
-	}
+protected:
+	int m_Handle;
 
-	virtual int InitImpl() {};
-
-	int m_Handle = -1;
+	inline static const int HandleNull = -1;
 };

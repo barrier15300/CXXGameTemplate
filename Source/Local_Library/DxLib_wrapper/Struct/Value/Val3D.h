@@ -49,17 +49,19 @@ struct Val3D {
 
 	operator VECTOR() const {
 		union {
-			Val3D<float> temp = Val3D<float>(*this);
+			Val3D<float> temp{};
 			VECTOR ret;
 		};
+		temp = *this;
 		return ret;
 	}
 
 	operator VECTOR_D() const {
 		union {
-			Val3D<double> temp = Val3D<double>(*this);
-			VECTOR ret;
+			Val3D<double> temp{};
+			VECTOR_D ret;
 		};
+		temp = *this;
 		return ret;
 	}
 
@@ -114,7 +116,7 @@ struct Val3D {
 	/// debug
 	/// </summary>
 
-	std::string ToString(int spacewidth = 4, int digit = 6) {
+	std::string ToString(int spacewidth = 4, int digit = 6) const {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 

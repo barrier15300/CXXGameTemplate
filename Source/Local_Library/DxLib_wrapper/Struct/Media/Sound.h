@@ -1,7 +1,7 @@
 #pragma once
 #include "../Helper/DXHandle.h"
 
-struct SoundData : public DXHandle<DXHandleType::Sound> {
+struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 
 	using DXHandle::DXHandle;
 
@@ -58,7 +58,7 @@ struct SoundData : public DXHandle<DXHandleType::Sound> {
 	bool TopPositionPlay = false;
 
 private:
-	int InitImpl() {
+	void InitImpl() {
 		DeleteSoundMem(m_Handle);
 	}
 };

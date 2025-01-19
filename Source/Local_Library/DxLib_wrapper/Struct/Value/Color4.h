@@ -26,7 +26,7 @@ struct Color4 {
 		unsigned int hexcolor;
 	};
 
-	std::string ToString(bool hex = true) {
+	std::string ToString(bool hex = true) const {
 		std::string ret;
 		if (hex) {
 			ret = fmt::format("#{:0>8X}", hexcolor);

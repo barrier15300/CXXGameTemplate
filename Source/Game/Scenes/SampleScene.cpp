@@ -3,6 +3,7 @@
 bool SampleScene::Init() {
 	//Don.Create(Donfilepath);
 	//Ka.Create(Kafilepath);
+	model.Create("");
 	return true;
 }
 
@@ -29,7 +30,7 @@ void SampleScene::Proc() {
 	//	Ka.Play();
 	//}
 
-	if (timer.Elapsed().Second() > 3) {
+	if (timer.Elapsed().Second() > 1) {
 		timer.Reset();
 	}
 	if (Input.Keyboard()[Keys::Left].Down()) {
@@ -41,6 +42,9 @@ void SampleScene::Proc() {
 	if (Input.Keyboard()[Keys::Right].Down()) {
 		timer.Reset();
 	}
+	if (Input.Keyboard()[Keys::Up].Down()) {
+		model.Settings().Position({1,1,1});
+	}
 
 	return;
 }
@@ -48,7 +52,24 @@ void SampleScene::Proc() {
 void SampleScene::Draw() {
 	
 	Val2D<double> size{80, 80};
-	Val2D pos = Val2D<double>::Lerp(p1, p2, timer.Elapsed().Second());
+	Val2D pos = Val2D<double>::Lerp(p1, p2, timer.Elapsed().FrameTime());
+	
+	DrawBoxAA(
+		p1.x - size.x / 2,
+		p1.y - size.y / 2,
+		p1.x + size.x / 2,
+		p1.y + size.y / 2,
+		Color3{255, 255, 255},
+		TRUE
+	);
+	DrawBoxAA(
+		p2.x - size.x / 2,
+		p2.y - size.y / 2,
+		p2.x + size.x / 2,
+		p2.y + size.y / 2,
+		Color3{255, 255, 255},
+		TRUE
+	);
 	DrawBoxAA(
 		pos.x - size.x / 2,
 		pos.y - size.y / 2,
@@ -57,6 +78,8 @@ void SampleScene::Draw() {
 		Color3{255, 255, 255},
 		TRUE
 	);
+
+	DrawFormatString(0,0,Color3{255,255,255},"%s", model.Pos->ToString().c_str());
 
 	return;
 }

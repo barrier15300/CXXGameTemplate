@@ -9,6 +9,8 @@
 
 #include "Local_Library/template_type.h"
 
+#define POINTER_GETTER(T, name) const T *name = &m_##name
+
 #define SCAST(x) static_cast<T>(x)
 
 #define TEMPLATE_OPERATOR_BASE(t, type)\

@@ -260,7 +260,7 @@
     <ClInclude Include="Source\Local_Library\DataStorage.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\MV1.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color32.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4F.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Geometry.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Polygon.h" />

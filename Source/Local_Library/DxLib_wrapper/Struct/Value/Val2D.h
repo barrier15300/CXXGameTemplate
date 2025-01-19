@@ -96,7 +96,7 @@ struct Val2D {
 	/// debug
 	/// </summary>
 
-	std::string ToString(int spacewidth = 4, int digit = 6) {
+	std::string ToString(int spacewidth = 4, int digit = 6) const {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 
