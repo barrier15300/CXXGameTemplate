@@ -9,7 +9,7 @@
 
 #include "Local_Library/template_type.h"
 
-#define POINTER_GETTER(T, name) const T *name = &m_##name
+#define FUNC_GETTER(T, name) const T& name() const { return m_##name; }
 
 #define SCAST(x) static_cast<T>(x)
 

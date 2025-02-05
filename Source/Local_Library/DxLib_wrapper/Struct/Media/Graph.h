@@ -1,5 +1,6 @@
 #pragma once
-#include "../Helper/DXHandle.h"
+#include "../Helper/Helper.h"
+#include "../Value/Value.h"
 
 struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
@@ -7,41 +8,72 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	bool Create(const std::string &path) {
 
-		*this = LoadGraph(path.c_str());
+		Init(
+			LoadGraph(path.c_str())
+		);
 
 		return !IsNull();
 	}
 	
 	bool Create(const std::string &path, bool alpha) {
 
-		*this = LoadGraph(path.c_str());
+		Init(
+			LoadGraph(path.c_str())
+		);
 		Alpha = alpha;
 
 		return !IsNull();
 	}
+
+	bool Create(Val2D<int> size, bool alpha) {
+		Alpha = alpha;
+		Size = size;
+		Init(
+			MakeScreen(Size.x, Size.y, Alpha)
+		);
+		return !IsNull();
+	}
 	
-	template<class T>
-	void Draw(const Val2D<T> &pos) {
-		DrawGraphF(
-			static_cast<float>(pos.x),
-			static_cast<float>(pos.y),
+	void Draw(const Val2D<int> &pos) const {
+		DrawGraph(
+			pos.x,
+			pos.y,
 			*this,
 			Alpha
 		);
 	}
 
-	template<class T>
-	void Draw(const Rect2D<T> &rect) {
+	void Draw(const Val2D<float> &pos) const {
+		DrawGraphF(
+			pos.x,
+			pos.y,
+			*this,
+			Alpha
+		);
+	}
+
+	void Draw(const Rect2D<int> &rect) const {
+		DrawExtendGraph(
+			rect.x,
+			rect.y,
+			rect.w,
+			rect.h,
+			*this,
+			Alpha
+		);
+	}
+
+	void Draw(const Rect2D<float> &rect) const {
 		DrawExtendGraphF(
-			static_cast<float>(rect.x),
-			static_cast<float>(rect.y),
-			static_cast<float>(rect.w),
-			static_cast<float>(rect.h),
+			rect.x,
+			rect.y,
+			rect.w,
+			rect.h,
 			*this,
 			Alpha
 		);
 	}
 
 	Val2D<int> Size{};
-	bool Alpha = true;
+	bool Alpha = false;
 };

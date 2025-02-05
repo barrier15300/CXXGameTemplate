@@ -32,9 +32,9 @@ public:
 	DxLibSystem &WindowIcon(				int id)							{ SetWindowIconID(id); return *this; }
 	DxLibSystem &WindowSizeChangeFlag(		bool flag)						{ SetWindowSizeChangeEnableFlag(flag); return *this; }
 	DxLibSystem &WindowExtendRate(			const Val2D<double> &size)		{ SetWindowSizeExtendRate(size.x, size.y); return *this; }
-	DxLibSystem &WindowSize(				const Val2D<int> &size)		{ SetWindowSize(size.x, size.y); return *this; }
-	DxLibSystem &WindowMaxSize(				const Val2D<int> &size)		{ SetWindowMaxSize(size.x, size.y); return *this; }
-	DxLibSystem &WindowMinSize(				const Val2D<int> &size)		{ SetWindowMinSize(size.x, size.y); return *this; }
+	DxLibSystem &WindowSize(				const Val2D<int> &size)			{ SetWindowSize(size.x, size.y); return *this; }
+	DxLibSystem &WindowMaxSize(				const Val2D<int> &size)			{ SetWindowMaxSize(size.x, size.y); return *this; }
+	DxLibSystem &WindowMinSize(				const Val2D<int> &size)			{ SetWindowMinSize(size.x, size.y); return *this; }
 	DxLibSystem &WindowPos(					const Val2D<int> &pos)			{ SetWindowPosition(pos.x, pos.y); return *this; }
 	DxLibSystem &SysCommandOffFlag(			bool flag)						{ SetSysCommandOffFlag(flag); return *this; }
 	DxLibSystem &HookWndproc(				WNDPROC wndproc)				{ SetHookWinProc(wndproc); return *this; }

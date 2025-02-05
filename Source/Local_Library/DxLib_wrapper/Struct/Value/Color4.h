@@ -9,6 +9,12 @@ struct Color4 {
 	Color4() : a(0), r(0), g(0), b(0) {}
 	Color4(int _r, int _g, int _b, int _a) : a(_a), r(_r), g(_g), b(_b) {}
 	Color4(unsigned int color) : hexcolor(color) {}
+	Color4(const COLOR_U8& from) {
+		r = from.r;
+		g = from.g;
+		b = from.b;
+		a = from.a;
+	}
 
 	operator unsigned int() const {
 		return hexcolor;

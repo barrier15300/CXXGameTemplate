@@ -26,11 +26,12 @@ enum class DXHandleType : int {
 	HandleTypeCount
 };
 
-template<DXHandleType handletype, int (*deleter)(int) = nullptr>
+static int __nowork_deleter_func(int) { return 0; }
+template<DXHandleType handletype = DXHandleType::None,int (*deleter_func)(int) = __nowork_deleter_func>
 struct DXHandle {
 
-	DXHandle(): m_Handle(HandleNull) { }
-	DXHandle(int from): m_Handle(from) { }
+	DXHandle() : m_Handle(HandleNull) { }
+	//DXHandle(int from): m_Handle(from) { }
 	~DXHandle() {
 		Init();
 	};
@@ -46,14 +47,15 @@ struct DXHandle {
 		return GetHandleNum(static_cast<int>(handletype));
 	}
 	int GetAvaliableCount() const {
-		return GetUsingHandleCount() - GetLimitHandleCount();
+		return GetLimitHandleCount() - GetUsingHandleCount();
 	}
 
-	virtual bool Create(const std::string &) = 0;
-	void Init() {
-		deleter(*this);
-		m_Handle = HandleNull;
+	void Init(int from = HandleNull) {
+		deleter_func(*this);
+		m_Handle = from;
 	}
+
+	inline static const int HandleNull = -1;
 
 protected:
 
@@ -62,8 +64,6 @@ protected:
 	}
 
 	int m_Handle;
-
-	inline static const int HandleNull = -1;
 };
 
 template<>
@@ -75,8 +75,9 @@ struct DXHandle<DXHandleType::None> {
 		return m_Handle;
 	}
 
-protected:
-	int m_Handle;
-
 	inline static const int HandleNull = -1;
+
+protected:
+
+	int m_Handle;
 };

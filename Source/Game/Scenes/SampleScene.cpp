@@ -1,9 +1,17 @@
 #include "SampleScene.h"
 
 bool SampleScene::Init() {
-	//Don.Create(Donfilepath);
-	//Ka.Create(Kafilepath);
-	model.Create("");
+	
+	//screen.Create({1280,720}, TRUE);
+	screen.Create({1280,720}, TRUE, 4, 4);
+	
+	screen.ScreenDraw(
+		[&]() {
+		IndexedVertex2D iv = Vertex::Factory2D::RectAngle({400,400},{200,200},{255,255,255,255});
+		iv.Draw();
+	}
+	);
+
 	return true;
 }
 
@@ -50,37 +58,9 @@ void SampleScene::Proc() {
 }
 
 void SampleScene::Draw() {
-	
-	Val2D<double> size{80, 80};
-	Val2D pos = Val2D<double>::Lerp(p1, p2, timer.Elapsed().FrameTime());
-	
-	DrawBoxAA(
-		p1.x - size.x / 2,
-		p1.y - size.y / 2,
-		p1.x + size.x / 2,
-		p1.y + size.y / 2,
-		Color3{255, 255, 255},
-		TRUE
-	);
-	DrawBoxAA(
-		p2.x - size.x / 2,
-		p2.y - size.y / 2,
-		p2.x + size.x / 2,
-		p2.y + size.y / 2,
-		Color3{255, 255, 255},
-		TRUE
-	);
-	DrawBoxAA(
-		pos.x - size.x / 2,
-		pos.y - size.y / 2,
-		pos.x + size.x / 2,
-		pos.y + size.y / 2,
-		Color3{255, 255, 255},
-		TRUE
-	);
 
-	DrawFormatString(0,0,Color3{255,255,255},"%s", model.Pos->ToString().c_str());
-
+	screen.Draw(Val2D<int>{0,0});
+	
 	return;
 }
 

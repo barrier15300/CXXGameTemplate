@@ -1,4 +1,4 @@
 #pragma once
-#include "Polygon.h"
+#include "Vertex.h"
 #include "Square.h"
 #include "Triangle.h"

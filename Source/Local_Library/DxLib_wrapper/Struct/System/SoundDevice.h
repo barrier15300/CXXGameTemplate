@@ -1,9 +1,6 @@
 #pragma once
 #include "DxLib.h"
 
-#include <Audiopolicy.h>
-#include <MMDeviceAPI.h>
-#include <psapi.h>
 
 #include <filesystem>
 #include <memory>
@@ -12,6 +9,9 @@
 
 #pragma region MMEAPIwrapper
 
+#include <Audiopolicy.h>
+#include <MMDeviceAPI.h>
+#include <psapi.h>
 /// <summary>
 /// base code
 /// https://resemblances.click3.org/product_list/index.cgi/detail/87

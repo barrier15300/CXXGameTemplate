@@ -22,6 +22,7 @@ public:
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	Timer timer;
+	ScreenData screen;
 
 	ModelData model;
 	

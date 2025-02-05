@@ -1,5 +1,5 @@
 #pragma once
-#include "../Helper/DXHandle.h"
+#include "../Helper/Helper.h"
 
 struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 
@@ -17,14 +17,14 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 	/// 
 	bool Create(const std::string &path) {
 
-		*this = LoadSoundMem(path.c_str());
+		Init(LoadSoundMem(path.c_str()));
 
 		return !IsNull();
 	}
 
 	bool Create(const std::string &path, int buffernum) {
 
-		*this = LoadSoundMem(path.c_str(), buffernum);
+		Init(LoadSoundMem(path.c_str(), buffernum));
 
 		return !IsNull();
 	}

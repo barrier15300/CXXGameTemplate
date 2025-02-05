@@ -158,7 +158,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Triangle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Polygon.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Vertex.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4.h">
@@ -171,6 +171,18 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4F.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Screen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Window.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Screen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\Helper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

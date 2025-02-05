@@ -1,5 +1,6 @@
 #pragma once
-#include "../Helper/DXHandle.h"
+#include "../Helper/Helper.h"
+#include "../Value/Value.h"
 
 struct ModelData : DXHandle<DXHandleType::Model, MV1DeleteModel> {
 
@@ -8,7 +9,7 @@ struct ModelData : DXHandle<DXHandleType::Model, MV1DeleteModel> {
 
 	bool Create(const std::string &path) {
 		
-		*this = MV1LoadModel(path.c_str());
+		Init(MV1LoadModel(path.c_str()));
 		
 		return !IsNull();
 	}
@@ -21,15 +22,15 @@ struct ModelData : DXHandle<DXHandleType::Model, MV1DeleteModel> {
 		return _ChainSettingImpl(this);
 	}
 
-	POINTER_GETTER(Val3D<float>, Pos);
-	POINTER_GETTER(Val3D<float>, Scale);
-	POINTER_GETTER(Val3D<float>, Rotate);
-	POINTER_GETTER(bool, Visible);
-	POINTER_GETTER(Color4F, DifColor);
-	POINTER_GETTER(Color4F, SpcColor);
-	POINTER_GETTER(Color4F, EmiColor);
-	POINTER_GETTER(Color4F, AmbColor);
-	POINTER_GETTER(float, Opacity);
+	FUNC_GETTER(Val3D<float>, Pos);
+	FUNC_GETTER(Val3D<float>, Scale);
+	FUNC_GETTER(Val3D<float>, Rotate);
+	FUNC_GETTER(bool, Visible);
+	FUNC_GETTER(Color4F, DifColor);
+	FUNC_GETTER(Color4F, SpcColor);
+	FUNC_GETTER(Color4F, EmiColor);
+	FUNC_GETTER(Color4F, AmbColor);
+	FUNC_GETTER(float, Opacity);
 
 private:
 	struct _ChainSettingImpl {

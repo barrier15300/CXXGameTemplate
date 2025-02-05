@@ -70,14 +70,31 @@ struct Val2D {
 	/// <summary>
 	/// vector utility
 	/// </summary>
-	
-	double Length() const {
-		return std::sqrt(this->x * this->x + this->y * this->y);
+
+	double Dot(const Val2D<double> &v) const {
+		return x * v.x + y * v.y;
 	}
 
-	Val2D<double> Norm() const {
+	double Cross(const Val2D<double> &v) const {
+		return x * v.y - y * v.x;
+	}
+
+	double Length() const {
+		Val2D<double> v = Dot(*this);
+		return std::sqrt(v.x + v.y);
+	}
+
+	Val2D<double> Normalized() const {
 		double len = Length();
-		return Val2D<double>(x / len, y / len);
+		return *this / len;
+	}
+
+	double Angle() const {
+		return Angle({0, 0});
+	}
+
+	double Angle(const Val2D<double>& v) const {
+		return std::atan2(Cross(v), Dot(v));
 	}
 
 	/// <summary>
@@ -85,7 +102,9 @@ struct Val2D {
 	/// </summary>
 
 	static T Distance(const Val2D &a, const Val2D &b) {
-		return std::sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+		Val2D v = a - b;
+		v = v * v;
+		return std::sqrt(v.x + v.y);
 	}
 
 	static Val2D<double> Lerp(const Val2D &a, const Val2D &b, double t) {

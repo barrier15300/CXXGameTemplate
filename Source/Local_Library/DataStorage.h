@@ -4,7 +4,7 @@
 #include "nlohmann/json.hpp"
 #include "exstring.h"
 
-template<size_t Size = 1>
+template<size_t Size>
 class static_string {
 public:
 	static constexpr int length = Size - 1;
@@ -21,6 +21,8 @@ namespace Storage {
 	template<class T>
 	concept ValueType = std::is_copy_constructible_v<T>;
 
+	using namespace nlohmann;
+
 	template<static_string Filepath>
 	class __Data_sc {
 		static inline std::filesystem::path _filepath = Filepath.buf;
@@ -28,10 +30,10 @@ namespace Storage {
 		std::ofstream ofs;
 	public:
 
-		__Data_sc() { Read(); }
+		__Data_sc() { Read(); };
 		~__Data_sc() { Write(); };
 
-		nlohmann::ordered_json Data;
+		ordered_json Data;
 
 		void Read() {
 			ifs.open(_filepath);
@@ -65,15 +67,16 @@ namespace Storage {
 			ofs.close();
 		}
 
-		auto* TraverseToKey(const std::vector<std::string> &keys) {
-			auto *data = &Data;
+		ordered_json *TraverseToKey(const std::string &key) {
+			ordered_json *data = &Data;
+			const auto keys = split(key,'/');
 
-			for(size_t i = 0; i < keys.size() - 1; ++i) {
+			for(size_t i = 0; i < keys.size(); ++i) {
 			
 				auto &key = keys[i];
 				
 				if (data->find(key) == data->end()) {
-					(*data)[key] = nlohmann::json{};
+					(*data)[key] = json{};
 				}
 				data = &(*data)[key];
 			}
@@ -82,18 +85,16 @@ namespace Storage {
 		}
 
 		template<ValueType _type>
-		auto &KeyFind(const std::string &keyname, const _type &defaultval = _type()) {
-			auto *accessdata = &Data;
-			const auto keys = split(keyname, '/');
+		ordered_json &KeyFind(const std::string &keyname, const _type &defaultval = _type()) {
+			ordered_json *accessdata = &Data;
 
-			auto* target = TraverseToKey(keys);
+			ordered_json *target = TraverseToKey(keyname);
 
-			auto &key = keys.back();
-			if (target->find(key) == target->end()) {
-				(*target)[key] = defaultval;
+			if (target->empty()) {
+				(*target) = defaultval;
 			}
 
-			return (*target)[key];
+			return (*target);
 		}
 
 		template<ValueType _type>
@@ -107,24 +108,27 @@ namespace Storage {
 		}
 	};
 
-	template<static_string Filepath = static_string{"none.json"} >
+	template<class T, class fT>
+	concept FromValueType = std::constructible_from<T, fT>;
+
+	template<static_string Filepath = "none.json">
 	class Data {
 		using StorageType = Data<Filepath>;
 		using Storage_sc_Type = __Data_sc<Filepath>;
 		
 	public:
 
-		template<class T, static_string Jsonpath>
+		template<ValueType T, static_string Jsonpath>
 		struct Value {
 
 			Value(const T &defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
 			Value(T &&defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
 			~Value() { StorageType::Storage.Set(Jsonpath.buf, m_value); }
 
-			template<std::constructible_from<T> fT>
+			template<FromValueType<T> fT>
 			Value &operator=(const fT &lhs) & { m_value = lhs; return *this; }
 			
-			template<std::constructible_from<T> fT>
+			template<FromValueType<T> fT>
 			Value &operator=(fT &&lhs) & { m_value = std::move(lhs); return *this; }
 
 			operator T &() & {
@@ -140,6 +144,6 @@ namespace Storage {
 			inline static T m_value = T();
 		};
 
-		inline static __Data_sc<Filepath> Storage = __Data_sc<Filepath>();
+		inline static Storage_sc_Type Storage = Storage_sc_Type();
 	};
 }
