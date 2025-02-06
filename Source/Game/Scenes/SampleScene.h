@@ -23,6 +23,8 @@ public:
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	Timer timer;
 	ScreenData screen;
+	ScreenData Line;
+	ScreenData Mid;
 
 	ModelData model;
 	

@@ -71,37 +71,70 @@ struct Val2D {
 	/// vector utility
 	/// </summary>
 
-	double Dot(const Val2D<double> &v) const {
+	double Dot(const Val2D &v) const {
 		return x * v.x + y * v.y;
 	}
 
-	double Cross(const Val2D<double> &v) const {
+	double Cross(const Val2D &v) const {
 		return x * v.y - y * v.x;
 	}
 
 	double Length() const {
-		Val2D<double> v = Dot(*this);
-		return std::sqrt(v.x + v.y);
+		return std::sqrt(Dot(*this));
 	}
 
 	Val2D<double> Normalized() const {
-		double len = Length();
-		return *this / len;
+		return *this / Length();
 	}
 
 	double Angle() const {
-		return Angle({0, 0});
+		return std::atan2(y, x);
 	}
 
-	double Angle(const Val2D<double>& v) const {
+	double Angle(const Val2D& v) const {
 		return std::atan2(Cross(v), Dot(v));
+	}
+
+	Val2D<double> Rotate(double angle) const {
+		Val2D<double> rotatevector{sin(angle), cos(angle)};
+		return {this->Cross(rotatevector), this->Dot(rotatevector)};
 	}
 
 	/// <summary>
 	/// static utility
 	/// </summary>
 
-	static T Distance(const Val2D &a, const Val2D &b) {
+	static double Dot(const Val2D &lhs, const Val2D &rhs) {
+		return lhs.x * rhs.x + lhs.y * rhs.y;
+	}
+
+	static double Cross(const Val2D &lhs,const Val2D &rhs) {
+		return lhs.x * rhs.y - lhs.y * rhs.x;
+	}
+
+	static double Angle(const Val2D &lhs, const Val2D &rhs) {
+		return std::atan2(Cross(lhs, rhs), Dot(lhs, rhs));
+	}
+
+	static Val2D<double> Intersection(const std::pair<Val2D, Val2D> &l1, const std::pair<Val2D, Val2D> &l2) {
+		double s, t, deno = Cross(l1.second - l1.first, l2.second - l2.first);
+		Val2D<double> error{INFINITY, INFINITY};
+
+		if (deno == 0) {
+			return error;
+		}
+
+		s = Val2D::Cross(l2.first - l1.first, l2.second - l2.first) / deno;
+		t = Val2D::Cross(l1.second - l1.first, l1.first - l2.first) / deno;
+
+		if (s < 0 || 1 < s || t < 0 || 1 < t) {
+			return error;
+		}
+
+		return l1.first + s * (l1.second - l1.first);
+	}
+
+	static double Distance(const Val2D &a, const Val2D &b) {
 		Val2D v = a - b;
 		v = v * v;
 		return std::sqrt(v.x + v.y);
