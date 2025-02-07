@@ -36,7 +36,7 @@ https://dxlib.xsrv.jp/dxinfo.html
     - ScreenData (Wip)
     - FontData (未対応)
     - ModelData (未対応)
-  - 入力
+  - 入力 (少し構造的に難あり)
     - InputState // wtfなUpdate()関数がある
     - InputDevices::Keyboard // WM_KEYDOWN & WM_KEYUP式
     - inputDevices::Mouse // マウス座標の取得
