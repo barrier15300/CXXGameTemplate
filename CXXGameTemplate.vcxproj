@@ -262,7 +262,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\Helper.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\MV1.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Screen.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Screen.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Date.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Window.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4F.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4.h" />
@@ -288,7 +288,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val3D.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Value.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\System.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Timer.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Timer.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\_structhelper.h" />
     <ClInclude Include="Source\Local_Library\Easing.h" />
     <ClInclude Include="Source\Local_Library\ExMath.h" />

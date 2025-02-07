@@ -16,16 +16,15 @@ public:
 	//GraphData Graph;
 	//SoundData Don;
 	//SoundData Ka;
-	Val2D<int> size = {80, 80};
-	Val2D<double> p1{160, 360}, p2{1120, 360};
 	Asset::Value<Val2D<float>, "Sample/DrawPos"> pos{{}};
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
-	Timer timer;
 	ScreenData screen;
-	ScreenData Line;
-	ScreenData Mid;
 
-	ModelData model;
-	
+	void printFPS() {
+		auto fmtstr = fmt::format("FPS: {}",(int)GetFPS());
+		DrawBox(0,0,GetDrawStringWidth(fmtstr.c_str(),fmtstr.size()) + 16,32,Color3(16,16,16),TRUE);
+		DrawString(0,0,fmtstr.c_str(),Color3{255,255,255});
+	}
+
 };

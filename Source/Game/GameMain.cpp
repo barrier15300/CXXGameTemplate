@@ -5,6 +5,8 @@ bool Game::Init() {
 
 	SetGraphMode(ScreenSize.x, ScreenSize.y, ColorBit);
 
+	//SetUseBackBufferTransColorFlag(true);
+	//SetUseUpdateLayerdWindowFlag(true);
 	if (!DXSystem.
 		AlwaysRunFlag(true).
 		FullScreenFlag(System.FullScreenFlag).
@@ -19,6 +21,7 @@ bool Game::Init() {
 		Init()) {
 		return false;
 	}
+
 
 	DXSystem.SoundDevice.SetVolume(Sound.Mastar);
 

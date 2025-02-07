@@ -4,6 +4,8 @@
 
 inline byte __gotkeyinput[256]{};
 inline LRESULT CALLBACK KeyInputMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+	
+
 	switch (message) {
 		case WM_KEYDOWN:
 			__gotkeyinput[wParam] = 1;

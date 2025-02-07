@@ -6,7 +6,8 @@
 #include "Rect3D.h"
 #include "Val2D.h"
 #include "Val3D.h"
-
+#include "Timer.h"
+#include "Date.h"
 #undef SCAST
 #undef OPERATOR_BASE
 #undef TEMPLATE_OPERATOR_BASE

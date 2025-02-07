@@ -71,7 +71,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Timer.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Timer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\Easing.h">
@@ -173,9 +173,6 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4F.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Screen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -183,6 +180,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\Helper.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Date.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
