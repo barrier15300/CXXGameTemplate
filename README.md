@@ -55,3 +55,13 @@ https://dxlib.xsrv.jp/dxinfo.html
     - Window (None struct)
 
 ```
+
+# TODO: 
+
+- GUI制御
+  - シークバー
+  - ボタン
+  - テキストボックス
+  - コンボボックス
+  - ラジオボタン
+  - チェックボックス
