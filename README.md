@@ -58,6 +58,7 @@ https://dxlib.xsrv.jp/dxinfo.html
 
 # TODO: 
 
+```
 - GUI制御
   - シークバー
   - ボタン
@@ -65,3 +66,4 @@ https://dxlib.xsrv.jp/dxinfo.html
   - コンボボックス
   - ラジオボタン
   - チェックボックス
+```
