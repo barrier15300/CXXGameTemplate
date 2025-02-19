@@ -65,13 +65,13 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Input.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Input.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Timer.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Timer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\Easing.h">
@@ -92,97 +92,97 @@
     <ClInclude Include="Source\Local_Library\TextAnalizer\TextAnalizer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Keys.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Keys.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\System.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System\System.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\SoundDevice.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System\SoundDevice.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\DXHandle.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\DXHandle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Font.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Font.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Sound.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Sound.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color3.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color3.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Rect3D.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Rect3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Graph.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Graph.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\JsonHelper.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\JsonHelper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Rect2D.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Rect2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val2D.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Val2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Val3D.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Val3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Value.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Value.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\InputState.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\InputState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\DeviceBase.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\DeviceBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Keyboard.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Keyboard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Input\Mouse.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Mouse.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Local_Library\ExMath.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Geometry.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Geometry.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Square.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Square.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Triangle.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Triangle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Geometry\Vertex.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Vertex.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color4.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\_structhelper.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\_structhelper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\MV1.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\MV1.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Color4F.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color4F.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\System\Window.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System\Window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Media\Screen.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Screen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Helper\Helper.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\Helper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Struct\Value\Date.h">
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Date.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
