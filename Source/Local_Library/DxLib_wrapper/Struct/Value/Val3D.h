@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "_structhelper.h"
 
 /// <summary>
@@ -8,6 +8,8 @@
 template<IsArithmetic T>
 struct Val3D {
 
+	using value_type = T;
+
 	/// <summary>
 	/// constructor
 	/// </summary>
@@ -15,7 +17,6 @@ struct Val3D {
 	Val3D() : x(0), y(0), z(0) {}
 	Val3D(T _all) : x(_all), y(_all), z(_all) {}
 	Val3D(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
-	template<IsArithmetic fT_x, IsArithmetic fT_y, IsArithmetic fT_z> Val3D(fT_x &&_x, fT_y &&_y, fT_z &&_z) : x(SCAST(_x)), y(SCAST(_y)), z(SCAST(_z)) {};
 	template<IsArithmetic fT> Val3D(const Val3D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), y(SCAST(v.z)) {}
 	template<IsArithmetic fT> Val3D(Val3D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.z)) {}
 
@@ -27,7 +28,9 @@ struct Val3D {
 		struct {
 			T x, y, z;
 		};
-		std::array<T, 3> arr;
+		struct {
+			std::array<T, 3> arr;
+		};
 	};
 
 	/// <summary>
@@ -91,27 +94,111 @@ struct Val3D {
 	/// vector utility
 	/// </summary>
 
-	double Length() const {
-		return std::sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+#define MEMBER_SWAP_2D_s1(a, b) Val2D<T> a##b() const { return {a, b}; }
+#define MEMBER_SWAP_2D_s2(a) MEMBER_SWAP_2D_s1(a, x) MEMBER_SWAP_2D_s1(a, y) MEMBER_SWAP_2D_s1(a, z)
+#define MEMBER_SWAP_2D MEMBER_SWAP_2D_s2(x) MEMBER_SWAP_2D_s2(y) MEMBER_SWAP_2D_s2(z)
+
+	MEMBER_SWAP_2D;
+	
+#undef MEMBER_SWAP_2D_s1
+#undef MEMBER_SWAP_2D_s2
+#undef MEMBER_SWAP_2D
+
+#define MEMBER_SWAP_3D_s1(a, b, c) Val3D a##b##c() const { return {a, b, c}; }
+#define MEMBER_SWAP_3D_s2(a, b) MEMBER_SWAP_3D_s1(a, b, x) MEMBER_SWAP_3D_s1(a, b, y) MEMBER_SWAP_3D_s1(a, b, z)
+#define MEMBER_SWAP_3D_s3(a) MEMBER_SWAP_3D_s2(a, x) MEMBER_SWAP_3D_s2(a, y) MEMBER_SWAP_3D_s2(a, z)
+#define MEMBER_SWAP_3D MEMBER_SWAP_3D_s3(x) MEMBER_SWAP_3D_s3(y) MEMBER_SWAP_3D_s3(z)
+
+	MEMBER_SWAP_3D;
+	
+#undef MEMBER_SWAP_3D_s1
+#undef MEMBER_SWAP_3D_s2
+#undef MEMBER_SWAP_3D_s3
+#undef MEMBER_SWAP_3D
+	
+	T Sum() const {
+		return x + y;
 	}
 
-	Val3D<double> Norm() const {
-		double len = Length();
-		return Val3D<double>(x / len, y / len, z / len);
+	T Diff() const {
+		return x - y;
+	}
+
+	template<class fT>
+	double Dot(const Val3D<fT> &v) const {
+		return (*this * v).Sum();
+	}
+
+	template<class fT>
+	Val3D<std::common_type_t<T, fT>> Cross(const Val3D<fT> &v) const {
+		return (this->yzx() * v.zxy()).Diff();
+	}
+
+	double Length() const {
+		return std::sqrt(Dot(*this));
+	}
+
+	Val3D<double> Normalized() const {
+		return *this / Length();
+	}
+
+	double Angle() const {
+		return std::atan2(y,x);
+	}
+
+	double Angle(const Val3D& v) const {
+		return std::atan2(Cross(v),Dot(v));
+	}
+
+	Val3D<double> Rotate(double angle) const {
+		auto rotatevector = Val3D<double>{sin(angle),cos(angle)};
+		return {this->Cross(rotatevector),this->Dot(rotatevector)};
 	}
 
 	/// <summary>
 	/// static utility
 	/// </summary>
 
-	static T Distance(const Val3D &a,const Val3D &b) {
-		return std::sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
+	static double Dot(const Val3D &lhs,const Val3D &rhs) {
+		return lhs.x * rhs.x + lhs.y * rhs.y;
+	}
+
+	static double Cross(const Val3D &lhs,const Val3D &rhs) {
+		return lhs.x * rhs.y - lhs.y * rhs.x;
+	}
+
+	static double Angle(const Val3D &lhs,const Val3D &rhs) {
+		return std::atan2(Cross(lhs,rhs),Dot(lhs,rhs));
+	}
+
+	static Val2D<double> Intersection(const std::pair<Val3D,Val3D> &l1,const std::pair<Val3D,Val3D> &l2) {
+		double s,t,deno = Cross(l1.second - l1.first,l2.second - l2.first);
+		Val3D<double> error{INFINITY,INFINITY};
+
+		if(deno == 0) {
+			return error;
+		}
+
+		s = Val3D::Cross(l2.first - l1.first,l2.second - l2.first) / deno;
+		t = Val3D::Cross(l1.second - l1.first,l1.first - l2.first) / deno;
+
+		if(s < 0 || 1 < s || t < 0 || 1 < t) {
+			return error;
+		}
+
+		return l1.first + s * (l1.second - l1.first);
+	}
+
+	static double Distance(const Val3D &a,const Val3D &b) {
+		Val3D v = a - b;
+		v = v * v;
+		return std::sqrt(v.x + v.y);
 	}
 
 	static Val3D<double> Lerp(const Val3D &a,const Val3D &b,double t) {
 		return a + (b - a) * t;
 	}
-
+	
 	/// <summary>
 	/// debug
 	/// </summary>
@@ -130,6 +217,13 @@ struct Val3D {
 	OPERATOR_BASE(/ );
 
 };
+
+/// <summary>
+/// template auto compreation helper
+/// </summary>
+
+template<IsArithmetic fT1,IsArithmetic fT2,IsArithmetic fT3> Val3D(fT1,fT2,fT3) -> Val3D<std::common_type_t<fT1,fT2,fT3>>;
+
 
 COMPARE_OPERATOR_BASE(Val3D, lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z);
 

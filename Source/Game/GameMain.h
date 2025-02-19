@@ -1,10 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "../Include.hpp"
 
 class Game : public IObjectBase {
 public:
 	
-	IObjectBase* ObjectInit() { return new Game(); }
+	_NODISCARD IObjectBase* ObjectInit() { return new Game(); }
 	
 	virtual bool Init();
 	virtual void Proc();

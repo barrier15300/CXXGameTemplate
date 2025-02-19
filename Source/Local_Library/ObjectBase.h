@@ -43,8 +43,8 @@ class ObjectSwitcher;
 class IObjectBase {
 public:
 
-	inline IObjectBase();
-	virtual inline ~IObjectBase();
+	IObjectBase() = default;
+	virtual ~IObjectBase() = default;
 
 	virtual IObjectBase* ObjectInit() = 0;
 
@@ -89,6 +89,7 @@ protected:
 	DxLibSystem DXSystem;
 
 	IObjectBase* m_ParentObject = nullptr;
+
 };
 
 class ObjectSwitcher {
@@ -153,11 +154,3 @@ private:
 	std::unique_ptr<IObjectBase> m_NowObject = nullptr;
 	std::unordered_map<std::string, std::function<IObjectBase*()>> m_RegistObjects;
 };
-
-inline IObjectBase::IObjectBase() {
-
-}
-
-inline IObjectBase::~IObjectBase() {
-
-}

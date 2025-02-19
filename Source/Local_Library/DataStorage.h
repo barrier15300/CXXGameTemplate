@@ -14,7 +14,7 @@ public:
 		buf[length] = '\0';
 	}
 
-	char buf[Size]{};
+	char buf[Size];
 };
 
 namespace Storage {
@@ -69,18 +69,17 @@ namespace Storage {
 
 		ordered_json *TraverseToKey(const std::string &key) {
 			ordered_json *data = &Data;
-			const auto keys = split(key,'/');
+			const auto keys = split(key, '/');
 
-			for(size_t i = 0; i < keys.size(); ++i) {
-			
-				auto &key = keys[i];
-				
-				if (data->find(key) == data->end()) {
-					(*data)[key] = json{};
+			for (size_t i = 0; i < keys.size(); ++i) {
+				auto &currentKey = keys[i];
+
+				if (data->find(currentKey) == data->end()) {
+					(*data)[currentKey] = json{};
 				}
-				data = &(*data)[key];
+				data = &(*data)[currentKey];
 			}
-			
+
 			return data;
 		}
 
@@ -121,15 +120,15 @@ namespace Storage {
 		template<ValueType T, static_string Jsonpath>
 		struct Value {
 
-			Value(const T &defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
-			Value(T &&defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
+			explicit Value(const T &defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
+			explicit Value(T &&defaultval) { m_value = StorageType::Storage.Get<T>(Jsonpath.buf, defaultval); }
 			~Value() { StorageType::Storage.Set(Jsonpath.buf, m_value); }
 
 			template<FromValueType<T> fT>
 			Value &operator=(const fT &lhs) & { m_value = lhs; return *this; }
 			
 			template<FromValueType<T> fT>
-			Value &operator=(fT &&lhs) & { m_value = std::move(lhs); return *this; }
+            Value &operator=(fT &&lhs) & { m_value = std::forward<fT>(lhs); return *this; }
 
 			operator T &() & {
 				return m_value;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "_structhelper.h"
 
 struct DateData {
@@ -14,8 +14,12 @@ struct DateData {
 			int Min;
 			int Sec;
 		};
-		std::array<int, 6> __arr;
-		DATEDATA __datedata;
+		struct {
+			std::array<int, 6> __arr;
+		};
+		struct {
+			DATEDATA __datedata;
+		};
 	};
 
 	static DateData NowDateTime() {

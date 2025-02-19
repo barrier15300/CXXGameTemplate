@@ -11,9 +11,16 @@ class Easing {
 	Easing &operator=(const Easing &) = delete;
 	Easing &operator=(Easing &&) = delete;
 
-	static inline bool valuecheck(double &x) {
-		return x <= 0 ? (bool)(x = 0) && false : x >= 1 ? (bool)(x = 1) && false : true;
-	}
+    static inline bool valuecheck(double &x) {
+		if (x <= 0) {
+			x = 0;
+			return false;
+		} else if (x >= 1) {
+			x = 1;
+			return false;
+		}
+		return true;
+    }
 
 public:
 

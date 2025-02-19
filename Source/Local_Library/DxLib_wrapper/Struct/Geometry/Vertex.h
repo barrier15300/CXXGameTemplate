@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Media/Graph.h"
 #include "../Value/Value.h"
 
@@ -26,7 +26,7 @@ struct Vertex2D {
 
 	union {
 		Val2D<float> pos;
-		std::array<float, 3> _arr{};
+		Val3D<float> pos3D{};
 	};
 	float rhw = 1;
 	Color4 color{};

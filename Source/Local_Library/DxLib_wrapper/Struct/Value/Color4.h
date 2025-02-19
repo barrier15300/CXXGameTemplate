@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "_structhelper.h"
 
 /// <summary>
@@ -28,8 +28,12 @@ struct Color4 {
 		struct {
 			byte b, g, r, a;
 		};
-		std::array<byte, 4> arr;
-		unsigned int hexcolor;
+		struct {
+			std::array<byte, 4> arr;
+		};
+		struct {
+			unsigned int hexcolor;
+		};
 	};
 
 	std::string ToString(bool hex = true) const {

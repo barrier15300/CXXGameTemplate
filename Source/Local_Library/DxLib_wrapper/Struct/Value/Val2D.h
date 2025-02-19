@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "_structhelper.h"
 
 /// <summary>
@@ -7,6 +7,8 @@
 /// <typeparam name="T"></typeparam>
 template<IsArithmetic T>
 struct Val2D {
+
+	using value_type = T;
 
 	/// <summary>
 	/// constructor
@@ -17,7 +19,6 @@ struct Val2D {
 	Val2D(T _x, T _y) : x(_x), y(_y) {}
 	Val2D(const std::complex<T> &_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
 	Val2D(std::complex<T> &&_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
-	template<IsArithmetic fT_x, IsArithmetic fT_y> Val2D(fT_x &&_x, fT_x &&_y) : x(SCAST(_x)), y(SCAST(_y)) {};
 	template<IsArithmetic fT> Val2D(const Val2D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)) {}
 	template<IsArithmetic fT> Val2D(Val2D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.y)) {}
 
@@ -29,7 +30,9 @@ struct Val2D {
 		struct {
 			T x, y;
 		};
-		std::array<T, 2> arr;
+		struct {
+			std::array<T, 2> arr;
+		};
 	};
 
 	/// <summary>
@@ -70,13 +73,33 @@ struct Val2D {
 	/// <summary>
 	/// vector utility
 	/// </summary>
+	
+#define MEMBER_SWAP_2D_s1(a, b) Val2D a##b() const { return {a, b}; }
+#define MEMBER_SWAP_2D_s2(a) MEMBER_SWAP_2D_s1(a, x) MEMBER_SWAP_2D_s1(a, y)
+#define MEMBER_SWAP_2D MEMBER_SWAP_2D_s2(x) MEMBER_SWAP_2D_s2(y)
 
-	double Dot(const Val2D &v) const {
-		return x * v.x + y * v.y;
+	MEMBER_SWAP_2D;
+
+#undef MEMBER_SWAP_2D_s1
+#undef MEMBER_SWAP_2D_s2
+#undef MEMBER_SWAP_2D
+
+	T Sum() const {
+		return x + y;
 	}
 
-	double Cross(const Val2D &v) const {
-		return x * v.y - y * v.x;
+	T Diff() const {
+		return x - y;
+	}
+
+	template<class fT>
+	double Dot(const Val2D<fT> &v) const {
+		return (*this * v).Sum();
+	}
+
+	template<class fT>
+	double Cross(const Val2D<fT> &v) const {
+		return (*this * v.yx()).Diff();
 	}
 
 	double Length() const {
@@ -91,12 +114,13 @@ struct Val2D {
 		return std::atan2(y, x);
 	}
 
-	double Angle(const Val2D& v) const {
+	template<class fT>
+	double Angle(const Val2D<fT>& v) const {
 		return std::atan2(Cross(v), Dot(v));
 	}
 
 	Val2D<double> Rotate(double angle) const {
-		Val2D<double> rotatevector{sin(angle), cos(angle)};
+		auto rotatevector = Val2D<double>{sin(angle), cos(angle)};
 		return {this->Cross(rotatevector), this->Dot(rotatevector)};
 	}
 
@@ -116,7 +140,7 @@ struct Val2D {
 		return std::atan2(Cross(lhs, rhs), Dot(lhs, rhs));
 	}
 
-	static Val2D<double> Intersection(const std::pair<Val2D, Val2D> &l1, const std::pair<Val2D, Val2D> &l2) {
+	static Val2D<double> Intersection(const std::pair<Val2D,Val2D> &l1, const std::pair<Val2D,Val2D> &l2) {
 		double s, t, deno = Cross(l1.second - l1.first, l2.second - l2.first);
 		Val2D<double> error{INFINITY, INFINITY};
 
@@ -162,6 +186,13 @@ struct Val2D {
 	OPERATOR_BASE(/ );
 
 };
+
+/// <summary>
+/// template auto compreation helpers
+/// </summary>
+
+template<IsArithmetic fT1, IsArithmetic fT2> Val2D(fT1,fT2) -> Val2D<std::common_type_t<fT1, fT2>>;
+
 
 COMPARE_OPERATOR_BASE(Val2D, lhs.x < rhs.x && lhs.y < rhs.y);
 

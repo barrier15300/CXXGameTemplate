@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Val3D.h"
 
 /// <summary>
@@ -8,21 +8,13 @@
 template<IsArithmetic T>
 struct Rect3D {
 
+	using value_type = T;
+
 	Rect3D() : x(0), y(0), z(0), w(0), h(0), d(0) {}
 	Rect3D(T _x, T _y, T _z, T _w, T _h, T _d) : x(_x), y(_y), z(_z), w(_w), h(_h), d(_d) {}
-	template<IsArithmetic fT_x, IsArithmetic fT_y, IsArithmetic fT_z, IsArithmetic fT_w, IsArithmetic fT_h, IsArithmetic fT_d> Rect3D(fT_x &&_x, fT_y &&_y, fT_z &&_z, fT_w &&_w, fT_h &&_h, fT_d &&_d) : x(SCAST(_x)), y(SCAST(_y)), z(SCAST(_z)), w(SCAST(_w)), h(SCAST(_h)), d(SCAST(_d)) {};
+	Rect3D(Val3D<T> _p1, Val3D<T> _p2): p1(_p1),p2(_p2) {}
 	template<IsArithmetic fT> Rect3D(const Rect3D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)), w(SCAST(v.w)), h(SCAST(v.h)), d(SCAST(v.d)) {}
 	template<IsArithmetic fT> Rect3D(Rect3D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)), w(SCAST(v.w)), h(SCAST(v.h)), d(SCAST(v.d)) {}
-
-	Rect3D(const Val3D<T> &_p1, const Val3D<T> &_p2) : p1(_p1), p2(_p2) {}
-	Rect3D(Val3D<T> &&_p1, const Val3D<T> &_p2) : p1(_p1), p2(_p2) {}
-	Rect3D(const Val3D<T> &_p1, Val3D<T> &&_p2) : p1(_p1), p2(_p2) {}
-	Rect3D(Val3D<T> &&_p1, Val3D<T> &&_p2) : p1(_p1), p2(_p2) {}
-
-	template<IsArithmetic fT1, IsArithmetic fT2> Rect3D(const Val3D<fT1> &_p1, const Val3D<fT2> &_p2) : p1(_p1), p2(_p2) {}
-	template<IsArithmetic fT1, IsArithmetic fT2> Rect3D(Val3D<fT1> &&_p1, const Val3D<fT2> &_p2) : p1(_p1), p2(_p2) {}
-	template<IsArithmetic fT1, IsArithmetic fT2> Rect3D(const Val3D<fT1> &_p1, Val3D<fT2> &&_p2) : p1(_p1), p2(_p2) {}
-	template<IsArithmetic fT1, IsArithmetic fT2> Rect3D(Val3D<fT1> &&_p1, Val3D<fT2> &&_p2) : p1(_p1), p2(_p2) {}
 
 	union {
 		struct {
@@ -60,6 +52,14 @@ struct Rect3D {
 	OPERATOR_BASE(/ );
 
 };
+
+// <summary>
+/// template auto compreation helper
+/// </summary>
+
+template<IsArithmetic fT1,IsArithmetic fT2,IsArithmetic fT3,IsArithmetic fT4,IsArithmetic fT5,IsArithmetic fT6> Rect3D(fT1,fT2,fT3,fT4,fT5,fT6) -> Rect3D<std::common_type_t<fT1,fT2,fT3,fT4,fT5,fT6>>;
+template<class fT1,class fT2> Rect3D(fT1,fT2) -> Rect3D<std::common_type_t<typename fT1::value_type,typename fT2::value_type>>;
+
 
 TEMPLATE_OPERATOR_BASE(Rect3D, +);
 TEMPLATE_OPERATOR_BASE(Rect3D, -);

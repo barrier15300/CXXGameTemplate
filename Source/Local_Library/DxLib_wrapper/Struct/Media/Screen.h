@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "../Helper/Helper.h"
 #include "../Value/Value.h"
+#include "d3d11.h"
 
 struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 	
@@ -31,7 +32,7 @@ struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		SetDrawScreen(_buf);
 	}
 
-	explicit operator GraphData() const {
+	explicit operator const GraphData() const {
 		GraphData ret;
 		ret.Size = Size;
 		ret.Alpha = Alpha;
@@ -55,6 +56,20 @@ struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 			*this,
 			Alpha
 		);
+	}
+
+	bool Save(std::string_view savepath, const Rect2D<int> &rect, int compressionlevel = 2) {
+		return SUCCEEDED(SaveDrawValidGraphToPNGWithStrLen(*this,rect.x,rect.y,rect.w,rect.h,savepath.data(),savepath.size(),compressionlevel));
+	}
+
+	bool Save(std::string_view savepath, const Val2D<int>& size, int compressionlevel = 2) {
+		return Save(savepath, {{},size}, compressionlevel);
+	}
+
+	bool Save(std::string_view savepath, int compressionlevel = 2) {
+		Val2D<int> size;
+		GetGraphSize(*this, &size.x, &size.y);
+		return Save(savepath, size, compressionlevel);
 	}
 
 	Val2D<int> Size;
