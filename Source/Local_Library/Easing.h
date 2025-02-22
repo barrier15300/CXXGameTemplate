@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <cmath>
 #define PI (3.1415926535897932384626433832795028841971)
 
@@ -11,16 +11,17 @@ class Easing {
 	Easing &operator=(const Easing &) = delete;
 	Easing &operator=(Easing &&) = delete;
 
-    static inline bool valuecheck(double &x) {
+	static inline bool valuecheck(double &x) {
 		if (x <= 0) {
 			x = 0;
 			return false;
-		} else if (x >= 1) {
+		}
+		else if (x >= 1) {
 			x = 1;
 			return false;
 		}
 		return true;
-    }
+	}
 
 public:
 
@@ -135,7 +136,8 @@ public:
 						break;
 				}
 				break;
-			case Line::Back: {
+			case Line::Back:
+			{
 				const double c1 = 1.70158;
 				const double c3 = c1 + 1;
 				switch (ebt) {
@@ -147,7 +149,8 @@ public:
 						break;
 				}
 			}	break;
-			case Line::Elastic: {
+			case Line::Elastic:
+			{
 				const double c4 = 2 * PI / 3;
 				switch (ebt) {
 					case Base::In:
@@ -197,7 +200,7 @@ public:
 		return 0;
 	}
 	static inline double GetSigmoidRate(double x, const Base sbt, double a = 1) {
-		static auto sigmoidfunc = [&](double x, double a){
+		static auto sigmoidfunc = [&](double x, double a) {
 			return (
 				1 +
 				(
@@ -205,17 +208,17 @@ public:
 						(1 - std::pow(std::numbers::e, -a * (2 * x - 1)))
 						/
 						(1 + std::pow(std::numbers::e, -a * (2 * x - 1)))
-					)
+						)
 					*
 					(
 						(1 + std::pow(std::numbers::e, -a))
 						/
 						(1 - std::pow(std::numbers::e, -a))
+						)
 					)
-				)
-			) * 0.5;
+				) * 0.5;
 		};
-		
+
 		if (!valuecheck(x)) { return x; }
 
 		switch (sbt) {
@@ -230,7 +233,7 @@ public:
 				break;
 			case Base::OutIn:
 				return x *= 2 < 1 ?
-					GetSigmoidRate(x, Base::Out, a) * 0.5:
+					GetSigmoidRate(x, Base::Out, a) * 0.5 :
 					0.5 + (GetSigmoidRate((x - 1), Base::In, a) * 0.5);
 				break;
 		}
@@ -241,7 +244,7 @@ public:
 				1 - std::pow(1 - x, a) :
 				1 - std::pow(x - 1, a);
 		};
-		
+
 		if (!valuecheck(x)) { return x; }
 
 		return bouncefunc(x, a);

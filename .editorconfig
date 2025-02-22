@@ -1,14 +1,13 @@
-# Visual Studio で、C++ の設定で .editorconfig ファイルが生成されました。
-root = true
+﻿root = true
 
 [*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
 
-# Visual C++ コード スタイルの設定
-
 cpp_generate_documentation_comments = xml
 
-# Visual C++ の書式設定
-
+indent_style = tab
+indent_size = 4
+tab_width= 4
+charset= utf-8
 cpp_indent_braces = false
 cpp_indent_multi_line_relative_to = statement_begin
 cpp_indent_within_parentheses = indent
@@ -68,8 +67,6 @@ cpp_space_pointer_reference_alignment = ignore
 cpp_space_around_ternary_operator = ignore
 cpp_use_unreal_engine_macro_formatting = false
 cpp_wrap_preserve_blocks = never
-
-# Visual C++ クリーンアップ設定を含める
 
 cpp_include_cleanup_add_missing_error_tag_type = suggestion
 cpp_include_cleanup_remove_unused_error_tag_type = dimmed

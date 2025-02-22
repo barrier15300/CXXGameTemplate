@@ -1,10 +1,10 @@
-#pragma once
+﻿#pragma once
 #include "../../Include.hpp"
 
 class SampleScene : public IObjectBase {
 public:
 	
-	IObjectBase* ObjectInit() {
+	IObjectBase* NewObject() {
 		return new SampleScene();
 	}
 	

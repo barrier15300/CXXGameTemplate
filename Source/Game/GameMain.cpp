@@ -1,12 +1,10 @@
-#include "GameMain.h"
+﻿#include "GameMain.h"
 #include "Scenes/SampleScene.h"
 
 bool Game::Init() {
 
 	SetGraphMode(ScreenSize.x, ScreenSize.y, ColorBit);
 
-	//SetUseBackBufferTransColorFlag(true);
-	//SetUseUpdateLayerdWindowFlag(true);
 	if (!DXSystem.
 		AlwaysRunFlag(true).
 		FullScreenFlag(System.FullScreenFlag).

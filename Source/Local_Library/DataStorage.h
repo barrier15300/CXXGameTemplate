@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <fstream>
 #include <string>
 #include "nlohmann/json.hpp"
@@ -114,7 +114,7 @@ namespace Storage {
 	class Data {
 		using StorageType = Data<Filepath>;
 		using Storage_sc_Type = __Data_sc<Filepath>;
-		
+
 	public:
 
 		template<ValueType T, static_string Jsonpath>
@@ -126,9 +126,9 @@ namespace Storage {
 
 			template<FromValueType<T> fT>
 			Value &operator=(const fT &lhs) & { m_value = lhs; return *this; }
-			
+
 			template<FromValueType<T> fT>
-            Value &operator=(fT &&lhs) & { m_value = std::forward<fT>(lhs); return *this; }
+			Value &operator=(fT &&lhs) & { m_value = std::forward<fT>(lhs); return *this; }
 
 			operator T &() & {
 				return m_value;

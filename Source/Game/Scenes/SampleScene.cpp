@@ -16,7 +16,7 @@ bool SampleScene::Init() {
 		auto framed = iv.Framed(10, 1);
 		
 		// TODO: cos theorem will Isuee killer
-		//       - why? -> will make tow trapezoid.
+		//       - why? -> will make to trapezoid.
 
 		// TODO: Isuee will PolygonFramed.
 		//       - Vertex angle Isuee.

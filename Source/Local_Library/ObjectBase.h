@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <algorithm>
 #include <map>
 #include <memory>
@@ -46,7 +46,7 @@ public:
 	IObjectBase() = default;
 	virtual ~IObjectBase() = default;
 
-	virtual IObjectBase* ObjectInit() = 0;
+	_NODISCARD virtual IObjectBase *NewObject() = 0;
 
 	virtual bool Invoke_Init() {
 		return Init();
@@ -70,7 +70,7 @@ public:
 	virtual void Draw() = 0;
 	virtual void End() = 0;
 
-	IObjectBase* GetParent() { return m_ParentObject; };
+	IObjectBase *GetParent() { return m_ParentObject; };
 
 	std::unique_ptr<ObjectSwitcher> Scene = std::make_unique<ObjectSwitcher>(this);
 
@@ -88,39 +88,39 @@ protected:
 
 	DxLibSystem DXSystem;
 
-	IObjectBase* m_ParentObject = nullptr;
+	IObjectBase *m_ParentObject = nullptr;
 
 };
 
 class ObjectSwitcher {
 	inline static struct _SetParent final : public IObjectBase {
-		IObjectBase* ObjectInit() { return new _SetParent(); };
-		bool Init() { return true; };
-		void Proc() {};
-		void Draw() {};
-		void End() {};
-		void operator()(IObjectBase* source, IObjectBase* parent) {
-			((_SetParent*)source)->m_ParentObject = parent;
+		_NODISCARD IObjectBase *NewObject() override { return new _SetParent(); };
+		bool Init() override { return true; };
+		void Proc() override {};
+		void Draw() override {};
+		void End() override {};
+		void operator()(IObjectBase *source, IObjectBase *parent) const {
+			((_SetParent *)source)->m_ParentObject = parent;
 		}
 	} SetParent{};
 
 public:
 
-	ObjectSwitcher(IObjectBase* parent) { m_ParentObject = parent; }
+	ObjectSwitcher(IObjectBase *parent) { m_ParentObject = parent; }
 	~ObjectSwitcher() { if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); } }
 
 	template<std::derived_from<IObjectBase> T>
 	void Regist() {
-		IObjectBase* obj = new T();
-		std::string name = std::string(typeid(T).name()).substr(6);
+		IObjectBase *obj = new T();
+		std::string name = GetObjectName<T>();
 		SetParent(obj, m_ParentObject);
-		m_RegistObjects[name] = [=] { return obj->ObjectInit(); };
+		m_RegistObjects[name] = [=] { return obj->NewObject(); };
 		if (m_NowObject == nullptr) {
 			this->Change(name);
 		}
 	}
 
-	void Change(const std::string& name) {
+	void Change(const std::string &name) {
 		if (name.empty()) {
 			return;
 		}
@@ -131,7 +131,7 @@ public:
 		}
 
 		if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); }
-		
+
 		m_NowObject.reset(it->second());
 		m_NowObject->Invoke_Init();
 	}
@@ -144,13 +144,23 @@ public:
 		m_NowObject->Invoke_Draw();
 	}
 
-	IObjectBase* GetParent() {
+	const IObjectBase *GetParent() {
 		return m_ParentObject;
+	}
+
+	template<std::derived_from<IObjectBase> T>
+	const IObjectBase *GetChild() {
+		return m_RegistObjects.at(GetObjectName<T>());
 	}
 
 private:
 
-	IObjectBase* m_ParentObject = nullptr;
+	template<class T>
+	std::string GetObjectName() {
+		return std::string(typeid(T).name()).substr(6);
+	}
+
+	IObjectBase *m_ParentObject = nullptr;
 	std::unique_ptr<IObjectBase> m_NowObject = nullptr;
-	std::unordered_map<std::string, std::function<IObjectBase*()>> m_RegistObjects;
+	std::unordered_map<std::string, std::function<IObjectBase *()>> m_RegistObjects;
 };

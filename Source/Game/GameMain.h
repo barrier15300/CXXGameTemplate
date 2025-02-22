@@ -4,7 +4,7 @@
 class Game : public IObjectBase {
 public:
 	
-	_NODISCARD IObjectBase* ObjectInit() { return new Game(); }
+	_NODISCARD IObjectBase* NewObject() { return new Game(); }
 	
 	virtual bool Init();
 	virtual void Proc();

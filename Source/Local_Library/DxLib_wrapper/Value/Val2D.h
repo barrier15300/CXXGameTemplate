@@ -19,6 +19,7 @@ struct Val2D {
 	Val2D(T _x, T _y) : x(_x), y(_y) {}
 	Val2D(const std::complex<T> &_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
 	Val2D(std::complex<T> &&_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
+	template<IsArithmetic fT1, IsArithmetic fT2> Val2D(fT1 ft1, fT2 ft2) : x(SCAST(ft1)), y(SCAST(ft2)) {}
 	template<IsArithmetic fT> Val2D(const Val2D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)) {}
 	template<IsArithmetic fT> Val2D(Val2D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.y)) {}
 
@@ -38,34 +39,34 @@ struct Val2D {
 	/// <summary>
 	/// unary operator
 	/// </summary>
-	
+
 	Val2D operator+() const {
 		return *this;
 	}
 	Val2D operator-() const {
 		Val2D ret;
-		for (size_t i = 0, size = this->arr.size(); i < size; ++i) { ret.arr[i] = -this->arr[i]; }
+		for (size_t i = 0, size = arr.size(); i < size; ++i) { ret.arr[i] = -arr[i]; }
 		return ret;
 	}
 
 	/// <summary>
 	/// arr accessor
 	/// </summary>
-	
-	T& operator[](size_t idx) {
+
+	T &operator[](size_t idx) {
 		return arr[idx];
 	}
 
-	const T& operator[](size_t idx) const {
+	const T &operator[](size_t idx) const {
 		return arr[idx];
 	}
 
-	T& at(size_t idx) {
+	T &at(size_t idx) {
 		if (idx >= arr.size()) throw std::out_of_range("Index out of range");
 		return arr[idx];
 	}
 
-	const T& at(size_t idx) const {
+	const T &at(size_t idx) const {
 		if (idx >= arr.size()) throw std::out_of_range("Index out of range");
 		return arr[idx];
 	}
@@ -73,7 +74,7 @@ struct Val2D {
 	/// <summary>
 	/// vector utility
 	/// </summary>
-	
+
 #define MEMBER_SWAP_2D_s1(a, b) Val2D a##b() const { return {a, b}; }
 #define MEMBER_SWAP_2D_s2(a) MEMBER_SWAP_2D_s1(a, x) MEMBER_SWAP_2D_s1(a, y)
 #define MEMBER_SWAP_2D MEMBER_SWAP_2D_s2(x) MEMBER_SWAP_2D_s2(y)
@@ -94,20 +95,20 @@ struct Val2D {
 
 	template<class fT>
 	double Dot(const Val2D<fT> &v) const {
-		return (*this * v).Sum();
+		return Val2D::Dot(*this, v);
 	}
 
 	template<class fT>
 	double Cross(const Val2D<fT> &v) const {
-		return (*this * v.yx()).Diff();
+		return Val2D::Cross(*this, v);
 	}
 
 	double Length() const {
-		return std::sqrt(Dot(*this));
+		return std::sqrt(this->Dot(*this));
 	}
 
 	Val2D<double> Normalized() const {
-		return *this / Length();
+		return *this / this->Length();
 	}
 
 	double Angle() const {
@@ -115,8 +116,8 @@ struct Val2D {
 	}
 
 	template<class fT>
-	double Angle(const Val2D<fT>& v) const {
-		return std::atan2(Cross(v), Dot(v));
+	double Angle(const Val2D<fT> &v) const {
+		return std::atan2(this->Cross(v), this->Dot(v));
 	}
 
 	Val2D<double> Rotate(double angle) const {
@@ -129,18 +130,18 @@ struct Val2D {
 	/// </summary>
 
 	static double Dot(const Val2D &lhs, const Val2D &rhs) {
-		return lhs.x * rhs.x + lhs.y * rhs.y;
+		return (lhs * rhs).Sum();
 	}
 
-	static double Cross(const Val2D &lhs,const Val2D &rhs) {
-		return lhs.x * rhs.y - lhs.y * rhs.x;
+	static double Cross(const Val2D &lhs, const Val2D &rhs) {
+		return (lhs * rhs.yx()).Diff();
 	}
 
 	static double Angle(const Val2D &lhs, const Val2D &rhs) {
 		return std::atan2(Cross(lhs, rhs), Dot(lhs, rhs));
 	}
 
-	static Val2D<double> Intersection(const std::pair<Val2D,Val2D> &l1, const std::pair<Val2D,Val2D> &l2) {
+	static Val2D<double> Intersection(const std::pair<Val2D, Val2D> &l1, const std::pair<Val2D, Val2D> &l2) {
 		double s, t, deno = Cross(l1.second - l1.first, l2.second - l2.first);
 		Val2D<double> error{INFINITY, INFINITY};
 
@@ -160,7 +161,7 @@ struct Val2D {
 
 	static double Distance(const Val2D &a, const Val2D &b) {
 		Val2D v = a - b;
-		v = v * v;
+		v *= v;
 		return std::sqrt(v.x + v.y);
 	}
 
@@ -191,10 +192,10 @@ struct Val2D {
 /// template auto compreation helpers
 /// </summary>
 
-template<IsArithmetic fT1, IsArithmetic fT2> Val2D(fT1,fT2) -> Val2D<std::common_type_t<fT1, fT2>>;
+template<IsArithmetic fT1, IsArithmetic fT2> Val2D(fT1, fT2) -> Val2D<std::common_type_t<fT1, fT2>>;
 
 
-COMPARE_OPERATOR_BASE(Val2D, lhs.x < rhs.x && lhs.y < rhs.y);
+COMPARE_OPERATOR_BASE(Val2D, lhs.x < rhs.x &&lhs.y < rhs.y);
 
 TEMPLATE_OPERATOR_BASE(Val2D, +);
 TEMPLATE_OPERATOR_BASE(Val2D, -);
