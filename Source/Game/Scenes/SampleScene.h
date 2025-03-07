@@ -4,10 +4,6 @@
 class SampleScene : public IObjectBase {
 public:
 	
-	IObjectBase* NewObject() {
-		return new SampleScene();
-	}
-	
 	virtual bool Init();
 	virtual void Proc();
 	virtual void Draw();
@@ -20,6 +16,8 @@ public:
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	ScreenData screen;
+	
+	RingVector<Val2D<double>> buffer;
 
 	void printFPS() {
 		auto fmtstr = fmt::format("FPS: {}",(int)GetFPS());

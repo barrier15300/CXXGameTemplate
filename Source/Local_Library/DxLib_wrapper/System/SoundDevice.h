@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DxLib.h"
 
 
@@ -258,7 +258,7 @@ public:
 		ASIO
 	};
 
-	void SetVolume(float pal) {
+	static void SetVolume(float pal) {
 		volume.Set(pal);
 	}
 

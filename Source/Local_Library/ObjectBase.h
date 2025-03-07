@@ -11,9 +11,6 @@
 #define OBJECT_INTERFACE_INLINE_H(cls_t)\
 class cls_t : public IObjectBase {\
 public:\
-	\
-	IObjectBase* ObjectInit() { return new cls_t(); }\
-	\
 	virtual bool Init();\
 	virtual void Proc();\
 	virtual void Draw();\
@@ -37,16 +34,16 @@ void cls_t::End() {\
 	return;\
 }\
 
-
 class ObjectSwitcher;
 
 class IObjectBase {
+
+	friend ObjectSwitcher;
+
 public:
 
 	IObjectBase() = default;
 	virtual ~IObjectBase() = default;
-
-	_NODISCARD virtual IObjectBase *NewObject() = 0;
 
 	virtual bool Invoke_Init() {
 		return Init();
@@ -78,6 +75,12 @@ private:
 
 	Storage::Data<"config.json"> m_Config;
 	Storage::Data<"Asset/asset.json"> m_Asset;
+	
+	IObjectBase *SetParent(IObjectBase *parent) {
+		m_ParentObject = parent;
+		return this;
+	}
+	IObjectBase *m_ParentObject = nullptr;
 
 protected:
 
@@ -88,22 +91,9 @@ protected:
 
 	DxLibSystem DXSystem;
 
-	IObjectBase *m_ParentObject = nullptr;
-
 };
 
 class ObjectSwitcher {
-	inline static struct _SetParent final : public IObjectBase {
-		_NODISCARD IObjectBase *NewObject() override { return new _SetParent(); };
-		bool Init() override { return true; };
-		void Proc() override {};
-		void Draw() override {};
-		void End() override {};
-		void operator()(IObjectBase *source, IObjectBase *parent) const {
-			((_SetParent *)source)->m_ParentObject = parent;
-		}
-	} SetParent{};
-
 public:
 
 	ObjectSwitcher(IObjectBase *parent) { m_ParentObject = parent; }
@@ -111,20 +101,17 @@ public:
 
 	template<std::derived_from<IObjectBase> T>
 	void Regist() {
-		IObjectBase *obj = new T();
 		std::string name = GetObjectName<T>();
-		SetParent(obj, m_ParentObject);
-		m_RegistObjects[name] = [=] { return obj->NewObject(); };
+		m_RegistObjects[name] = [=] {
+			IObjectBase *ret = new T();
+			return ret->SetParent(m_ParentObject);
+		};
 		if (m_NowObject == nullptr) {
 			this->Change(name);
 		}
 	}
 
 	void Change(const std::string &name) {
-		if (name.empty()) {
-			return;
-		}
-
 		auto it = m_RegistObjects.find(name);
 		if (it == m_RegistObjects.end()) {
 			throw std::runtime_error("Object name not found: " + name);
@@ -148,15 +135,16 @@ public:
 		return m_ParentObject;
 	}
 
-	template<std::derived_from<IObjectBase> T>
-	const IObjectBase *GetChild() {
-		return m_RegistObjects.at(GetObjectName<T>());
+	std::vector<std::string> GetRegistObjectNames() {
+		std::vector<std::string> ret(m_RegistObjects.size());
+		std::transform(m_RegistObjects.begin(),m_RegistObjects.end(),ret.begin(),[](const auto &pair) { return pair.first; });
+		return ret;
 	}
 
 private:
 
 	template<class T>
-	std::string GetObjectName() {
+	std::string GetObjectName() const {
 		return std::string(typeid(T).name()).substr(6);
 	}
 

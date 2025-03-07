@@ -10,12 +10,13 @@ struct Rect2D {
 
 	using value_type = T;
 
-	Rect2D() : x(0), y(0), w(0), h(0) {}
-	Rect2D(T _x, T _y, T _w, T _h) : x(_x), y(_y), w(_w), h(_h) {}
-	Rect2D(Val2D<T> _p1, Val2D<T> _p2) : p1(_p1), p2(_p2) {}
-	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> Rect2D(fT1 ft1, fT2 ft2, fT3 ft3, fT4 ft4) : x(SCAST(ft1)), y(SCAST(ft2)), w(SCAST(ft3)), h(SCAST(ft4)) {}
-	template<IsArithmetic fT> Rect2D(const Rect2D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), w(SCAST(v.w)), h(SCAST(v.h)) {}
-	template<IsArithmetic fT> Rect2D(Rect2D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.y)), w(SCAST(v.w)), h(SCAST(v.h)) {}
+	constexpr Rect2D() noexcept : x(0), y(0), w(0), h(0) {}
+	constexpr explicit Rect2D(T _all) noexcept : p1(_all), p2(_all) {}
+	constexpr Rect2D(T _x, T _y, T _w, T _h) noexcept : x(_x), y(_y), w(_w), h(_h) {}
+	constexpr Rect2D(Val2D<T> _p1, Val2D<T> _p2) noexcept : p1(_p1), p2(_p2) {}
+	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> constexpr Rect2D(fT1 ft1, fT2 ft2, fT3 ft3, fT4 ft4) noexcept : x(SCAST(ft1)), y(SCAST(ft2)), w(SCAST(ft3)), h(SCAST(ft4)) {}
+	template<IsArithmetic fT> constexpr Rect2D(const Rect2D<fT> &v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)), w(SCAST(v.w)), h(SCAST(v.h)) {}
+	template<IsArithmetic fT> constexpr Rect2D(Rect2D<fT> &&v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)), w(SCAST(v.w)), h(SCAST(v.h)) {}
 
 	union {
 		struct {
@@ -26,7 +27,7 @@ struct Rect2D {
 		};
 	};
 
-	operator RECT() const {
+	constexpr operator RECT() const {
 		union {
 			Rect2D<LONG> temp{};
 			RECT ret;
@@ -36,15 +37,15 @@ struct Rect2D {
 	}
 
 	template<IsArithmetic fT>
-	bool InRect(const Val2D<fT> &pos) {
+	constexpr bool InRect(const Val2D<fT> &pos) const noexcept {
 		return p1 <= pos && p2 >= pos;
 	}
 
-	Val2D<T> Size() {
+	constexpr Val2D<T> Size() const noexcept {
 		return p2 - p1;
 	}
 
-	Rect2D Fixed() {
+	constexpr Rect2D Fixed() const noexcept {
 		std::pair<T, T> mmx = std::minmax(p1.x, p2.x);
 		std::pair<T, T> mmy = std::minmax(p1.y, p2.y);
 		return {
@@ -53,7 +54,7 @@ struct Rect2D {
 		};
 	}
 
-	Rect2D &FixedThis() {
+	constexpr Rect2D &FixedThis() noexcept {
 		return *this = Fixed();
 	}
 
@@ -61,19 +62,10 @@ struct Rect2D {
 		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}
 
-#define OPERATOR_BASE(type)\
-	template<IsArithmetic fT> Rect2D &operator##type##=(const Rect2D<fT> &v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }\
-	template<IsArithmetic fT> Rect2D &operator##type##=(Rect2D<fT> &&v) { this->p1 ##type##= v.p1; this->p2 ##type##= v.p2; return *this; }\
-	\
-	template<IsArithmetic fT> Rect2D &operator##type##=(const fT &v) { this->p1 ##type##= v; this->p2 ##type##= v; return *this; }\
-	template<IsArithmetic fT> Rect2D &operator##type##=(fT &&v) { this->p1 ##type##= v; this->p2 ##type##= v; return *this; }
-
-	OPERATOR_BASE(+);
-	OPERATOR_BASE(-);
-	OPERATOR_BASE(*);
-	OPERATOR_BASE(/ );
-
+	TEMPLATE_ASSINMENT_OPERATOR(Rect2D);
 };
+
+TEMPLATE_BINARY_OPERATOR(Rect2D);
 
 /// <summary>
 /// template auto compreation helper
@@ -82,11 +74,9 @@ struct Rect2D {
 template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> Rect2D(fT1, fT2, fT3, fT4) -> Rect2D<std::common_type_t<fT1, fT2, fT3, fT4>>;
 template<class fT1, class fT2> Rect2D(fT1, fT2) -> Rect2D<std::common_type_t<typename fT1::value_type, typename fT2::value_type>>;
 
-
-TEMPLATE_OPERATOR_BASE(Rect2D, +);
-TEMPLATE_OPERATOR_BASE(Rect2D, -);
-TEMPLATE_OPERATOR_BASE(Rect2D, *);
-TEMPLATE_OPERATOR_BASE(Rect2D, / );
+/// <summary>
+/// json converter
+/// </summary>
 
 TO_JSON(template<class T>, Rect2D<T>, {
 	j = nlohmann::json{

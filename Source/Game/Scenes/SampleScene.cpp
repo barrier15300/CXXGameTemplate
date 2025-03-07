@@ -86,10 +86,10 @@ bool SampleScene::Init() {
 void SampleScene::Proc() {
 
 	if (Input.Keyboard()[Keys::Left].Down()) {
-
+		buffer.write_back(Val2D{2, 2} + buffer.back());
 	}
 	if (Input.Keyboard()[Keys::Down].Down()) {
-
+		buffer.pop_front();
 	}
 	if (Input.Keyboard()[Keys::Right].Down()) {
 
@@ -103,7 +103,16 @@ void SampleScene::Proc() {
 
 void SampleScene::Draw() {
 
-	screen.Draw(Val2D{0,0});
+	//screen.Draw(Val2D{0,0});
+
+	DrawFormatString(0,32,Color3{255,255,255},(std::to_string(buffer.get_current_size())).c_str());
+	DrawFormatString(0,48,Color3{255,255,255},(std::to_string(buffer.get_index())).c_str());
+
+	size_t c = 0;
+	for (auto&& elem : buffer) {
+		DrawFormatString(0, 64 + c * 16, Color3{255,255,255}, "%2x, %s, %p", c, elem.ToString().c_str(), &elem);
+		++c;
+	}
 
 	printFPS();
 	return;

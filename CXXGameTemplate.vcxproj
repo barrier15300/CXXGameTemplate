@@ -280,6 +280,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Font.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Sound.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color3.h" />
+    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Polar2D.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Rect3D.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Graph.h" />
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\JsonHelper.h" />
@@ -296,6 +297,7 @@
     <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Input.h" />
     <ClInclude Include="Source\Local_Library\LocalLibInclude.h" />
     <ClInclude Include="Source\Local_Library\ObjectBase.h" />
+    <ClInclude Include="Source\Local_Library\RingBuffer.h" />
     <ClInclude Include="Source\Local_Library\TextAnalizer\Analize.h" />
     <ClInclude Include="Source\Local_Library\TextAnalizer\strexprconv.h" />
     <ClInclude Include="Source\Local_Library\template_type.h" />

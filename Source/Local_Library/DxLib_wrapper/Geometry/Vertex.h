@@ -63,9 +63,9 @@ struct IndexedVertex2D {
 		ret.vertex.resize(vertexnum * 2);
 
 		for(size_t i = 0; i < vertexnum; ++i) {
-			auto v1 = this->vertex[i];
-			auto v2 = this->vertex[(i + 1) % vertexnum];
-			auto v3 = this->vertex[(i + 2) % vertexnum];
+			auto&& v1 = this->vertex[i];
+			auto&& v2 = this->vertex[(i + 1) % vertexnum];
+			auto&& v3 = this->vertex[(i + 2) % vertexnum];
 
 			auto c = __FramedImpl(
 				v1.pos,
@@ -110,9 +110,9 @@ struct IndexedVertex2D {
 		ret.vertex.resize(polygonnum * 2);
 
 		for(size_t i = 0,count = polygonnum / 3; i < count; ++i) {
-			auto& v1 = this->vertex[this->index[i * 3]];
-			auto& v2 = this->vertex[this->index[i * 3 + 1]];
-			auto& v3 = this->vertex[this->index[i * 3 + 2]];
+			auto&& v1 = this->vertex[this->index[i * 3]];
+			auto&& v2 = this->vertex[this->index[i * 3 + 1]];
+			auto&& v3 = this->vertex[this->index[i * 3 + 2]];
 
 			auto c1 = __FramedImpl(
 				v1.pos,
@@ -210,7 +210,7 @@ static IndexedVertex2D Triangle(const Val2D<float> &p1, const Val2D<float> &p2, 
 	ret.vertex[0].pos = p1;
 	ret.vertex[1].pos = p2;
 	ret.vertex[2].pos = p3;
-	for (auto& v : ret.vertex) {
+	for (auto&& v : ret.vertex) {
 		v.color = color;
 	}
 	ret.index = {0,1,2};
@@ -223,7 +223,7 @@ static IndexedVertex2D RectAngle(const Val2D<float>& p1, const Val2D<float>& p2,
 	ret.vertex[1].pos = {p2.x, p1.y};
 	ret.vertex[2].pos = p2;
 	ret.vertex[3].pos = {p1.x, p2.y};
-	for (auto& v : ret.vertex) {
+	for (auto&& v : ret.vertex) {
 		v.color = color;
 	}
 	ret.index = {0,1,2,2,3,0};

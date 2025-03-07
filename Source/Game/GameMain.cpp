@@ -5,21 +5,26 @@ bool Game::Init() {
 
 	SetGraphMode(ScreenSize.x, ScreenSize.y, ColorBit);
 
-	if (!DXSystem.
-		AlwaysRunFlag(true).
-		FullScreenFlag(System.FullScreenFlag).
-		WaitVSyncFlag(System.VSyncFlag).
-		WindowText(Title.c_str()).
-		UseSoundDevice(
+	DXSystem.MainWindow
+		.FullScreenFlag(System.FullScreenFlag)
+		.Text(Title.c_str());
+
+	if (!DXSystem
+		.AlwaysRunFlag(true)
+		.CharCodeFormat(DxLibSystem::CharCodeFormat::UTF8)
+		.CharSet(DxLibSystem::CharSet::UTF8)
+		.SysCommandOffFlag(true)
+		.WaitVSyncFlag(System.VSyncFlag)
+		.UseSoundDevice(
 			magic_enum::enum_cast<SoundDevice::SoundDeviceType>(Sound.Device.Type.Get()).value(),
 			Sound.Device.ExclusiveFlag,
 			Sound.Device.BufferSize,
 			Sound.Device.SampleRate
-			).
-		Init()) {
+		)
+		.Init()) {
+		MessageBox(NULL, TEXT("Initialize Error, restart again."), TEXT("sorry..."), MB_ICONERROR);
 		return false;
 	}
-
 
 	DXSystem.SoundDevice.SetVolume(Sound.Mastar);
 
@@ -44,6 +49,5 @@ void Game::Draw() {
 }
 
 void Game::End() {
-	Scene.reset(nullptr);
 	DXSystem.End();
 }
