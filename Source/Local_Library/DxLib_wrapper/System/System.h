@@ -3,6 +3,8 @@
 #include "SoundDevice.h"
 #include "./Window.h"
 
+#include "../../ExString.h"
+
 class DxLibSystem final {
 public:
 
@@ -49,4 +51,26 @@ public:
 
 	SoundDevice SoundDevice;
 	MainWindowSetting MainWindow;
+};
+
+class WinMainArgs {
+public:
+	WinMainArgs(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
+		m_Instance = hInstance;
+		m_CommandLineArgs = split(lpCmdLine, ' ');
+	};
+
+	static const HINSTANCE Instance() {
+		return m_Instance;
+	}
+
+	static const std::vector<std::string_view> &CommandLineArgs() {
+		return m_CommandLineArgs;
+	}
+
+private:
+
+	static inline HINSTANCE m_Instance = nullptr;
+	static inline std::vector<std::string_view> m_CommandLineArgs{};
+
 };

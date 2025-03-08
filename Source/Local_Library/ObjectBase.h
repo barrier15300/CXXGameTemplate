@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "ExString.h"
 #include "DataStorage.h"
 #include "DxLib_wrapper/DxLib_wrapper.h"
 
@@ -72,7 +73,7 @@ public:
 	std::unique_ptr<ObjectSwitcher> Scene = std::make_unique<ObjectSwitcher>(this);
 
 private:
-
+	
 	Storage::Data<"config.json"> m_Config;
 	Storage::Data<"Asset/asset.json"> m_Asset;
 	

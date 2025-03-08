@@ -105,8 +105,8 @@ void SampleScene::Draw() {
 
 	//screen.Draw(Val2D{0,0});
 
-	DrawFormatString(0,32,Color3{255,255,255},(std::to_string(buffer.get_current_size())).c_str());
-	DrawFormatString(0,48,Color3{255,255,255},(std::to_string(buffer.get_index())).c_str());
+	DrawFormatString(0,32,Color3{255,255,255},(std::to_string(WinMainArgs::CommandLineArgs().size())).c_str());
+	//DrawFormatString(0,48,Color3{255,255,255},(WinMainArgs::CommandLineArgs().back()).data());
 
 	size_t c = 0;
 	for (auto&& elem : buffer) {

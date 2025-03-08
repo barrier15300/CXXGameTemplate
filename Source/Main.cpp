@@ -1,4 +1,4 @@
-#include "Main.h"
+﻿#include "Main.h"
 
 void Main::Init() {
 	InitSuccessFlag = GameMain.Init();
