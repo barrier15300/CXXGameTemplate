@@ -81,6 +81,40 @@ public:
 		return container_base::size();
 	}
 
+	constexpr void resize(size_t newsize, const_reference val) requires requires (container_base x) { x.resize(size_t(), value_type()); } {
+		container_base::resize(newsize, val);
+	}
+
+	constexpr void resize(size_t newsize) {
+		resize(newsize, value_type());
+	}
+
+	template<class InputIterator>
+	constexpr void assign(InputIterator first, InputIterator last) {
+		for (auto&& elem : *this) {
+			if (first != last) {
+				break;
+			}
+			elem = *first;
+			++first;
+		}
+	}
+
+	constexpr void assign(size_t n, const_reference t) {
+		size_t c = 0;
+		for(auto&& elem : *this){
+			if (!(c < n)) {
+				break;
+			}
+			elem = t;
+			++c;
+		}
+	}
+
+	constexpr void assign(std::initializer_list<value_type> il) {
+		assign(il.begin(), il.end());
+	}
+
 	constexpr reference front() noexcept {
 		return *begin();
 	}
@@ -115,6 +149,25 @@ public:
 			m_current_size = 0;
 		}
 	}
+
+	constexpr reference operator[](size_t pos) noexcept {
+		return *(begin() + pos);
+	}
+
+	constexpr const_reference operator[](size_t pos) const noexcept {
+		return *(begin() + pos);
+	}
+
+	constexpr reference at(size_t pos) {
+		if (!(pos < m_current_size)) { throw std::out_of_range(""); }
+		return (*this)[pos];
+	}
+
+	constexpr const_reference at(size_t pos) const {
+		if (!(pos < m_current_size)) { throw std::out_of_range(""); }
+		return (*this)[pos];
+	}
+
 
 protected:
 
@@ -182,7 +235,7 @@ public:
 	friend constexpr iterator operator+(const iterator &it, difference_type n) noexcept { iterator temp = it; temp += n; return temp; }
 	friend constexpr iterator operator+(difference_type n, const iterator &it) noexcept { iterator temp = it; temp += n; return temp; }
 	friend constexpr iterator operator-(const iterator &it, difference_type n) noexcept { iterator temp = it; temp -= n; return temp; }
-	friend constexpr size_t operator-(const iterator &lhs, const iterator &rhs) { parent_check(lhs, rhs); return lhs._Unwrapped() - rhs._Unwrapped(); }
+	friend constexpr difference_type operator-(const iterator &lhs, const iterator &rhs) { parent_check(lhs, rhs); return lhs._Unwrapped() - rhs._Unwrapped(); }
 
 	friend constexpr auto operator<=>(const iterator &, const iterator &) noexcept = default;
 

@@ -86,7 +86,7 @@ bool SampleScene::Init() {
 void SampleScene::Proc() {
 
 	if (Input.Keyboard()[Keys::Left].Down()) {
-		buffer.write_back(Val2D{2, 2} + buffer.back());
+		buffer.write_back(2 * (1 + buffer.back()));
 	}
 	if (Input.Keyboard()[Keys::Down].Down()) {
 		buffer.pop_front();
@@ -110,7 +110,7 @@ void SampleScene::Draw() {
 
 	size_t c = 0;
 	for (auto&& elem : buffer) {
-		DrawFormatString(0, 64 + c * 16, Color3{255,255,255}, "%2x, %s, %p", c, elem.ToString().c_str(), &elem);
+		DrawFormatString(0, 64 + c * 16, Color3{255,255,255}, "%2x, %d, %p", c, elem, &elem);
 		++c;
 	}
 

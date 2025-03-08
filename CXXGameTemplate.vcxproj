@@ -306,7 +306,6 @@
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".editorconfig" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>

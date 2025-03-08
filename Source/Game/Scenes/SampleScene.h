@@ -4,10 +4,10 @@
 class SampleScene : public IObjectBase {
 public:
 	
-	virtual bool Init();
-	virtual void Proc();
-	virtual void Draw();
-	virtual void End();
+	virtual bool Init() override;
+	virtual void Proc() override;
+	virtual void Draw() override;
+	virtual void End() override;
 
 	//GraphData Graph;
 	//SoundData Don;
@@ -17,7 +17,7 @@ public:
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	ScreenData screen;
 	
-	RingVector<Val2D<double>> buffer;
+	RingArray<int, 16> buffer;
 
 	void printFPS() {
 		auto fmtstr = fmt::format("FPS: {}",(int)GetFPS());

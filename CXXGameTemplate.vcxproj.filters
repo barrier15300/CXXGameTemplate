@@ -195,7 +195,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="cpp.hint" />
-    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOLIST.txt" />

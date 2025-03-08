@@ -4,10 +4,10 @@
 class Game : public IObjectBase {
 public:
 	
-	virtual bool Init();
-	virtual void Proc();
-	virtual void Draw();
-	virtual void End();
+	virtual bool Init() override;
+	virtual void Proc() override;
+	virtual void Draw() override;
+	virtual void End() override;
 
 	std::string Title = "Game";
 	Val2D<int> ScreenSize{1280, 720};
