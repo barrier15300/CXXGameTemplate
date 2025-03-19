@@ -62,7 +62,7 @@ struct Rect2D {
 		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}
 
-	TEMPLATE_ASSINMENT_OPERATOR(Rect2D);
+	TEMPLATE_ASSINMENT_OPERATOR(Rect2D, x, y, w, h);
 };
 
 TEMPLATE_BINARY_OPERATOR(Rect2D);

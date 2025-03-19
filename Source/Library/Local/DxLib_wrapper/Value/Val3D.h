@@ -1,12 +1,15 @@
 ﻿#pragma once
 #include "_structhelper.h"
 
+#include "./Val2D.h"
+
 /// <summary>
 /// Val3D
 /// </summary>
 /// <typeparam name="T"></typeparam>
 template<IsArithmetic T>
 struct Val3D {
+
 
 	using value_type = T;
 
@@ -123,9 +126,17 @@ struct Val3D {
 		return x - y - z;
 	}
 
-	template<class fT>
-	constexpr double Dot(const Val3D<fT> &v) const noexcept {
-		return Val3D::Dot(*this, v);
+	constexpr T Mul() const noexcept {
+		return x * y * z;
+	}
+
+	constexpr T Div() const noexcept {
+		return x / y / z;
+	}
+
+	FROM_COONVERTIBLE(Val3D)
+	constexpr double Dot(fT &&v) const noexcept {
+		return Val3D::Dot(*this, std::forward<fT>(v));
 	}
 
 	template<class fT>
@@ -141,42 +152,79 @@ struct Val3D {
 		return *this / this->Length();
 	}
 
-	//constexpr double Angle() const {
-	//	return std::atan2(y, x);
-	//}
-	//
-	//constexpr double Angle(const Val3D &v) const {
-	//	return Val3D::Angle(*this, v);
-	//}
+	// Angle
+	constexpr double AngleX() const {
+		return this->yz().Angle();
+	}
+	constexpr double AngleY() const {
+		return this->zx().Angle();
+	}
+	constexpr double AngleZ() const {
+		return this->xy().Angle();
+	}
+	constexpr Val3D<double> Angle() const {
+		return {this->AngleX(), this->AngleY(), this->AngleZ()};
+	}
 
-	//constexpr Val3D<double> Rotate(double angle) const {
-	//	auto rotatevector = Val3D<double>{sin(angle),cos(angle)};
-	//	return {this->Cross(rotatevector),this->Dot(rotatevector)};
-	//}
+	// Rotate
+	constexpr Val3D<double> RotateX(double angle) const {
+		return Val3D<double>::RotateBase(this->xyz(), angle).xyz();
+	}
+	constexpr Val3D<double> RotateY(double angle) const {
+		return Val3D<double>::RotateBase(this->yxz(), angle).yxz();
+	}
+	constexpr Val3D<double> RotateZ(double angle) const {
+		return Val3D<double>::RotateBase(this->zyx(), angle).zyx();
+	}
+	constexpr Val3D<double> Rotate(const Val3D<double> &angle) const {
+		return this->RotateX(angle.x).RotateY(angle.y).RotateZ(angle.z);
+	}
+
 
 	/// <summary>
 	/// static utility
 	/// </summary>
 
-	static constexpr double Dot(const Val3D &lhs, const Val3D &rhs) noexcept {
+	FROM_COONVERTIBLE(Val3D)
+	static constexpr double Dot(fT &&lhs, fT &&rhs) noexcept {
 		return (lhs * rhs).Sum();
 	}
 
-	static constexpr Val3D Cross(const Val3D &lhs, const Val3D &rhs) noexcept {
+	FROM_COONVERTIBLE(Val3D)
+	static constexpr Val3D Cross(fT &&lhs, fT &&rhs) noexcept {
 		return (lhs.yzx() * rhs.zxy()) - (lhs.zxy() * rhs.yzx());
 	}
 
-	//static constexpr double Angle(const Val3D &lhs, const Val3D &rhs) {
-	//	return std::atan2(Cross(lhs, rhs), Dot(lhs, rhs));
-	//}
+	FROM_COONVERTIBLE(Val2D<T>)
+	static constexpr double AngleBase(fT &&v) {
+		return v.Angle();
+	}
 
-	static constexpr double Distance(const Val3D &a, const Val3D &b) {
+	FROM_COONVERTIBLE(Val3D, class floatT = double)
+	static constexpr Val3D RotateBase(fT &&v, floatT angle) {
+		const std::array<Val3D<floatT>, 3> rotatevector = {
+			{
+				{1, 0, 0},
+				{0, cos(angle), -sin(angle)},
+				{0, sin(angle), cos(angle)},
+			}
+		};
+		return {
+			(v * rotatevector[0]).Sum(),
+			(v * rotatevector[1]).Sum(),
+			(v * rotatevector[2]).Sum(),
+		};
+	}
+
+	FROM_COONVERTIBLE(Val3D)
+	static constexpr double Distance(fT &&a, fT &&b) {
 		Val3D v = a - b;
 		v = v * v;
 		return std::sqrt(v.x + v.y);
 	}
 
-	static constexpr Val3D<double> Lerp(const Val3D &a, const Val3D &b, double t) noexcept {
+	FROM_COONVERTIBLE(Val3D, class floatT = double)
+	static constexpr Val3D<double> Lerp(fT &&a, fT &&b, floatT t) noexcept {
 		return a + (b - a) * t;
 	}
 
@@ -188,7 +236,7 @@ struct Val3D {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 
-	TEMPLATE_ASSINMENT_OPERATOR(Val3D);
+	TEMPLATE_ASSINMENT_OPERATOR(Val3D, x, y, z);
 };
 
 TEMPLATE_COMPARE_OPERATOR(Val3D, lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z);

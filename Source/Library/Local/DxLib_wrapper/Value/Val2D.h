@@ -91,6 +91,14 @@ struct Val2D {
 		return x - y;
 	}
 
+	constexpr T Mul() const noexcept {
+		return x * y;
+	}
+
+	constexpr T Div() const noexcept {
+		return x / y;
+	}
+
 	template<class fromT>
 	constexpr double Dot(const Val2D<fromT> &v) const noexcept {
 		return Val2D::Dot(*this, v);
@@ -177,7 +185,7 @@ struct Val2D {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 
-	TEMPLATE_ASSINMENT_OPERATOR(Val2D);
+	TEMPLATE_ASSINMENT_OPERATOR(Val2D, x, y);
 };
 
 TEMPLATE_COMPARE_OPERATOR(Val2D, lhs.x < rhs.x && lhs.y < rhs.y);

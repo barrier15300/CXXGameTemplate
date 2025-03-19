@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 /// <summary>
 /// InputState
@@ -8,17 +8,13 @@ struct InputState {
 
 	enum class State : byte;
 
-	bool Down() const { return m_bitop & static_cast<byte>(State::Down); }
-	bool Press() const { return m_bitop & static_cast<byte>(State::Press) || Down(); }
-	bool Up() const { return m_bitop & static_cast<byte>(State::Up); }
-	bool Release() const { return m_bitop & static_cast<byte>(State::Release) || Up(); }
+	bool Down() const { return m_State == State::Down; }
+	bool Press() const { return m_State == State::Press || Down(); }
+	bool Up() const { return m_State == State::Up; }
+	bool Release() const { return m_State == State::Release || Up(); }
 
 	State GetState() const {
 		return m_State;
-	}
-
-	std::tuple<uint32_t, uint32_t, uint32_t> GetStates() const {
-		return {ctrl_press, ctrl_hold, ctrl_release};
 	}
 
 	// press = true -> pressing, press = false -> release
@@ -66,15 +62,7 @@ struct InputState {
 		*/
 	#pragma endregion
 	}
-
-	void _Update(uint32_t buttons) {
-		uint32_t ctrl_cache = ctrl_press | ctrl_hold;
-
-		ctrl_press = buttons & ~ctrl_cache;
-		ctrl_release = ~buttons & ctrl_cache;
-		ctrl_hold = ctrl_cache ^ ctrl_release;
-	}
-
+	
 	enum class State : byte {
 		None	= 0,
 		Down	= 0b00000001,
@@ -84,9 +72,6 @@ struct InputState {
 	};
 
 private:
-
-	uint32_t ctrl_press = 0, ctrl_hold = 0, ctrl_release = 0;
-
 	union {
 		State m_State = State::None;
 		byte m_bitop;

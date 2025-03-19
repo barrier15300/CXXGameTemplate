@@ -125,7 +125,7 @@
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,7 +157,7 @@
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
@@ -190,7 +190,7 @@
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -222,7 +222,7 @@
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
@@ -257,52 +257,55 @@
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\boost_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
-    <ClInclude Include="Source\Local_Library\DataStorage.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\DxLib_wrapper.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\Helper.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\MV1.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Screen.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Date.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System\Window.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color4F.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color4.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Geometry.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Vertex.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Square.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Geometry\Triangle.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Keys.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System\SoundDevice.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\DXHandle.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\DeviceBase.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\InputState.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Keyboard.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Mouse.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Font.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Sound.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Color3.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Polar2D.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Rect3D.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Media\Graph.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Helper\JsonHelper.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Rect2D.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Val2D.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Val3D.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Value.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\System\System.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\Timer.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Value\_structhelper.h" />
-    <ClInclude Include="Source\Local_Library\Easing.h" />
-    <ClInclude Include="Source\Local_Library\ExMath.h" />
-    <ClInclude Include="Source\Local_Library\ExString.h" />
-    <ClInclude Include="Source\Local_Library\DxLib_wrapper\Input\Input.h" />
-    <ClInclude Include="Source\Local_Library\LocalLibInclude.h" />
-    <ClInclude Include="Source\Local_Library\ObjectBase.h" />
-    <ClInclude Include="Source\Local_Library\RingBuffer.h" />
-    <ClInclude Include="Source\Local_Library\TextAnalizer\Analize.h" />
-    <ClInclude Include="Source\Local_Library\TextAnalizer\strexprconv.h" />
-    <ClInclude Include="Source\Local_Library\template_type.h" />
-    <ClInclude Include="Source\Local_Library\TextAnalizer\TextAnalizer.h" />
-    <ClInclude Include="Source\Local_Library\Transform.h" />
+    <ClInclude Include="Source\Library\Local\DataStorage.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\DxLib_wrapper.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\Helper.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\MV1.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Screen.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Date.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\System\Window.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Color4F.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Color4.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Geometry\Geometry.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Geometry\Vertex.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Geometry\Square.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Geometry\Triangle.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Keys.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\System\SoundDevice.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\DXHandle.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\DeviceBase.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\InputState.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Keyboard.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Mouse.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Font.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Sound.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Color3.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Polar2D.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Rect3D.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Graph.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\JsonHelper.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Rect2D.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Val2D.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Val3D.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\ValClamp.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Value.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\System\System.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Timer.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\_structhelper.h" />
+    <ClInclude Include="Source\Library\Local\Easing.h" />
+    <ClInclude Include="Source\Library\Local\ExMath.h" />
+    <ClInclude Include="Source\Library\Local\ExString.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
+    <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
+    <ClInclude Include="Source\Library\Local\ObjectBase.h" />
+    <ClInclude Include="Source\Library\Local\Result.h" />
+    <ClInclude Include="Source\Library\Local\RingBuffer.h" />
+    <ClInclude Include="Source\Library\Local\TextAnalizer\Analize.h" />
+    <ClInclude Include="Source\Library\Local\TextAnalizer\strexprconv.h" />
+    <ClInclude Include="Source\Library\Local\template_type.h" />
+    <ClInclude Include="Source\Library\Local\TextAnalizer\TextAnalizer.h" />
+    <ClInclude Include="Source\Library\Local\Transform.h" />
+    <ClInclude Include="Source\Library\Local\MacroHelper.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>

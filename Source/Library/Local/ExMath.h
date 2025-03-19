@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // NaN is not support
 inline float m_abs(float x) {

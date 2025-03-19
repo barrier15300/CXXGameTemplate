@@ -123,8 +123,10 @@ public:
 		return *(end() - 1);
 	}
 
-	constexpr void write_back(const value_type &v) noexcept {
-		*(begin() + m_current_size++) = v;
+	template<class fT>
+	requires std::is_convertible_v<fT, value_type>
+	constexpr void write_back(fT &&v) noexcept {
+		*(begin() + m_current_size++) = std::forward<fT>(v);
 
 		if (!(m_current_size < size())) {
 			m_current_size = size() - 1;
@@ -221,11 +223,6 @@ public:
 
 		size_t diff = (((m_ptr - _begin_ptr) + n) % size);
 		m_ptr = (pointer)(_begin_ptr + diff);
-
-		//m_ptr += n & ((1 << std::bit_width<size_t>(size)) - 1);
-		//if (m_ptr >= m_parent->end()) {
-		//	m_ptr = m_parent->begin() + (m_ptr - m_parent->end());
-		//}
 	}
 
 	constexpr void check_sub(difference_type n) noexcept { check_add(-n); }

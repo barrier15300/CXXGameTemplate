@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Color3.h"
 #include "Color4.h"
 #include "Color4F.h"
@@ -6,6 +6,7 @@
 #include "Rect3D.h"
 #include "Val2D.h"
 #include "Val3D.h"
+#include "ValClamp.h"
 #include "Timer.h"
 #include "Date.h"
 #undef OPERATOR_BASE
@@ -14,6 +15,7 @@
 
 // helper macro destract
 #undef SCAST
+#undef FROM_COONVERTIBLE
 
 #undef TEMPLATE_ASSINMENT_OPERATOR
 #undef TEMPLATE_ASSINMENT_OPERATOR_base

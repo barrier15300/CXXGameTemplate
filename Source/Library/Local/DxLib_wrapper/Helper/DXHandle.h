@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include "DxLib.h"
 
+#undef min
+#undef max
+
 enum class DXHandleType : int {
 	None = DX_HANDLETYPE_NONE,
 	Graph = DX_HANDLETYPE_GRAPH,

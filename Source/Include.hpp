@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 /*
 *  STDlib
@@ -217,11 +217,6 @@
 *  Library
 */
 #include "Library/LibraryInclude.h"
-
-/*
-*  Local Library
-*/
-#include "Local_Library/LocalLibInclude.h"
 
 /*
 *  using

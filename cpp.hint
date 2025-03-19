@@ -6,4 +6,5 @@
 #define FROM_JSON(temp, type, __VA_ARGS__) temp void from_json(const nlohmann::json &j, type &v) __VA_ARGS__ temp void from_json(const nlohmann::ordered_json &j, type &v) __VA_ARGS__
 
 #define TEMPLATE_BINARY_OPERATOR(t) TEMPLATE_BINARY_OPERATOR_s2(t, +) TEMPLATE_BINARY_OPERATOR_s2(t, -) TEMPLATE_BINARY_OPERATOR_s2(t, *) TEMPLATE_BINARY_OPERATOR_s2(t, /)
-#define TEMPLATE_COMPARE_OPERATOR(t, _min) TEMPLATE_COMPARE_OPERATOR_s1(t, _min, const, &) TEMPLATE_COMPARE_OPERATOR_s1(t, _min, , &&)
+#define TEMPLATE_COMPARE_OPERATOR(t, _min) TEMPLATE_COMPARE_OPERATOR_s1(t, _min, const, &) TEMPLATE_COMPARE_OPERATOR_s1(t, _min, , &&)#define FROM_COONVERTIBLE(toT, __VA_ARGS__)
+#define FROM_COONVERTIBLE(toT, __VA_ARGS__)

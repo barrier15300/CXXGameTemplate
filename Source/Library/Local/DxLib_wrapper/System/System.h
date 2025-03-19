@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "DxLib.h"
+#include "../Helper/DXHandle.h"
 #include "SoundDevice.h"
 #include "./Window.h"
 

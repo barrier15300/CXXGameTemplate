@@ -17,7 +17,7 @@ public:
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	ScreenData screen;
 	
-	RingArray<int, 16> buffer;
+	RingArray<Val3D<double>, 16> buffer;
 
 	void printFPS() {
 		auto fmtstr = fmt::format("FPS: {}",(int)GetFPS());

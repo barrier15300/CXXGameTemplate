@@ -54,7 +54,7 @@ struct Rect3D {
 		return fmt::format("{}{}, {}{}", '{', p1.ToString(), p2.ToString(), '}');
 	}
 	
-	TEMPLATE_ASSINMENT_OPERATOR(Rect3D);
+	TEMPLATE_ASSINMENT_OPERATOR(Rect3D, x, y, z, w, h, d);
 };
 
 TEMPLATE_BINARY_OPERATOR(Rect3D);
