@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <cmath>
-#define PI (3.1415926535897932384626433832795028841971)
+#include "ExMath.h"
 
 class Easing {
 
@@ -69,10 +69,10 @@ public:
 			case Line::Sine:
 				switch (ebt) {
 					case Base::In:
-						return 1 - cos(x * PI / 2);
+						return 1 - cos(x * mathcv::pi / 2);
 						break;
 					case Base::Out:
-						return sin(x * PI / 2);
+						return sin(x * mathcv::pi / 2);
 						break;
 				}
 				break;
@@ -151,7 +151,7 @@ public:
 			}	break;
 			case Line::Elastic:
 			{
-				const double c4 = 2 * PI / 3;
+				const double c4 = mathcv::pi2 / 3;
 				switch (ebt) {
 					case Base::In:
 						return
@@ -205,15 +205,15 @@ public:
 				1 +
 				(
 					(
-						(1 - std::pow(std::numbers::e, -a * (2 * x - 1)))
+						(1 - std::pow(mathcv::e, -a * (2 * x - 1)))
 						/
-						(1 + std::pow(std::numbers::e, -a * (2 * x - 1)))
+						(1 + std::pow(mathcv::e, -a * (2 * x - 1)))
 						)
 					*
 					(
-						(1 + std::pow(std::numbers::e, -a))
+						(1 + std::pow(mathcv::e, -a))
 						/
-						(1 - std::pow(std::numbers::e, -a))
+						(1 - std::pow(mathcv::e, -a))
 						)
 					)
 				) * 0.5;
@@ -250,5 +250,3 @@ public:
 		return bouncefunc(x, a);
 	}
 };
-
-#undef PI

@@ -226,8 +226,3 @@ using ushort = unsigned short;
 using uint = unsigned int;
 using ulong = unsigned long;
 using ulonglong = unsigned long long;
-
-/*
-*  const val
-*/
-static constexpr inline double PI = 3.1415926535897932384626433832795028841971;
