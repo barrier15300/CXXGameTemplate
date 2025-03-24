@@ -1,10 +1,13 @@
-#pragma once
+﻿#pragma once
 #include "../Helper/Helper.h"
 #include "../Value/Value.h"
 
 struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	using DXHandle::DXHandle;
+	
+	Val2D<int> Size{};
+	bool Alpha = false;
 
 	bool Create(const std::string &path) {
 
@@ -74,6 +77,32 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		);
 	}
 
-	Val2D<int> Size{};
-	bool Alpha = false;
+	void Draw(const Val2D<int> &pos, double angle, double scale) const {
+		DrawRotaGraph(
+			pos.x,
+			pos.y,
+			scale,
+			angle,
+			*this,
+			Alpha
+		);
+	}
+
+	static const std::vector<GraphData> CreateDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
+		std::vector<int> temp;
+		temp.resize(div.x * div.y);
+		LoadDivGraph(
+			path.c_str(),
+			temp.size(),
+			div.x,
+			div.y,
+			size.x,
+			size.y,
+			temp.data()
+		);
+		std::vector<GraphData> ret;
+		ret.assign(temp.begin(), temp.end());
+		return ret;
+	}
+
 };
