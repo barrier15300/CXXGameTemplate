@@ -1,17 +1,14 @@
 ﻿#pragma once
 #include "../Helper/Helper.h"
 #include "../Value/Value.h"
-#include "d3d11.h"
 
 struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 	
 	using DXHandle::DXHandle;
 
 	bool Create(Val2D<int> size, bool alpha) {
-		Size = size;
-		Alpha = alpha;
 		Init(
-			MakeScreen(Size.x, Size.y, Alpha)
+			MakeScreen(size.x, size.y, alpha)
 		);
 		return !IsNull();
 	}
@@ -34,27 +31,25 @@ struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	explicit operator const GraphData() const {
 		GraphData ret;
-		ret.Size = Size;
-		ret.Alpha = Alpha;
 		ret.Init(*this);
 		return ret;
 	}
 
-	void Draw(const Val2D<int> &pos) const {
+	void Draw(const Val2D<int> &pos, bool alpha) const {
 		DrawGraph(
 			pos.x,
 			pos.y,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
-	void Draw(const Val2D<float> &pos) const {
+	void Draw(const Val2D<float> &pos, bool alpha) const {
 		DrawGraphF(
 			pos.x,
 			pos.y,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
@@ -72,6 +67,4 @@ struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		return Save(savepath, size, compressionlevel);
 	}
 
-	Val2D<int> Size;
-	bool Alpha = false;
 };

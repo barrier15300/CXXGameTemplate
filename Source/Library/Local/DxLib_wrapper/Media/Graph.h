@@ -6,9 +6,6 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	using DXHandle::DXHandle;
 	
-	Val2D<int> Size{};
-	bool Alpha = false;
-
 	bool Create(const std::string &path) {
 
 		Init(
@@ -17,80 +14,82 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 		return !IsNull();
 	}
-	
-	bool Create(const std::string &path, bool alpha) {
-
-		Init(
-			LoadGraph(path.c_str())
-		);
-		Alpha = alpha;
-
-		return !IsNull();
-	}
 
 	bool Create(Val2D<int> size, bool alpha) {
-		Alpha = alpha;
-		Size = size;
 		Init(
-			MakeScreen(Size.x, Size.y, Alpha)
+			MakeScreen(size.x, size.y, alpha)
 		);
 		return !IsNull();
 	}
+
+	Val2D<int> Size() const {
+		Val2D<int> ret;
+		GetGraphSize(*this, &ret.x, &ret.y);
+		return ret;
+	}
 	
-	void Draw(const Val2D<int> &pos) const {
+	/// <summary>
+	/// Draw
+	/// </summary>
+	
+	// standard
+	void Draw(const Val2D<int> &pos, bool alpha) const {
 		DrawGraph(
 			pos.x,
 			pos.y,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
-	void Draw(const Val2D<float> &pos) const {
+	void Draw(const Val2D<float> &pos, bool alpha) const {
 		DrawGraphF(
 			pos.x,
 			pos.y,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
-	void Draw(const Rect2D<int> &rect) const {
+	// rect
+	void Draw(const Rect2D<int> &rect, bool alpha) const {
 		DrawExtendGraph(
 			rect.x,
 			rect.y,
 			rect.w,
 			rect.h,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
-	void Draw(const Rect2D<float> &rect) const {
+	void Draw(const Rect2D<float> &rect, bool alpha) const {
 		DrawExtendGraphF(
 			rect.x,
 			rect.y,
 			rect.w,
 			rect.h,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
-	void Draw(const Val2D<int> &pos, double angle, double scale) const {
+	// rotate
+	void Draw(const Val2D<int> &pos, double angle, double scale, bool alpha) const {
 		DrawRotaGraph(
 			pos.x,
 			pos.y,
 			scale,
 			angle,
 			*this,
-			Alpha
+			alpha
 		);
 	}
 
-	static const std::vector<GraphData> CreateDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
+	// static factory
+	static std::vector<GraphData> CreateDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
 		std::vector<int> temp;
-		temp.resize(div.x * div.y);
+		temp.resize((size_t)div.x * div.y);
 		LoadDivGraph(
 			path.c_str(),
 			temp.size(),
@@ -101,8 +100,11 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 			temp.data()
 		);
 		std::vector<GraphData> ret;
-		ret.assign(temp.begin(), temp.end());
+		for (auto &&item : temp) {
+			ret.emplace_back(item);
+		}
 		return ret;
 	}
 
+	
 };
