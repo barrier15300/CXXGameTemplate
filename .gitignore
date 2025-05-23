@@ -36,3 +36,5 @@
 /packages
 /doxygen
 /TODOLIST.txt
+/pyscript/cache
+/pyscript/__pycache__
