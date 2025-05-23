@@ -38,9 +38,6 @@ void cls_t::End() {\
 class ObjectSwitcher;
 
 class IObjectBase {
-
-	friend ObjectSwitcher;
-
 public:
 
 	IObjectBase() = default;
@@ -74,6 +71,8 @@ public:
 
 private:
 	
+	friend ObjectSwitcher;
+
 	Storage::Data<"config.json"> m_Config;
 	Storage::Data<"Asset/asset.json"> m_Asset;
 	

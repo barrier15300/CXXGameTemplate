@@ -11,7 +11,7 @@ class Easing {
 	Easing &operator=(const Easing &) = delete;
 	Easing &operator=(Easing &&) = delete;
 
-	static inline bool valuecheck(double &x) {
+	static constexpr bool valuecheck(double &x) {
 		if (x <= 0) {
 			x = 0;
 			return false;
@@ -46,7 +46,7 @@ public:
 		Bounce
 	};
 
-	static inline double GetRate(double x, const Base ebt, const Line elt) {
+	static constexpr double GetRate(double x, const Base ebt, const Line elt) {
 		if (!valuecheck(x)) { return x; }
 
 		switch (ebt) {
@@ -200,7 +200,7 @@ public:
 		return 0;
 	}
 	static inline double GetSigmoidRate(double x, const Base sbt, double a = 1) {
-		static auto sigmoidfunc = [&](double x, double a) {
+		static const auto sigmoidfunc = [&](double x, const double a) -> const double {
 			return (
 				1 +
 				(
@@ -239,7 +239,7 @@ public:
 		}
 	}
 	static inline double GetBounceRate(double x, double a) {
-		static auto bouncefunc = [&](double x, double a) {
+		static const auto bouncefunc = [&](double x, const double a) -> const double {
 			return x *= 2 < 1 ?
 				1 - std::pow(1 - x, a) :
 				1 - std::pow(x - 1, a);

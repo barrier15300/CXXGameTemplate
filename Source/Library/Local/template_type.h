@@ -5,7 +5,7 @@ template<class T>
 concept IsArithmetic =
 std::is_arithmetic_v<T> ||
 !std::is_pointer_v<T> ||
-requires (T x) {
+	requires (T x) {
 	x = x + x;
 	x = x - x;
 	x = x * x;
@@ -20,6 +20,10 @@ requires (T x) {
 	x >= x;
 	x == x;
 	x != x;
+	x++;
+	++x;
+	x--;
+	--x;
 };
 
 template<class T>

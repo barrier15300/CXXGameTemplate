@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Helper/DXHandle.h"
 
 /// <summary>
@@ -10,10 +10,17 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 
 	bool Create(const std::string &path) {
 
+		
+
+
 		return true;
 	}
 
 	
 
+
+	static FontData CreateFontData() {
+
+	}
 
 };

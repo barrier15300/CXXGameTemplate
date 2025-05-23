@@ -101,7 +101,8 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		);
 		std::vector<GraphData> ret;
 		for (auto &&item : temp) {
-			ret.emplace_back(item);
+			ret.emplace_back(GraphData());
+			ret.back().Init(item);
 		}
 		return ret;
 	}

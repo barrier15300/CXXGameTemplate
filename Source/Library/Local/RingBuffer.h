@@ -173,9 +173,6 @@ public:
 
 protected:
 
-#undef min
-#undef max
-
 	size_t m_index = 0;
 	size_t m_current_size = 0;
 };

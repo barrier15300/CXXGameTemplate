@@ -40,3 +40,7 @@ inline unsigned long long combination(int n, int k) {
 	return ret;
 }
 
+template<class T>
+inline T lerp(T a, T b, double t) requires requires(T x) { x * 1; } {
+	return a + (b - a) * t;
+}

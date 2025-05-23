@@ -137,6 +137,9 @@
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
+    <PreBuildEvent>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -174,6 +177,9 @@
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
+    <PreBuildEvent>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -204,6 +210,9 @@
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
+    <PreBuildEvent>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -241,6 +250,9 @@
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
+    <PreBuildEvent>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -398,6 +410,7 @@
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".bat\AssetCopy.bat" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
