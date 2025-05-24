@@ -329,7 +329,6 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".bat\AssetCopy.bat" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
