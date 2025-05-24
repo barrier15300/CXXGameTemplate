@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Helper/Helper.h"
 
 struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
@@ -11,23 +11,6 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 		DataStream = DX_SOUNDDATATYPE_MEMPRESS,
 		FileStream = DX_SOUNDDATATYPE_FILE,
 	};
-
-	/// 
-	/// Data Create
-	/// 
-	bool Create(const std::string &path) {
-
-		Init(LoadSoundMem(path.c_str()));
-
-		return !IsNull();
-	}
-
-	bool Create(const std::string &path, int buffernum) {
-
-		Init(LoadSoundMem(path.c_str(), buffernum));
-
-		return !IsNull();
-	}
 
 	/// 
 	/// Data Use
@@ -49,13 +32,23 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 	}
 
 	/// 
-	/// Base Data
+	/// Factory
 	/// 
-	static void SetDataType(DataType type) {
+	
+	static SoundData Make(const std::string &path, DataType type, int buffernum = 3) {
+		SoundData ret;
 		SetCreateSoundDataType(static_cast<int>(type));
+		ret.Init(LoadSoundMem(path.c_str(), buffernum));
+		SetCreateSoundDataType(static_cast<int>(DataType::Stable));
+		return ret;
 	}
 
-	bool TopPositionPlay = false;
+	static SoundData Make(const std::string &path, int buffernum = 3) {
+		SoundData ret = Make(path, DataType::Stable, buffernum);
+		return ret;
+	}
+
+	bool TopPositionPlay = true;
 
 private:
 	void InitImpl() {

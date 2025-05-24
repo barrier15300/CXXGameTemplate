@@ -6,21 +6,9 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	using DXHandle::DXHandle;
 	
-	bool Create(const std::string &path) {
-
-		Init(
-			LoadGraph(path.c_str())
-		);
-
-		return !IsNull();
-	}
-
-	bool Create(Val2D<int> size, bool alpha) {
-		Init(
-			MakeScreen(size.x, size.y, alpha)
-		);
-		return !IsNull();
-	}
+	/// <summary>
+	/// Utility
+	/// </summary>
 
 	Val2D<int> Size() const {
 		Val2D<int> ret;
@@ -86,8 +74,25 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		);
 	}
 
-	// static factory
-	static std::vector<GraphData> CreateDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
+
+
+	/// 
+	/// Factory
+	///
+		
+	static GraphData Make(const std::string &path) {
+		GraphData ret;
+		ret.Init(LoadGraph(path.c_str()));
+		return ret;
+	}
+
+	static GraphData Make(Val2D<int> size, bool alpha) {
+		GraphData ret;
+		ret.Init(MakeScreen(size.x, size.y, alpha));
+		return ret;
+	}
+
+	static const std::vector<GraphData> MakeDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
 		std::vector<int> temp;
 		temp.resize((size_t)div.x * div.y);
 		LoadDivGraph(

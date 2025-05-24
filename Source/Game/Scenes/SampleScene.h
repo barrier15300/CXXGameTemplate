@@ -9,10 +9,12 @@ public:
 	virtual void Draw() override;
 	virtual void End() override;
 
-	GraphData Graph;
 	Asset::Value<Val2D<float>, "Sample/DrawPos"> pos{{}};
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
+	GraphData Graph;
+	SoundData Don;
+	SoundData Ka;
 	ScreenData screen;
 	
 	void printFPS() {

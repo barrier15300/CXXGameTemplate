@@ -6,6 +6,8 @@ args = sys.argv
 
 def main():    
 
+    print("DirCopy")
+
     if (len(args) != 3):
         print("invalid args")
         return

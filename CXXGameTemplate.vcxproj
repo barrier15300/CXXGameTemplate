@@ -138,7 +138,8 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
+python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -178,7 +179,8 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
+python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -211,7 +213,8 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
+python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -251,7 +254,8 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)</Command>
+      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
+python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -35,9 +35,20 @@ struct DXHandle {
 
 	DXHandle() : m_Handle(HandleNull) { }
 	//DXHandle(int from): m_Handle(from) { }
+	DXHandle(DXHandle &&from) : m_Handle(from.m_Handle) {
+		from.m_Handle = HandleNull;
+	}
 	~DXHandle() {
 		Init();
 	};
+
+	DXHandle &operator=(DXHandle &&from) {
+		if (this != &from) {
+			m_Handle = from.m_Handle;
+			from.m_Handle = HandleNull;
+		}
+		return *this;
+	}
 
 	operator const int() const {
 		return m_Handle;

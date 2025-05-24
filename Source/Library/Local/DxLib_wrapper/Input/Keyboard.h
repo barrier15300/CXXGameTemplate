@@ -1,11 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "DeviceBase.h"
 #include "Keys.h"
 
 inline byte __gotkeyinput[256]{};
 inline LRESULT CALLBACK KeyInputMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	
-
 	switch (message) {
 		case WM_KEYDOWN:
 			__gotkeyinput[wParam] = 1;
