@@ -333,10 +333,14 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="LICENSE.txt" />
     <Text Include="TODOLIST.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

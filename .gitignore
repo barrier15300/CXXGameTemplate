@@ -1,4 +1,4 @@
-# Prerequisites
+﻿# Prerequisites
 *.d
 
 # Compiled Object files
@@ -31,8 +31,8 @@
 *.out
 *.app
 /.vs
-/CXXGameTemplate/x64/Debug
-/x64/Debug/CXXGameTemplate
+/CXXGameTemplate
+/x64
 /packages
 /doxygen
 /TODOLIST.txt
