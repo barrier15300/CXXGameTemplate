@@ -337,11 +337,28 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <None Include=".gitignore" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
+    <None Include="pyscript\cache.py" />
+    <None Include="pyscript\DirCopy.py" />
+    <None Include="pyscript\RecToUTF8.py" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
     <Text Include="TODOLIST.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="manifest\ActiveCodePageUTF8.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Asset\coursesymbol_easy.png" />
+    <Image Include="Asset\coursesymbol_edit.png" />
+    <Image Include="Asset\coursesymbol_hard.png" />
+    <Image Include="Asset\coursesymbol_normal.png" />
+    <Image Include="Asset\coursesymbol_oni.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Asset\Don.wav" />
+    <Media Include="Asset\Ka.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
