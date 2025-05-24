@@ -204,8 +204,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="cpp.hint" />
-      <Filter>ソース ファイル</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOLIST.txt" />
