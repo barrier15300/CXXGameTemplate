@@ -281,6 +281,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\boost_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
+    <ClInclude Include="Source\Library\Local\Composite.h" />
     <ClInclude Include="Source\Library\Local\DataStorage.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\DxLib_wrapper.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\Helper.h" />

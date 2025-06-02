@@ -200,12 +200,50 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\ValClamp.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Library\Local\Composite.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="cpp.hint" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="pyscript\cache.py" />
+    <None Include="pyscript\DirCopy.py" />
+    <None Include="pyscript\RecToUTF8.py" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOLIST.txt" />
+    <Text Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="manifest\ActiveCodePageUTF8.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Asset\Don.wav">
+      <Filter>リソース ファイル</Filter>
+    </Media>
+    <Media Include="Asset\Ka.wav">
+      <Filter>リソース ファイル</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Asset\coursesymbol_easy.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Asset\coursesymbol_edit.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Asset\coursesymbol_hard.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Asset\coursesymbol_normal.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Asset\coursesymbol_oni.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>
