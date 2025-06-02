@@ -10,8 +10,11 @@
 template<IsArithmetic T>
 struct Val3D {
 
-
 	using value_type = T;
+	using Lcvr = const Val3D<T>&;
+	using Rvr = Val3D<T>&&;
+	template<class fromT> using LcvrFrom = const Val3D<fromT>&;
+	template<class fromT> using RvrFrom = Val3D<fromT>&&;
 
 	/// <summary>
 	/// constructor
@@ -21,8 +24,20 @@ struct Val3D {
 	constexpr explicit Val3D(T _all) : x(_all), y(_all), z(_all) {}
 	constexpr Val3D(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
 	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3> constexpr Val3D(fT1 ft1, fT2 ft2, fT3 ft3) : x(SCAST(ft1)), y(SCAST(ft2)), z(SCAST(ft3)) {}
-	template<IsArithmetic fT> constexpr Val3D(const Val3D<fT> &v) : x(SCAST(v.x)), y(SCAST(v.y)), y(SCAST(v.z)) {}
-	template<IsArithmetic fT> constexpr Val3D(Val3D<fT> &&v) : x(SCAST(v.x)), y(SCAST(v.z)) {}
+	template<IsArithmetic fromT> constexpr Val3D(LcvrFrom<fromT> v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)) {}
+	template<IsArithmetic fromT> constexpr Val3D(RvrFrom<fromT> v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)) {}
+	template<IsArithmetic fromT> constexpr Val3D(const std::initializer_list<fromT>& list) {
+		if (list.size() != 3) {
+			throw std::invalid_argument("Initializer list must contain exactly two elements.");
+		}
+		std::copy(list.begin(), list.end(), arr.begin());
+	}
+	template<IsArithmetic fromT> constexpr Val3D(std::initializer_list<fromT>&& list) {
+		if (list.size() != 3) {
+			throw std::invalid_argument("Initializer list must contain exactly two elements.");
+		}
+		std::copy(list.begin(), list.end(), arr.begin());
+	}
 
 	/// <summary>
 	/// union member
@@ -134,13 +149,11 @@ struct Val3D {
 		return x / y / z;
 	}
 
-	FROM_COONVERTIBLE(Val3D)
-	constexpr double Dot(fT &&v) const noexcept {
-		return Val3D::Dot(*this, std::forward<fT>(v));
+	constexpr double Dot(Lcvr v) const noexcept {
+		return Val3D::Dot(*this, v);
 	}
 
-	template<class fT>
-	constexpr Val3D<std::common_type_t<T, fT>> Cross(const Val3D<fT> &v) const noexcept {
+	constexpr Val3D Cross(Lcvr v) const noexcept {
 		return Val3D::Cross(*this, v);
 	}
 
@@ -185,23 +198,16 @@ struct Val3D {
 	/// static utility
 	/// </summary>
 
-	FROM_COONVERTIBLE(Val3D)
-	static constexpr double Dot(fT &&lhs, fT &&rhs) noexcept {
+	static constexpr double Dot(Lcvr lhs, Lcvr rhs) noexcept {
 		return (lhs * rhs).Sum();
 	}
 
-	FROM_COONVERTIBLE(Val3D)
-	static constexpr Val3D Cross(fT &&lhs, fT &&rhs) noexcept {
+	static constexpr Val3D Cross(Lcvr lhs, Lcvr rhs) noexcept {
 		return (lhs.yzx() * rhs.zxy()) - (lhs.zxy() * rhs.yzx());
 	}
 
-	FROM_COONVERTIBLE(Val2D<T>)
-	static constexpr double AngleBase(fT &&v) {
-		return v.Angle();
-	}
-
-	FROM_COONVERTIBLE(Val3D, class floatT = double)
-	static constexpr Val3D RotateBase(fT &&v, floatT angle) {
+	template<IsArithmetic floatT = double>
+	static constexpr Val3D RotateBase(Lcvr v, floatT angle) {
 		const std::array<Val3D<floatT>, 3> rotatevector = {
 			{
 				{1, 0, 0},
@@ -210,21 +216,20 @@ struct Val3D {
 			}
 		};
 		return {
-			(v * rotatevector[0]).Sum(),
-			(v * rotatevector[1]).Sum(),
-			(v * rotatevector[2]).Sum(),
+			Val3D::Dot(v, rotatevector[0]),
+			Val3D::Dot(v, rotatevector[1]),
+			Val3D::Dot(v, rotatevector[2])
 		};
 	}
 
-	FROM_COONVERTIBLE(Val3D)
-	static constexpr double Distance(fT &&a, fT &&b) {
+	static constexpr double Distance(Lcvr a, Lcvr b) {
 		Val3D v = a - b;
 		v = v * v;
 		return std::sqrt(v.x + v.y);
 	}
 
-	FROM_COONVERTIBLE(Val3D, class floatT = double)
-	static constexpr Val3D<double> Lerp(fT &&a, fT &&b, floatT t) noexcept {
+	template<IsArithmetic floatT = double>
+	static constexpr Val3D<double> Lerp(Lcvr a, Lcvr b, floatT t) noexcept {
 		return a + (b - a) * t;
 	}
 
@@ -248,6 +253,7 @@ TEMPLATE_BINARY_OPERATOR(Val3D);
 /// </summary>
 
 template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3> Val3D(fT1, fT2, fT3) -> Val3D<std::common_type_t<fT1, fT2, fT3>>;
+template<IsArithmetic fromT> Val3D(std::initializer_list<fromT>) -> Val3D<fromT>;
 
 /// <summary>
 /// json converter

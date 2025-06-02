@@ -6,6 +6,9 @@
 #include "fmt/core.h"
 #include "fmt/ranges.h"
 #include <array>
+#include <initializer_list>
+#include <algorithm>
+#include <utility>
 
 #include "Library/Local/template_type.h"
 #include "Library/Local/MacroHelper.h"
@@ -14,12 +17,12 @@
 
 #define SCAST(x) static_cast<T>(x)
 
-#define FROM_COONVERTIBLE(toT, ...) template<class fT __VA_OPT__(,) __VA_ARGS__> requires std::is_convertible_v<fT, toT>
+#define FROM_COONVERTIBLE(toT, ...) template<class fT __VA_OPT__(,) __VA_ARGS__> requires std::is_convertible_v<const fT, toT>
 
 // define assinment operator template
 
 #define TEMPLATE_ASSINMENT_OPERATOR_PROCESS_AUX_1(type, arg) arg ##type##= v.##arg;
-#define TEMPLATE_ASSINMENT_OPERATOR_PROCESS_AUX_2(type, arg) arg ##type##= arg;
+#define TEMPLATE_ASSINMENT_OPERATOR_PROCESS_AUX_2(type, arg) arg ##type##= v;
 
 #define TEMPLATE_ASSINMENT_OPERATOR_base(t, type, cv, ref, ...) \
 	template<IsArithmetic fromT> constexpr t &operator##type##=(cv t<fromT> ref v) noexcept { MACRO_FOR_EACH_VA_ARGS_ARG1(TEMPLATE_ASSINMENT_OPERATOR_PROCESS_AUX_1, type, __VA_ARGS__) return *this; }\

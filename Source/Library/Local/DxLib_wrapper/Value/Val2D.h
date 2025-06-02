@@ -9,6 +9,11 @@ template<IsArithmetic T>
 struct Val2D {
 
 	using value_type = T;
+	using Lcvr = const Val2D<T>&;
+	using Rvr = Val2D<T>&&;
+	template<class fromT> using LcvrFrom = const Val2D<fromT>&;
+	template<class fromT> using RvrFrom = Val2D<fromT>&&;
+
 
 	/// <summary>
 	/// constructor
@@ -20,8 +25,20 @@ struct Val2D {
 	constexpr explicit Val2D(const std::complex<T> &_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
 	constexpr explicit Val2D(std::complex<T> &&_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
 	template<IsArithmetic fT1, IsArithmetic fT2> constexpr Val2D(fT1 ft1, fT2 ft2) noexcept : x(SCAST(ft1)), y(SCAST(ft2)) {}
-	template<IsArithmetic fromT> constexpr Val2D(const Val2D<fromT> &v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
-	template<IsArithmetic fromT> constexpr Val2D(Val2D<fromT> &&v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
+	template<IsArithmetic fromT> constexpr Val2D(LcvrFrom<fromT> v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
+	template<IsArithmetic fromT> constexpr Val2D(RvrFrom<fromT> v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
+	template<IsArithmetic fromT> constexpr Val2D(const std::initializer_list<fromT>& list) {
+		if (list.size() != 2) {
+			throw std::invalid_argument("Initializer list must contain exactly two elements.");
+		}
+		std::copy(list.begin(), list.end(), arr.begin());
+	}
+	template<IsArithmetic fromT> constexpr Val2D(std::initializer_list<fromT>&& list) {
+		if (list.size() != 2) {
+			throw std::invalid_argument("Initializer list must contain exactly two elements.");
+		}
+		std::copy(list.begin(), list.end(), arr.begin());
+	}
 
 	/// <summary>
 	/// union member
@@ -99,13 +116,11 @@ struct Val2D {
 		return x / y;
 	}
 
-	template<class fromT>
-	constexpr double Dot(const Val2D<fromT> &v) const noexcept {
+	constexpr double Dot(Lcvr v) const noexcept {
 		return Val2D::Dot(*this, v);
 	}
 
-	template<class fromT>
-	constexpr double Cross(const Val2D<fromT> &v) const noexcept {
+	constexpr double Cross(Lcvr v) const noexcept {
 		return Val2D::Cross(*this, v);
 	}
 
@@ -136,15 +151,15 @@ struct Val2D {
 	/// static utility
 	/// </summary>
 
-	static constexpr double Dot(const Val2D &lhs, const Val2D &rhs) noexcept {
+	static constexpr double Dot(Lcvr lhs, Lcvr rhs) noexcept {
 		return (lhs * rhs).Sum();
 	}
 
-	static constexpr double Cross(const Val2D &lhs, const Val2D &rhs) noexcept {
+	static constexpr double Cross(Lcvr lhs, Lcvr rhs) noexcept {
 		return (lhs * rhs.yx()).Diff();
 	}
 
-	static constexpr double Angle(const Val2D &lhs, const Val2D &rhs) {
+	static constexpr double Angle(Lcvr lhs, Lcvr rhs) {
 		return std::atan2(Cross(lhs, rhs), Dot(lhs, rhs));
 	}
 
@@ -166,14 +181,14 @@ struct Val2D {
 		return l1.first + s * (l1.second - l1.first);
 	}
 
-	static constexpr double Distance(const Val2D &a, const Val2D &b) {
+	static constexpr double Distance(Lcvr a, Lcvr b) {
 		Val2D v = a - b;
 		v *= v;
 		return std::sqrt(v.x + v.y);
 	}
 
 	template<IsArithmetic floatT = double>
-	static constexpr Val2D<double> Lerp(const Val2D &a, const Val2D &b, floatT t) noexcept {
+	static constexpr Val2D<double> Lerp(Lcvr a, Lcvr b, floatT t) noexcept {
 		return a + (b - a) * t;
 	}
 
@@ -197,6 +212,7 @@ TEMPLATE_BINARY_OPERATOR(Val2D);
 /// </summary>
 
 template<IsArithmetic fT1, IsArithmetic fT2> Val2D(fT1, fT2) -> Val2D<std::common_type_t<fT1, fT2>>;
+template<IsArithmetic fromT> Val2D(std::initializer_list<fromT>) -> Val2D<fromT>;
 
 /// <summary>
 /// json converter

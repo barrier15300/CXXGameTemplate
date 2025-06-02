@@ -2,16 +2,9 @@
 #include <cmath>
 #include "ExMath.h"
 
-class Easing {
+namespace Easing {
 
-	Easing() = delete;
-	Easing(const Easing &) = delete;
-	Easing(Easing &&) = delete;
-
-	Easing &operator=(const Easing &) = delete;
-	Easing &operator=(Easing &&) = delete;
-
-	static constexpr bool valuecheck(double &x) {
+	static constexpr bool valuecheck(double& x) {
 		if (x <= 0) {
 			x = 0;
 			return false;
@@ -22,8 +15,6 @@ class Easing {
 		}
 		return true;
 	}
-
-public:
 
 	enum Base {
 		In,
@@ -51,14 +42,14 @@ public:
 
 		switch (ebt) {
 			case Base::InOut:
-				return x *= 2 < 1 ?
-					GetRate(x, Base::In, elt) * 0.5 :
-					0.5 + (GetRate(x - 1, Base::Out, elt) * 0.5);
+				return (x *= 2) < 1 ?
+					GetRate(x, Base::In, elt) / 2 :
+					(1 + GetRate(x - 1, Base::Out, elt)) / 2;
 				break;
 			case Base::OutIn:
-				return x *= 2 < 1 ?
-					GetRate(x, Base::Out, elt) * 0.5 :
-					0.5 + (GetRate(x - 1, Base::In, elt) * 0.5);
+				return (x *= 2) < 1 ?
+					GetRate(x, Base::Out, elt) / 2 :
+					(1 + GetRate(x - 1, Base::In, elt)) / 2;
 				break;
 		}
 
@@ -223,24 +214,24 @@ public:
 
 		switch (sbt) {
 			case Base::In:
-				return sigmoidfunc(x * 0.5, a) * 2;
+				return sigmoidfunc(x / 2, a) * 2;
 				break;
 			case Base::Out:
-				return (sigmoidfunc((x * 0.5) + 0.5, a) - 0.5) * 2;
+				return (sigmoidfunc((x / 2) + 0.5, a) - 0.5) * 2;
 				break;
 			case Base::InOut:
 				return sigmoidfunc(x, a);
 				break;
 			case Base::OutIn:
-				return x *= 2 < 1 ?
-					GetSigmoidRate(x, Base::Out, a) * 0.5 :
-					0.5 + (GetSigmoidRate((x - 1), Base::In, a) * 0.5);
+				return (x *= 2) < 1 ?
+					GetSigmoidRate(x, Base::Out, a) / 2 :
+					0.5 + (GetSigmoidRate((x - 1), Base::In, a) / 2);
 				break;
 		}
 	}
 	static inline double GetBounceRate(double x, double a) {
 		static const auto bouncefunc = [&](double x, const double a) -> const double {
-			return x *= 2 < 1 ?
+			return (x *= 2) < 1 ?
 				1 - std::pow(1 - x, a) :
 				1 - std::pow(x - 1, a);
 		};

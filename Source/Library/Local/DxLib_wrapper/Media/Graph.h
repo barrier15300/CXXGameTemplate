@@ -41,22 +41,24 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	// rect
 	void Draw(const Rect2D<int> &rect, bool alpha) const {
+		auto pos = rect.Abs();
 		DrawExtendGraph(
-			rect.x,
-			rect.y,
-			rect.w,
-			rect.h,
+			pos.x,
+			pos.y,
+			pos.w,
+			pos.h,
 			*this,
 			alpha
 		);
 	}
 
 	void Draw(const Rect2D<float> &rect, bool alpha) const {
+		auto pos = rect.Abs();
 		DrawExtendGraphF(
-			rect.x,
-			rect.y,
-			rect.w,
-			rect.h,
+			pos.x,
+			pos.y,
+			pos.w,
+			pos.h,
 			*this,
 			alpha
 		);
@@ -92,7 +94,7 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		return ret;
 	}
 
-	static const std::vector<GraphData> MakeDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
+	static std::vector<GraphData> MakeDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
 		std::vector<int> temp;
 		temp.resize((size_t)div.x * div.y);
 		LoadDivGraph(
@@ -105,9 +107,9 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 			temp.data()
 		);
 		std::vector<GraphData> ret;
+		ret.reserve(temp.size());
 		for (auto &&item : temp) {
-			ret.emplace_back(GraphData());
-			ret.back().Init(item);
+			ret.push_back((GraphData)item);
 		}
 		return ret;
 	}

@@ -6,6 +6,7 @@
 #include "ExString.h"
 #include "RingBuffer.h"
 #include "template_type.h"
+#include "Composite.h"
 
 // TODO:
 //#include "Transform.h"

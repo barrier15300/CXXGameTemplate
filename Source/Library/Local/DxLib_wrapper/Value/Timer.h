@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DxLib.h"
 #include <chrono>
 
@@ -65,22 +65,22 @@ private:
 
 	struct ElapsedTime {
 
-		ElapsedTime(size_t time) : t(static_cast<double>(time)) {}
+		ElapsedTime(size_t time) : t(time) {}
 
 		operator double() {
 			return Second();
 		}
 
 		double Second() const {
-			return t / 1000000000;
+			return t / 1000000000.;
 		}
 		double MilliSecond() const {
-			return t / 1000000;
+			return t / 1000000.;
 		}
 		double MicroSecond() const {
-			return t / 1000;
+			return t / 1000.;
 		}
-		double NanoSecond() const {
+		size_t NanoSecond() const {
 			return t;
 		}
 		size_t FrameCount() const {
@@ -91,7 +91,7 @@ private:
 		}
 
 	private:
-		double t;
+		size_t t;
 	};
 
 	static size_t GetNowNanoSeconds() {

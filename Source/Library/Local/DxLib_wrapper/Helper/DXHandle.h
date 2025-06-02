@@ -34,19 +34,17 @@ template<DXHandleType handletype = DXHandleType::None,int (*deleter_func)(int) =
 struct DXHandle {
 
 	DXHandle() : m_Handle(HandleNull) { }
-	//DXHandle(int from): m_Handle(from) { }
-	DXHandle(DXHandle &&from) : m_Handle(from.m_Handle) {
+	explicit DXHandle(int from) : m_Handle(from) {}
+	DXHandle(DXHandle &&from) noexcept : m_Handle(from.m_Handle) {
 		from.m_Handle = HandleNull;
 	}
 	~DXHandle() {
 		Init();
-	};
+	}
 
 	DXHandle &operator=(DXHandle &&from) {
-		if (this != &from) {
-			m_Handle = from.m_Handle;
-			from.m_Handle = HandleNull;
-		}
+		m_Handle = from.m_Handle;
+		from.m_Handle = HandleNull;
 		return *this;
 	}
 
@@ -54,14 +52,14 @@ struct DXHandle {
 		return m_Handle;
 	}
 
-	int GetLimitHandleCount() const {
+	static int GetHandleLimitCount() {
 		return GetMaxHandleNum(static_cast<int>(handletype));
 	}
-	int GetUsingHandleCount() const {
+	static int GetHandleUsingCount() {
 		return GetHandleNum(static_cast<int>(handletype));
 	}
-	int GetAvaliableCount() const {
-		return GetLimitHandleCount() - GetUsingHandleCount();
+	static int GetAvaliableCount() {
+		return GetHandleLimitCount() - GetHandleUsingCount();
 	}
 
 	void Init(int from = HandleNull) {
