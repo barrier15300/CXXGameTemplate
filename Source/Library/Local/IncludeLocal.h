@@ -7,6 +7,7 @@
 #include "RingBuffer.h"
 #include "template_type.h"
 #include "Composite.h"
+#include "ContainerLINQ.h"
 
 // TODO:
 //#include "Transform.h"

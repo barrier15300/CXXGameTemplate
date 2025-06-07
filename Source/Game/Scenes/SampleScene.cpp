@@ -24,6 +24,12 @@ void SampleScene::Proc() {
 		Ka.Play();
 	}
 
+	std::array<int, 100> arr;
+	ContainerUtility<decltype(arr)> a(arr);
+
+
+
+
 	return;
 }
 

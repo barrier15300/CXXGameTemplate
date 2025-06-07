@@ -282,7 +282,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Library\boost_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
     <ClInclude Include="Source\Library\Local\Composite.h" />
-    <ClInclude Include="Source\Library\Local\Container.h" />
+    <ClInclude Include="Source\Library\Local\ContainerLINQ.h" />
     <ClInclude Include="Source\Library\Local\DataStorage.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\DxLib_wrapper.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\Helper.h" />
@@ -323,7 +323,6 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Library\Local\ExString.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
     <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
-    <ClInclude Include="Source\Library\Local\member_pointer_traits.h" />
     <ClInclude Include="Source\Library\Local\ObjectBase.h" />
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />
