@@ -39,3 +39,5 @@
 /pyscript/cache
 /pyscript/__pycache__
 /vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0.nupkg
+/scripts/cache
+/scripts/__pycache__
