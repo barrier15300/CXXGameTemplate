@@ -8,12 +8,10 @@ bool SampleScene::Init() {
 
 	Input.Mouse.Lock();
 
-	std::function<int(int, int)> add = [](int l, int r) { return l + r; };
-	function_ref<int(int, int)> add_ref = [](int l, int r) { return l + r; };
+	std::function<int(int, int)> add = [](int l, int r) { return l * r; };
+	function_ref<int(int, int)> add_ref = [](int l, int r) { return l * r; };
 
 	constexpr size_t count = 1000;
-
-	int g = 65536 * 65536;
 
 	Timer t;
 	
