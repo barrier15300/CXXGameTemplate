@@ -15,27 +15,28 @@ inline LRESULT CALLBACK KeyInputMessage(HWND hWnd, UINT message, WPARAM wParam, 
 	return 0;
 }
 
-class __keyboardInput_sc : public __baseInputDevice<256> {
+class KeyboardInput : public InputDeviceBase<256> {
 
 	byte *rawInput = __gotkeyinput;
 
 public:
 
-	__keyboardInput_sc() : __baseInputDevice() {
+	KeyboardInput() : InputDeviceBase() {
 		SetHookWinProc(KeyInputMessage);
 	}
 
 	InputState operator[](size_t idx) const {
-		return __baseInputDevice::operator[](idx);
+		return InputDeviceBase::operator[](idx);
 	}
 
 	InputState operator[](Keys key) const {
-		return __baseInputDevice::operator[](static_cast<unsigned int>(key));
+		return InputDeviceBase::operator[](static_cast<unsigned int>(key));
 	}
 
 	void Update() {
-		for (auto &&item : States) {
-			item.Update(rawInput[(size_t)(&item - States)]);
+		for (size_t i = 0; auto&& item : States) {
+			item.Update(rawInput[i]);
+			++i;
 		}
 	}
 };

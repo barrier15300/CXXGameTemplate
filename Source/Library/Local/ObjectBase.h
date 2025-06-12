@@ -73,8 +73,8 @@ private:
 	
 	friend ObjectSwitcher;
 
-	Storage::Data<"config.json"> m_Config;
-	Storage::Data<"Asset/asset.json"> m_Asset;
+	static inline Storage::Data<"config.json"> m_Config;
+	static inline Storage::Data<"Asset/asset.json"> m_Asset;
 	
 	IObjectBase *SetParent(IObjectBase *parent) {
 		m_ParentObject = parent;
@@ -87,9 +87,9 @@ protected:
 	using Config = decltype(m_Config);
 	using Asset = decltype(m_Asset);
 
-	InputDevices Input;
+	static inline InputDevices Input;
 
-	DxLibSystem DXSystem;
+	static inline DxLibSystem DXSystem;
 
 };
 

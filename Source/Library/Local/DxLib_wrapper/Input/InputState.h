@@ -8,10 +8,10 @@ struct InputState {
 
 	enum class State : byte;
 
-	bool Down() const { return m_State == State::Down; }
-	bool Press() const { return m_State == State::Press || Down(); }
-	bool Up() const { return m_State == State::Up; }
-	bool Release() const { return m_State == State::Release || Up(); }
+	constexpr bool Down() const { return m_State == State::Down; }
+	constexpr bool Press() const { return m_State == State::Press || Down(); }
+	constexpr bool Up() const { return m_State == State::Up; }
+	constexpr bool Release() const { return m_State == State::Release || Up(); }
 
 	State GetState() const {
 		return m_State;
@@ -24,7 +24,7 @@ struct InputState {
 			(((((m_bitop - 3) >> 1) & 1) + 1) |
 			((((6 >> m_bitop) & 1) << 2) | ((m_bitop + 4) & 8)));
 
-	#pragma region Original
+	#pragma region ____Original
 		/*
 		if (press) {
 			switch (m_State) {

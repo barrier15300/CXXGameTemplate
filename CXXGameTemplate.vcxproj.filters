@@ -206,16 +206,31 @@
     <ClInclude Include="Source\Library\Local\ContainerLINQ.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Library\Local\Properties.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MacroConfig.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\Local\function_ref.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="cpp.hint" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="pyscript\cache.py" />
-    <None Include="pyscript\DirCopy.py" />
-    <None Include="pyscript\RecToUTF8.py" />
+    <None Include="script\cache.py" />
+    <None Include="script\DirCopy.py" />
+    <None Include="script\RecToUTF8.py" />
     <None Include="README.md" />
+    <None Include="scripts\PreBuildEvent.bat">
+      <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="scripts\cache.py" />
+    <None Include="scripts\DirCopy.py" />
+    <None Include="scripts\RecToUTF8.py" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOLIST.txt" />

@@ -8,6 +8,7 @@
 #include "template_type.h"
 #include "Composite.h"
 #include "ContainerLINQ.h"
+#include "function_ref.h"
 
 // TODO:
 //#include "Transform.h"

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props" Condition="Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -89,6 +90,7 @@
     <LuaConfiguration>$(Configuration)</LuaConfiguration>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    <LuaRuntimePlatform>v143</LuaRuntimePlatform>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)\</OutDir>
@@ -107,6 +109,7 @@
     <LuaConfiguration>$(Configuration)</LuaConfiguration>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    <LuaRuntimePlatform>v143</LuaRuntimePlatform>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,6 +129,7 @@
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,8 +143,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
-python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -165,6 +168,8 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -181,8 +186,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
-python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -192,7 +196,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
@@ -203,6 +207,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -216,8 +221,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
-python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -242,6 +246,8 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 /Zc:__cplusplus /Zc:preprocessor %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -258,8 +264,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>python "$(SolutionDir)pyscript\DirCopy.py" "$(SolutionDir)Asset" $(TargetDir)
-python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -322,8 +327,10 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Library\Local\ExMath.h" />
     <ClInclude Include="Source\Library\Local\ExString.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
+    <ClInclude Include="Source\Library\Local\function_ref.h" />
     <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
     <ClInclude Include="Source\Library\Local\ObjectBase.h" />
+    <ClInclude Include="Source\Library\Local\Properties.h" />
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\Analize.h" />
@@ -332,6 +339,7 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <ClInclude Include="Source\Library\Local\TextAnalizer\TextAnalizer.h" />
     <ClInclude Include="Source\Library\Local\Transform.h" />
     <ClInclude Include="Source\Library\Local\MacroHelper.h" />
+    <ClInclude Include="Source\MacroConfig.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +347,13 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
     <None Include=".gitignore" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
-    <None Include="pyscript\cache.py" />
-    <None Include="pyscript\DirCopy.py" />
-    <None Include="pyscript\RecToUTF8.py" />
+    <None Include="scripts\PreBuildEvent.bat" />
+    <None Include="scripts\cache.py" />
+    <None Include="scripts\DirCopy.py" />
+    <None Include="scripts\RecToUTF8.py" />
+    <None Include="script\cache.py" />
+    <None Include="script\DirCopy.py" />
+    <None Include="script\RecToUTF8.py" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -364,20 +376,21 @@ python "$(SolutionDir)pyscript\RecToUTF8.py" "$(SolutionDir)packages"</Command>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\DxLib.vc.3.2.4.2\build\native\DxLib.vc.targets" Condition="Exists('packages\DxLib.vc.3.2.4.2\build\native\DxLib.vc.targets')" />
     <Import Project="packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets" Condition="Exists('packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets')" />
-    <Import Project="packages\fmt.7.0.1\build\fmt.targets" Condition="Exists('packages\fmt.7.0.1\build\fmt.targets')" />
-    <Import Project="packages\lua.5.4.7.2\build\native\Lua.targets" Condition="Exists('packages\lua.5.4.7.2\build\native\Lua.targets')" />
-    <Import Project="packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets" Condition="Exists('packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets')" />
+    <Import Project="packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets" Condition="Exists('packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets')" />
+    <Import Project="packages\lua.5.4.8\build\native\Lua.targets" Condition="Exists('packages\lua.5.4.8\build\native\Lua.targets')" />
+    <Import Project="packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets" Condition="Exists('packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets')" />
+    <Import Project="packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets" Condition="Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\DxLib.vc.3.2.4.2\build\native\DxLib.vc.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\DxLib.vc.3.2.4.2\build\native\DxLib.vc.targets'))" />
     <Error Condition="!Exists('packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\native.magic_enum.0.9.5\build\native\native.magic_enum.targets'))" />
-    <Error Condition="!Exists('packages\fmt.7.0.1\build\fmt.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\fmt.7.0.1\build\fmt.targets'))" />
-    <Error Condition="!Exists('packages\lua.5.4.7.2\build\native\Lua.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\lua.5.4.7.2\build\native\Lua.targets'))" />
-    <Error Condition="!Exists('packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\nlohmann.json.3.11.3\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets'))" />
+    <Error Condition="!Exists('packages\lua.5.4.8\build\native\Lua.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\lua.5.4.8\build\native\Lua.targets'))" />
+    <Error Condition="!Exists('packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets'))" />
+    <Error Condition="!Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props'))" />
+    <Error Condition="!Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets'))" />
   </Target>
 </Project>
