@@ -331,6 +331,7 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\boost_include.h" />
+    <ClInclude Include="Source\Library\fmt_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
     <ClInclude Include="Source\Library\Local\Composite.h" />
     <ClInclude Include="Source\Library\Local\ContainerLINQ.h" />

@@ -5,6 +5,6 @@
 #include "nlohmann/json.hpp"
 #include "magic_enum.hpp"
 
-#include <fmt/core.h>
+#include "fmt_include.h"
 
 #include "Local/IncludeLocal.h"

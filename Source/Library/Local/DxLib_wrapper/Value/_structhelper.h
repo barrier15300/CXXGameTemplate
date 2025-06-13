@@ -3,12 +3,12 @@
 
 #include "../Helper/JsonHelper.h"
 
-#include <fmt/core.h>
 #include <array>
 #include <initializer_list>
 #include <algorithm>
 #include <utility>
 
+#include "Library/fmt_include.h"
 #include "Library/Local/template_type.h"
 #include "Library/Local/MacroHelper.h"
 
