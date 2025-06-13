@@ -3,8 +3,7 @@
 
 #include "../Helper/JsonHelper.h"
 
-#include "fmt/core.h"
-#include "fmt/ranges.h"
+#include <fmt/core.h>
 #include <array>
 #include <initializer_list>
 #include <algorithm>

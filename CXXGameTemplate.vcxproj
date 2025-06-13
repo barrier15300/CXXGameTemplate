@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props" Condition="Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -125,8 +124,8 @@
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgAutoLink>true</VcpkgAutoLink>
-    <VcpkgEnabled>true</VcpkgEnabled>
-    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgEnabled>false</VcpkgEnabled>
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
     <VcpkgManifestInstall>true</VcpkgManifestInstall>
     <VcpkgApplocalDeps>true</VcpkgApplocalDeps>
     <VcpkgXUseBuiltInApplocalDeps>true</VcpkgXUseBuiltInApplocalDeps>
@@ -154,7 +153,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -192,7 +191,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -232,7 +231,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -270,7 +269,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -298,6 +297,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="libs\fmt\src\fmt.cc" />
+    <ClCompile Include="libs\fmt\src\format.cc" />
+    <ClCompile Include="libs\fmt\src\os.cc" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -310,6 +312,20 @@
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libs\fmt\include\fmt\args.h" />
+    <ClInclude Include="libs\fmt\include\fmt\base.h" />
+    <ClInclude Include="libs\fmt\include\fmt\chrono.h" />
+    <ClInclude Include="libs\fmt\include\fmt\color.h" />
+    <ClInclude Include="libs\fmt\include\fmt\compile.h" />
+    <ClInclude Include="libs\fmt\include\fmt\core.h" />
+    <ClInclude Include="libs\fmt\include\fmt\format-inl.h" />
+    <ClInclude Include="libs\fmt\include\fmt\format.h" />
+    <ClInclude Include="libs\fmt\include\fmt\os.h" />
+    <ClInclude Include="libs\fmt\include\fmt\ostream.h" />
+    <ClInclude Include="libs\fmt\include\fmt\printf.h" />
+    <ClInclude Include="libs\fmt\include\fmt\ranges.h" />
+    <ClInclude Include="libs\fmt\include\fmt\std.h" />
+    <ClInclude Include="libs\fmt\include\fmt\xchar.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Game\GameMain.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
@@ -410,7 +426,6 @@
     <Import Project="packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets" Condition="Exists('packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets')" />
     <Import Project="packages\lua.5.4.8\build\native\Lua.targets" Condition="Exists('packages\lua.5.4.8\build\native\Lua.targets')" />
     <Import Project="packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets" Condition="Exists('packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets')" />
-    <Import Project="packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets" Condition="Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -420,7 +435,5 @@
     <Error Condition="!Exists('packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\DxLib.vc.3.2.4.3\build\native\DxLib.vc.targets'))" />
     <Error Condition="!Exists('packages\lua.5.4.8\build\native\Lua.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\lua.5.4.8\build\native\Lua.targets'))" />
     <Error Condition="!Exists('packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\nlohmann.json.3.12.0\build\native\nlohmann.json.targets'))" />
-    <Error Condition="!Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.props'))" />
-    <Error Condition="!Exists('packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.1.0.0\build\native\vcpkg.S.MyMakingProject.NowCoding.CXXGameTemplate.vcpkg.targets'))" />
   </Target>
 </Project>
