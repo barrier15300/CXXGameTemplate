@@ -306,6 +306,7 @@
     <ClCompile Include="Source\EntryPoint.cpp" />
     <ClCompile Include="Source\Game\GameMain.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
+    <ClCompile Include="Source\Game\Scenes\Wips\function_ref.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +327,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Game\GameMain.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
+    <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h" />
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\boost_include.h" />
     <ClInclude Include="Source\Library\fmt_include.h" />

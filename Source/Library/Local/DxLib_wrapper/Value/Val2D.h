@@ -6,7 +6,7 @@
 /// </summary>
 /// <typeparam name="T"></typeparam>
 template<IsArithmetic T>
-struct Val2D {
+struct Val2D : ICompare<Val2D<T>> {
 
 	using value_type = T;
 	using Lcvr = const Val2D<T>&;

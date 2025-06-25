@@ -7,15 +7,16 @@
 
 #include "ExString.h"
 #include "DataStorage.h"
+#include "function_ref.h"
 #include "DxLib_wrapper/DxLib_wrapper.h"
 
 #define OBJECT_INTERFACE_INLINE_H(cls_t)\
 class cls_t : public IObjectBase {\
 public:\
-	virtual bool Init();\
-	virtual void Proc();\
-	virtual void Draw();\
-	virtual void End();\
+	virtual bool Init() override;\
+	virtual void Proc() override;\
+	virtual void Draw() override;\
+	virtual void End() override;\
 };
 
 #define OBJECT_INTERFACE_INLINE_CPP(cls_t) \
@@ -101,20 +102,20 @@ public:
 
 	template<std::derived_from<IObjectBase> T>
 	void Regist() {
-		std::string name = GetObjectName<T>();
-		m_RegistObjects[name] = [=] {
+		std::type_index id = GetTypeID<T>();
+		m_RegistObjects[id] = [=] {
 			IObjectBase *ret = new T();
 			return ret->SetParent(m_ParentObject);
 		};
 		if (m_NowObject == nullptr) {
-			this->Change(name);
+			this->Change(id);
 		}
 	}
 
-	void Change(const std::string &name) {
-		auto it = m_RegistObjects.find(name);
+	void Change(const std::type_index &id) {
+		auto it = m_RegistObjects.find(id);
 		if (it == m_RegistObjects.end()) {
-			throw std::runtime_error("Object name not found: " + name);
+			throw std::runtime_error("Object name not found: " + std::string(id.name()));
 		}
 
 		if (m_NowObject != nullptr) { m_NowObject->Invoke_End(); }
@@ -135,20 +136,20 @@ public:
 		return m_ParentObject;
 	}
 
-	std::vector<std::string> GetRegistObjectNames() {
-		std::vector<std::string> ret(m_RegistObjects.size());
-		std::transform(m_RegistObjects.begin(),m_RegistObjects.end(),ret.begin(),[](const auto &pair) { return pair.first; });
-		return ret;
-	}
+	//std::vector<std::type_index> GetRegistTypeIDList() {
+	//	std::vector<std::type_index> ret(m_RegistObjects.size());
+	//	std::transform(m_RegistObjects.begin(), m_RegistObjects.end(), ret.begin(), [](const auto& pair) { return pair.first; });
+	//	return ret;
+	//}
 
 private:
 
 	template<class T>
-	std::string GetObjectName() const {
-		return std::string(typeid(T).name()).substr(6);
+	static std::type_index GetTypeID() {
+		return typeid(T);
 	}
 
 	IObjectBase *m_ParentObject = nullptr;
 	std::unique_ptr<IObjectBase> m_NowObject = nullptr;
-	std::unordered_map<std::string, std::function<IObjectBase *()>> m_RegistObjects;
+	std::unordered_map<std::type_index, std::function<IObjectBase *()>> m_RegistObjects;
 };

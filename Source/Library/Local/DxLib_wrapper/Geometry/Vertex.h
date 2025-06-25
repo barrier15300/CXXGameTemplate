@@ -263,4 +263,4 @@ namespace Vertex {
 
 	} // namespace Factory
 
-} // namespace Polygon
+} // namespace Vertex

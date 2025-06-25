@@ -3,7 +3,7 @@
 
 template<class T>
 concept IsArithmetic =
-std::is_arithmetic_v<T>
+std::is_arithmetic<T>::value
 //||	requires (T x) {
 //	x = x + x;
 //	x = x - x;
@@ -27,4 +27,4 @@ std::is_arithmetic_v<T>
 ;
 
 template<class T>
-concept IsFunction = std::is_function_v<T>;
+concept IsFunction = std::is_function<T>::value;

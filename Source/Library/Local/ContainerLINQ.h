@@ -57,12 +57,14 @@ public:
 	using size_type = size_t;
 	using difference_type = std::ptrdiff_t;
 
+#define _TEMP_PREDICATE template<class Project = std::identity, std::indirect_unary_predicate<std::projected<iterator, Project>> Predicate>
+#define _TEMP_PROJECT template<class Project = std::identity>
+
 #pragma region ____algorithm wrapper
 
 #pragma region ____bool all();
 
-	template<class Project = std::identity, std::indirect_unary_predicate<std::projected<iterator, Project>> Predicate>
-	constexpr bool all(Predicate predicate, Project project = {}) const {
+	_TEMP_PREDICATE constexpr bool all(Predicate predicate, Project project = {}) const {
 		return std::ranges::all_of(*this, predicate, project);
 	}
 
@@ -70,8 +72,7 @@ public:
 
 #pragma region ____bool any();
 
-	template<class Project = std::identity, std::indirect_unary_predicate<std::projected<iterator, Project>> Predicate>
-	constexpr bool any(Predicate predicate, Project project = {}) const {
+	_TEMP_PREDICATE constexpr bool any(Predicate predicate, Project project = {}) const {
 		return std::ranges::any_of(*this, predicate, project);
 	}
 
@@ -79,8 +80,7 @@ public:
 
 #pragma region ____bool contains();
 #if __cplusplus >= 202302L
-	template<class Project = std::identity>
-	constexpr bool contains(const_reference v, Project project = {}) const {
+	_TEMP_PROJECT constexpr bool contains(const_reference v, Project project = {}) const {
 		return std::ranges::contains(*this, v, project);
 	}
 #endif
@@ -91,8 +91,7 @@ public:
 #pragma endregion
 
 #pragma region ____iterator find();
-	template<class Project = std::identity>
-	constexpr iterator find(const_reference v, size_type frontoff, Project project) {
+	_TEMP_PROJECT constexpr iterator find(const_reference v, size_type frontoff, Project project) {
 		auto first = this->begin() + frontoff;
 		auto last = this->end();
 		if (first >= last) {
@@ -100,8 +99,7 @@ public:
 		}
 		return std::ranges::find(first, last, v, project);
 	}
-	template<class Project = std::identity>
-	constexpr const_iterator find(const_reference v, size_type frontoff, Project project) const {
+	_TEMP_PROJECT constexpr const_iterator find(const_reference v, size_type frontoff, Project project) const {
 		auto first = this->begin() + frontoff;
 		auto last = this->end();
 		if (first >= last) {
@@ -115,12 +113,10 @@ public:
 	constexpr const_iterator find(const_reference v, size_type frontoff) const {
 		return this->find(v, frontoff, {});
 	}
-	template<class Project = std::identity>
-	constexpr iterator find(const_reference v, Project project) {
+	_TEMP_PROJECT constexpr iterator find(const_reference v, Project project) {
 		return std::ranges::find(*this, v, project);
 	}
-	template<class Project = std::identity>
-	constexpr const_iterator find(const_reference v, Project project) const {
+	_TEMP_PROJECT constexpr const_iterator find(const_reference v, Project project) const {
 		return std::ranges::find(*this, v, project);
 	}
 	constexpr iterator find(const_reference v) {
@@ -132,16 +128,14 @@ public:
 #pragma endregion
 
 #pragma region ____size_type index_of();
-	template<class Project = std::identity>
-	size_type index_of(const_reference v, size_type frontoff, Project project = {}) {
+	_TEMP_PROJECT size_type index_of(const_reference v, size_type frontoff, Project project = {}) {
 		auto it = this->find(v, frontoff, project);
 		if (it == this->end()) {
 			return npos;
 		}
 		return it - this->begin();
 	}
-	template<class Project = std::identity>
-	size_type index_of(const_reference v, size_type frontoff, Project project = {}) const {
+	_TEMP_PROJECT size_type index_of(const_reference v, size_type frontoff, Project project = {}) const {
 		auto it = this->find(v, frontoff, project);
 		if (it == this->end()) {
 			return npos;
@@ -154,16 +148,14 @@ public:
 	size_type index_of(const_reference v, size_type frontoff) const {
 		return this->index_of(v, frontoff, {});
 	}
-	template<class Project = std::identity>
-	size_type index_of(const_reference v, Project project = {}) {
+	_TEMP_PROJECT size_type index_of(const_reference v, Project project = {}) {
 		auto it = this->find(v, project);
 		if (it == this->end()) {
 			return npos;
 		}
 		return it - this->begin();
 	}
-	template<class Project = std::identity>
-	size_type index_of(const_reference v, Project project = {}) const {
+	_TEMP_PROJECT size_type index_of(const_reference v, Project project = {}) const {
 		auto it = this->find(v, project);
 		if (it == this->end()) {
 			return npos;

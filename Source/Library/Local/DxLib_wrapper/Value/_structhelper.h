@@ -61,6 +61,22 @@
 
 // define compare operator template
 
+template<class Derived>
+class ICompare {
+public:
+
+	constexpr bool operator< (const Derived& rhs) noexcept {
+		static_asset(std::is_invocable_r_v<bool, decltype(rhs.LessThanImpl), Derived>, "Implement the \"LessThanImpl\" function");
+		return rhs.LessThanImpl();
+	}
+
+	constexpr bool operator> (const Derived& rhs) noexcept { return rhs < *this; }\
+	constexpr bool operator<=(const Derived& rhs) noexcept { return !(*this > rhs); }\
+	constexpr bool operator>=(const Derived& rhs) noexcept { return !(*this < rhs); }\
+	constexpr bool operator==(const Derived& rhs) noexcept { return *this >= rhs && *this <= rhs; }\
+	constexpr bool operator!=(const Derived& rhs) noexcept { return !(*this == rhs); }
+};
+
 #define TEMPLATE_COMPARE_OPERATOR_base(t, _min, cva, refa, cvb, refb) \
 	template<IsArithmetic lfromT, IsArithmetic rfromT> constexpr bool operator< (cva t<lfromT> refa lhs, cvb t<rfromT> refb rhs) noexcept { return _min; }\
 	template<IsArithmetic lfromT, IsArithmetic rfromT> constexpr bool operator> (cva t<lfromT> refa lhs, cvb t<rfromT> refb rhs) noexcept { return rhs < lhs; }\

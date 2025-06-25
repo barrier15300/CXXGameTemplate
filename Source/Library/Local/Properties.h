@@ -1,12 +1,16 @@
 ﻿#pragma once
 #include <concepts>
+#include "function_ref.h"
 
-template<class T, std::invocable getF, std::invocable setF>
+template<class T>
 class Properties {
 	
 	Properties() {};
 
 public:
+
+	using getF = function_ref<T(void)>;
+	using setF = function_ref<void(T)>;
 
 	Properties& operator=(const T& value) const {
 		set(value);

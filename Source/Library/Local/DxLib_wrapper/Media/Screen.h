@@ -53,18 +53,17 @@ struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		);
 	}
 
-	bool Save(std::string_view savepath, const Rect2D<int> &rect, int compressionlevel = 2) {
-		return SUCCEEDED(SaveDrawValidGraphToPNGWithStrLen(*this,rect.x,rect.y,rect.w,rect.h,savepath.data(),savepath.size(),compressionlevel));
+	bool Save(const std::string& savepath, const Rect2D<int> &rect, int compressionlevel = 2) {
+		return SUCCEEDED(SaveDrawValidGraphToPNGWithStrLen(*this, rect.x, rect.y, rect.w, rect.h, (savepath + ".png").c_str(), savepath.size(), compressionlevel));
 	}
 
-	bool Save(std::string_view savepath, const Val2D<int>& size, int compressionlevel = 2) {
-		return Save(savepath, {{},size}, compressionlevel);
+	bool Save(const std::string& savename, const Val2D<int>& size, int compressionlevel = 2) {
+		return Save(savename, {{},size}, compressionlevel);
 	}
 
-	bool Save(std::string_view savepath, int compressionlevel = 2) {
+	bool Save(const std::string& savename, int compressionlevel = 2) {
 		Val2D<int> size;
 		GetGraphSize(*this, &size.x, &size.y);
-		return Save(savepath, size, compressionlevel);
+		return Save(savename, size, compressionlevel);
 	}
-
 };
