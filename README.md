@@ -1,3 +1,4 @@
+[Japanese／日本語]
 # ビルドする時に必要なもの
 
 https://dxlib.xsrv.jp/dxinfo.html
@@ -70,4 +71,79 @@ https://dxlib.xsrv.jp/dxinfo.html
   - コンボボックス
   - ラジオボタン
   - チェックボックス
+```
+
+[English／英語]
+# Build Requirements
+
+https://dxlib.xsrv.jp/dxinfo.html
+
+You should be able to run it if you are in the Visual Studio environment specified in this library.
+
+# What this template can do:
+
+I'll leave a list of the current status.
+(link to source code... well, i'll do it someday)
+
+Round brackets -> Incomplete or questionable implementation
+
+Comments -> Simple comments
+
+```
+- Scene Separation
+  - Change the types of objects that can be handled as scenes by passing template arguments
+- Configuration generation and editing by json file
+  - Storage::Data<filepath> // Shorten this by using to make it very easy to handle
+    - If the specified object is not found, build it.
+    - If there is a json file already written out, read from it
+    - If destructor is called, write out as json file
+  - Storage::Data<filepath>::Value<T, jsonpath>
+    - Because the value is managed by static member variables, even if multiple values are declared in the same jsonpath, they all point to a single value.
+    - When the constructor is called, it writes from json to its own value.
+    - When the destructor is called, it writes the value it has to json.
+- Wrapping DxLib
+  - structure (maybe some functionality is missing?) // Can be converted to/from json
+    - Val2D<T>
+    - Val3D<T> (Wip)
+    - Rect2D<T>
+    - Rect3D<T> // Rectangle?
+    - Color3
+    - Color4
+    - Color4F
+  - Media (still needs to be tweaked overall)
+    - GraphData (Wip)
+    - SoundData (Wip)
+    - ScreenData (Wip)
+    - FontData (Not yet supported)
+    - ModelData (Not supported)
+  - Input (a little difficult to design)
+    - InputState // wtf update() function
+    - InputDevices::Keyboard // WM_KEYDOWN & WM_KEYUP expressions
+    - inputDevices::Mouse // get mouse coordinates
+  - Shapes (the easiest way so far is to create them from vertex data)
+    - Square (Wip)
+    - Triangle (Wip)
+    - Vertex2D
+    - IndexedVertex2D (Wip)
+    - Vertex::Factory2D (Wip)
+  - Helper // I don't know if I'd call it a helper...
+    - DXHandle<DXHandleType> // base for media system
+  - system (design difficulties...?)
+    - SoundDevice // getting SimpleAudioVolume from COM over various paths...
+    - DXSystem (too many functions are redundant here...)
+    - Timer // time measurement by std::chrono
+    - Window (None struct)
+
+```
+
+# TODO: 
+
+```
+- GUI Control
+  - Seek Bar
+  - Buttons
+  - Text Box
+  - Combo Box
+  - Radio Button
+  - Check box
 ```
