@@ -17,8 +17,10 @@ public:
 	SoundData Ka;
 	ScreenData screen;
 	
+	Timer timer;
+	size_t num = 4;
 	ValClamp<size_t> idx{};
-	double angle = 0;
+	double t = 0.1;
 
 	void printFPS() {
 		auto fmtstr = fmt::format("FPS: {}",(int)GetFPS());
