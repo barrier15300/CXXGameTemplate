@@ -310,6 +310,7 @@
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\制作してたもの\FreedomBarrierStyle\FreedomBarrierStyle_Old\Source\System\Library\ExLib\ExString\strconv.h" />
     <ClInclude Include="libs\fmt\include\fmt\args.h" />
     <ClInclude Include="libs\fmt\include\fmt\base.h" />
     <ClInclude Include="libs\fmt\include\fmt\chrono.h" />
@@ -379,6 +380,7 @@
     <ClInclude Include="Source\Library\Local\Properties.h" />
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />
+    <ClInclude Include="Source\Library\strconv.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\Analize.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\strexprconv.h" />
     <ClInclude Include="Source\Library\Local\template_type.h" />

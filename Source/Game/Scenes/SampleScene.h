@@ -12,11 +12,14 @@ public:
 	Asset::Value<Val2D<float>, "Sample/DrawPos"> pos{{}};
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
+	Asset::Value<std::string, "Sample/Font"> Fontpath{ "Asset/Font.ttf" };
 	GraphData Graph;
 	SoundData Don;
 	SoundData Ka;
 	ScreenData screen;
+	FontData Font;
 	
+	DrawableString Text{};
 	Timer timer;
 	size_t num = 4;
 	ValClamp<size_t> idx{};

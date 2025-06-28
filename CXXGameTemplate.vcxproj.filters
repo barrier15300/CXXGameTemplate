@@ -266,6 +266,12 @@
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\制作してたもの\FreedomBarrierStyle\FreedomBarrierStyle_Old\Source\System\Library\ExLib\ExString\strconv.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\strconv.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -32,6 +32,8 @@ struct DXHandle {
 
 	DXHandle() : m_Handle(HandleNull) { }
 	explicit DXHandle(int from) : m_Handle(from) {}
+
+	DXHandle(const DXHandle& from) = delete;
 	DXHandle(DXHandle &&from) noexcept : m_Handle(from.m_Handle) {
 		from.m_Handle = HandleNull;
 	}

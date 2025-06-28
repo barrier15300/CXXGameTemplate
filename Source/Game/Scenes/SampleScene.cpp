@@ -7,9 +7,13 @@ bool SampleScene::Init() {
 	Don = SoundData::Make(Donfilepath);
 	Ka = SoundData::Make(Kafilepath);
 
+	Font = FontData::Make(Fontpath, 24, 10);
+
 	Input.Mouse.Lock();
 
 	Scene->Regist<FunctionRefTest>();
+
+	Text = Font.ToDrawable("Hello, World!\nThis is a sample scene.\nPress S to reset timer.\nPress Left/Right to change index.\nPress Up/Down to change number of rectangles.\nPress N to copy t value to clipboard.\nPress M to copy line length to clipboard.");
 
 	return true;
 }
@@ -113,8 +117,10 @@ void SampleScene::Draw() {
 	}
 
 	printFPS();
-	DrawString(0, 0, fmtstr.c_str(), Color3{ 255,255,255 });
+	//DrawString(0, 0, fmtstr.c_str(), Color3{ 255,255,255 });
 	
+	Text.Draw(Val2D{ 0,16 });
+
 	return;
 }
 

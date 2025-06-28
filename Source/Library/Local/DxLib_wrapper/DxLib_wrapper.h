@@ -5,6 +5,7 @@
 #include "Media/Graph.h"
 #include "Media/Screen.h"
 #include "Media/Sound.h"
+#include "Media/Font.h"
 #include "Media/MV1.h"
 #include "System/SoundDevice.h"
 #include "System/System.h"

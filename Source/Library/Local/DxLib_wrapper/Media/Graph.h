@@ -95,22 +95,17 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 	}
 
 	static std::vector<GraphData> MakeDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
-		std::vector<int> temp;
-		temp.resize((size_t)div.x * div.y);
+		std::vector<GraphData> ret;
+		ret.resize((size_t)div.x * div.y);
 		LoadDivGraph(
 			path.c_str(),
-			temp.size(),
+			ret.size(),
 			div.x,
 			div.y,
 			size.x,
 			size.y,
-			temp.data()
+			(int*)ret.data()
 		);
-		std::vector<GraphData> ret;
-		ret.reserve(temp.size());
-		for (auto &&item : temp) {
-			ret.push_back((GraphData)item);
-		}
 		return ret;
 	}
 
