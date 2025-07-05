@@ -47,10 +47,6 @@ struct DXHandle {
 		return *this;
 	}
 
-	operator const int() const {
-		return m_Handle;
-	}
-
 	static int GetHandleLimitCount() {
 		return GetMaxHandleNum(static_cast<int>(handletype));
 	}
@@ -59,6 +55,10 @@ struct DXHandle {
 	}
 	static int GetAvaliableCount() {
 		return GetHandleLimitCount() - GetHandleUsingCount();
+	}
+
+	int GetRawHandle() const {
+		return m_Handle;
 	}
 
 	void Init(int from = HandleNull) {
@@ -70,6 +70,10 @@ struct DXHandle {
 
 protected:
 
+	operator const int() const {
+		return m_Handle;
+	}
+	
 	bool IsNull() {
 		return m_Handle == HandleNull;
 	}

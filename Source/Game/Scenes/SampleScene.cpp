@@ -34,67 +34,7 @@ bool SampleScene::Init() {
 
 void SampleScene::Proc() {
 
-	if (Input.Keyboard[Keys::NumPad0].Down()) {
-		DTMFSounds['0'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad1].Down()) {
-		DTMFSounds['1'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad2].Down()) {
-		DTMFSounds['2'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad3].Down()) {
-		DTMFSounds['3'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad4].Down()) {
-		DTMFSounds['4'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad5].Down()) {
-		DTMFSounds['5'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad6].Down()) {
-		DTMFSounds['6'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad7].Down()) {
-		DTMFSounds['7'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad8].Down()) {
-		DTMFSounds['8'].Play();
-	}
-	if (Input.Keyboard[Keys::NumPad9].Down()) {
-		DTMFSounds['9'].Play();
-	}
 	
-	if (Input.Keyboard[Keys::NumPad0].Up()) {
-		DTMFSounds['0'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad1].Up()) {
-		DTMFSounds['1'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad2].Up()) {
-		DTMFSounds['2'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad3].Up()) {
-		DTMFSounds['3'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad4].Up()) {
-		DTMFSounds['4'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad5].Up()) {
-		DTMFSounds['5'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad6].Up()) {
-		DTMFSounds['6'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad7].Up()) {
-		DTMFSounds['7'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad8].Up()) {
-		DTMFSounds['8'].Stop();
-	}
-	if (Input.Keyboard[Keys::NumPad9].Up()) {
-		DTMFSounds['9'].Stop();
-	}
 
 	return;
 }
