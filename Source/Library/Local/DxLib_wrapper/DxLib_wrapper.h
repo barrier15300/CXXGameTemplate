@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Geometry/Geometry.h"
+#include "NetWork/NetWork.h"
 #include "Value/Value.h"
 #include "Input/Input.h"
 #include "Media/Graph.h"

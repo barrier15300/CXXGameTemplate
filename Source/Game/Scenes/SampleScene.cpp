@@ -13,38 +13,87 @@ bool SampleScene::Init() {
 
 	Scene->Regist<FunctionRefTest>();
 
-	Text = Font.ToDrawable("Hello, World!\nThis is a sample scene.\nPress S to reset timer.\nPress Left/Right to change index.\nPress Up/Down to change number of rectangles.\nPress N to copy t value to clipboard.\nPress M to copy line length to clipboard.");
+	DTMFSounds['0'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_0.wav");
+	DTMFSounds['1'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_1.wav");
+	DTMFSounds['2'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_2.wav");
+	DTMFSounds['3'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_3.wav");
+	DTMFSounds['4'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_4.wav");
+	DTMFSounds['5'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_5.wav");
+	DTMFSounds['6'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_6.wav");
+	DTMFSounds['7'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_7.wav");
+	DTMFSounds['8'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_8.wav");
+	DTMFSounds['9'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_9.wav");
+	DTMFSounds['#'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_hash.wav");
+	DTMFSounds['A'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_A.wav");
+	DTMFSounds['B'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_B.wav");
+	DTMFSounds['C'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_C.wav");
+	DTMFSounds['D'] = SoundData::Make(DTMFSoundsFolder.Get() + "/dtmf_D.wav");
 
 	return true;
 }
 
 void SampleScene::Proc() {
 
-	if (Input.Keyboard[Keys::S].Down()) {
-		timer.Restart();
+	if (Input.Keyboard[Keys::NumPad0].Down()) {
+		DTMFSounds['0'].Play();
 	}
-
-	constexpr double D = 10;
-	if (timer.Elapsed().Second() > D) {
-		timer.Reset();
+	if (Input.Keyboard[Keys::NumPad1].Down()) {
+		DTMFSounds['1'].Play();
 	}
-
-	t = Easing::GetRate(timer.Elapsed().Second() / D, Easing::InOut, Easing::Sine);
+	if (Input.Keyboard[Keys::NumPad2].Down()) {
+		DTMFSounds['2'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad3].Down()) {
+		DTMFSounds['3'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad4].Down()) {
+		DTMFSounds['4'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad5].Down()) {
+		DTMFSounds['5'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad6].Down()) {
+		DTMFSounds['6'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad7].Down()) {
+		DTMFSounds['7'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad8].Down()) {
+		DTMFSounds['8'].Play();
+	}
+	if (Input.Keyboard[Keys::NumPad9].Down()) {
+		DTMFSounds['9'].Play();
+	}
 	
-	if (Input.Keyboard[Keys::Left].Down()) {
-		idx -= 1;
+	if (Input.Keyboard[Keys::NumPad0].Up()) {
+		DTMFSounds['0'].Stop();
 	}
-
-	if (Input.Keyboard[Keys::Right].Down()) {
-		idx += 1;
+	if (Input.Keyboard[Keys::NumPad1].Up()) {
+		DTMFSounds['1'].Stop();
 	}
-
-	if (Input.Keyboard[Keys::Up].Down()) {
-		++num;
+	if (Input.Keyboard[Keys::NumPad2].Up()) {
+		DTMFSounds['2'].Stop();
 	}
-
-	if (Input.Keyboard[Keys::Down].Down()) {
-		--num;
+	if (Input.Keyboard[Keys::NumPad3].Up()) {
+		DTMFSounds['3'].Stop();
+	}
+	if (Input.Keyboard[Keys::NumPad4].Up()) {
+		DTMFSounds['4'].Stop();
+	}
+	if (Input.Keyboard[Keys::NumPad5].Up()) {
+		DTMFSounds['5'].Stop();
+	}
+	if (Input.Keyboard[Keys::NumPad6].Up()) {
+		DTMFSounds['6'].Stop();
+	}
+	if (Input.Keyboard[Keys::NumPad7].Up()) {
+		DTMFSounds['7'].Stop();
+	}
+	if (Input.Keyboard[Keys::NumPad8].Up()) {
+		DTMFSounds['8'].Stop();
+	}
+	if (Input.Keyboard[Keys::NumPad9].Up()) {
+		DTMFSounds['9'].Stop();
 	}
 
 	return;
@@ -52,75 +101,7 @@ void SampleScene::Proc() {
 
 void SampleScene::Draw() {
 
-	Val2D<float> off = { 640, 360 };
-	Val2D<float> size = { 512, 512 };
-
-	Rect2D<float> rect = { off - size / 2, size };
-
-	auto center = rect.MidCenter();
-
-	std::vector<IndexedVertex2D> vList;
-
-	for (size_t i = 0; i < num; ++i) {
-		vList.push_back(Vertex::Factory2D::RectAngle(rect.LeftTop(), rect.RightBottom(), { 255,255,255,255 }));
-	}
-
-	idx.SetMax(vList.size() - 1);
-
-	float thickness = 3.f;
-
-	auto convangle = [](float angle) {
-		angle = std::fmod(angle, 90);
-		if (angle < 0) {
-			angle = 90 + angle;
-		}
-		return angle / 180 * mathcv::pi;
-		};
-
-	vList[0].Framed(thickness).Draw();
-
-	auto r = 1.;
-
-	Val2D<float> poses[4]{};
-	std::transform(vList[0].vertex.begin(), vList[0].vertex.end(), poses, [](auto&& v) { return v.pos; });
 	
-	for (size_t i = 0; i < vList.size(); ++i) {
-		auto&& vl = vList[i];
-		bool f = (i == (size_t)idx);
-		Color4 color = f ? Color4{0, 255, 0, 255} : Color4{ 255, 255, 255, 255 };
-		for (size_t j = 0; auto&& v : vl.vertex) {
-			auto vecA = poses[j];
-			auto vecB = poses[(j + 1) % 4];
-			auto newpos = Val2D<float>::Lerp(vecA, vecB, t);
-			//auto rot = vecA.Rotate(convangle(angle));
-			//auto sized = rot * (1 / std::cos(mathcv::pi / 4 - convangle(angle))) / std::sqrt(2);
-
-			v.pos = newpos;
-			v.color = color;
-			j++;
-		}
-		
-		std::transform(vl.vertex.begin(), vl.vertex.end(), poses, [](auto&& v) { return v.pos; });
-		vl.Framed(thickness).Draw();
-	}
-
-	auto vec = (vList[idx].vertex[0].pos - center);
-	auto len = vec.Length();
-	auto line = len / std::sqrt(2) * 2;
-	auto fmtstr = fmt::format("\nidx: {}\nV2D: {}\nLength: {}\nLine: {}\nt: {}", idx.ToString(), vec.ToString(), len, line, t);
-
-	if (Input.Keyboard[Keys::N].Down()) {
-		SetClipboardText(fmt::format("{}", t * 90).c_str());
-	}
-	if (Input.Keyboard[Keys::M].Down()) {
-		SetClipboardText(fmt::format("{}", line).c_str());
-	}
-
-	printFPS();
-	//DrawString(0, 0, fmtstr.c_str(), Color3{ 255,255,255 });
-	
-	Text.Draw(Val2D{ 0,16 });
-
 	return;
 }
 

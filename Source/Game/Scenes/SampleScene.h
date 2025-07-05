@@ -13,12 +13,14 @@ public:
 	Asset::Value<std::string, "Sample/Don"> Donfilepath{"Asset/Don.wav"};
 	Asset::Value<std::string, "Sample/Ka"> Kafilepath{"Asset/Ka.wav"};
 	Asset::Value<std::string, "Sample/Font"> Fontpath{ "Asset/Font.ttf" };
+	Asset::Value<std::string, "Sample/DTMFSounds"> DTMFSoundsFolder{ "Asset/DTMF" };
 	GraphData Graph;
 	SoundData Don;
 	SoundData Ka;
 	ScreenData screen;
 	FontData Font;
-	
+	std::unordered_map<char, SoundData> DTMFSounds;
+
 	DrawableString Text{};
 	Timer timer;
 	size_t num = 4;

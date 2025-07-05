@@ -340,6 +340,9 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\Helper.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\MV1.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Screen.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\TCPSocket.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\NetWork.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\TCPServer.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Date.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\System\Window.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Color4F.h" />

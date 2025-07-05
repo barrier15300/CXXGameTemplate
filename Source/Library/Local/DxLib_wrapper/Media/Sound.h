@@ -50,8 +50,4 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 
 	bool TopPositionPlay = true;
 
-private:
-	void InitImpl() {
-		DeleteSoundMem(m_Handle);
-	}
 };
