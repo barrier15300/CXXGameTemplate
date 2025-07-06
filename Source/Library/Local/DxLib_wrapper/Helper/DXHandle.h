@@ -47,6 +47,20 @@ struct DXHandle {
 		return *this;
 	}
 
+	bool IsAsyncState() const {
+		return !Check(CheckHandleASyncLoad(m_Handle));
+	}
+	void AWait() const {
+		WaitHandleASyncLoad(m_Handle);
+	}
+
+	static bool Check(int state) {
+		if (state == -1) {
+			return false;
+		}
+		return (bool)state;
+	}
+
 	static int GetHandleLimitCount() {
 		return GetMaxHandleNum(static_cast<int>(handletype));
 	}

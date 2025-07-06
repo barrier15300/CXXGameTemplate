@@ -7,17 +7,12 @@
 class TCPServer;
 
 class TCPSocket : public DXHandle<DXHandleType::NetWork, CloseNetWork> {
-
-	TCPSocket(const TCPSocket&) = default;
-	TCPSocket& operator=(const TCPSocket&) = default;
-	
-	friend TCPServer;
-
 public:
 
-	TCPSocket() = default;
-	~TCPSocket() = default;
+	friend TCPServer;
 
+	using DXHandle::DXHandle;
+	
 	bool Connect(std::string address, unsigned short port) {
 		if (address.empty() || port == 0) {
 			return false;

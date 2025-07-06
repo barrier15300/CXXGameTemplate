@@ -66,4 +66,20 @@ struct ScreenData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		GetGraphSize(*this, &size.x, &size.y);
 		return Save(savename, size, compressionlevel);
 	}
+
+
+	static ScreenData Make(Val2D<int> size, bool alpha, int antiailiasSample, int antiailiasQuality) {
+		ScreenData ret;
+		antiailiasQuality = std::clamp(antiailiasQuality, 0, GetMultiSampleQuality(antiailiasSample));
+		SetDrawValidMultiSample(antiailiasSample, antiailiasQuality);
+		ret.Init(
+			MakeScreen(size.x, size.y, alpha)
+		);
+		SetDrawValidMultiSample(0, 0);
+		return ret;
+	}
+
+	static ScreenData Make(const Val2D<int>& size, bool alpha) {
+		return Make(size, alpha);
+	}
 };

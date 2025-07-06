@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../Helper/Helper.h"
+#include "../../DataImageView.h"
 
 struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 
@@ -21,7 +22,7 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 	}
 
 	bool IsPlay() {
-		return CheckSoundMem(m_Handle);
+		return Check(CheckSoundMem(m_Handle));
 	}
 
 	void Stop() {
@@ -56,9 +57,6 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound> {
 
 	using DXHandle::DXHandle;
-	
-	template<class>
-	struct DataImageView;
 
 	///
 	/// Data Use
@@ -113,46 +111,6 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 	}
 
 private:
-
-	template<class T = int16_t>
-	struct DataImageView {
-		DataImageView(T* ptr, size_t size) : data(ptr), m_size(size) {}
-
-		size_t size() const {
-			return m_size;
-		}
-
-		auto* data() {
-			return m_dataptr;
-		}
-
-		auto* begin() {
-			return m_dataptr;
-		}
-
-		auto* end() {
-			return m_dataptr + m_size;
-		}
-
-		auto rbegin() {
-			return std::reverse_iterator<T*>(end());
-		}
-
-		auto rend() {
-			return std::reverse_iterator<T*>(begin());
-		}
-
-		auto& operator[](size_t idx) {
-			return m_dataptr[idx];
-		}
-		auto& operator[](size_t idx) const {
-			return m_dataptr[idx];
-		}
-		
-	private:
-		T* m_dataptr = nullptr;
-		size_t m_size = 0;
-	};
 
 	struct SoundFormat {
 		int channel = -1;

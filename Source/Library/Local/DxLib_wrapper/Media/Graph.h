@@ -108,6 +108,40 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		);
 		return ret;
 	}
+};
+
+struct SoftGraphData : public DXHandle<DXHandleType::SoftImage, DeleteSoftImage> {
+
+	using DXHandle::DXHandle;
+
+	/// <summary>
+	/// Color Format is ARGB8
+	/// </summary>
+
+	enum class FormatType{
+		ARGB8,
+		XRGB8,
+	};
+
+	Val2D<int> Size() const {
+		Val2D<int> ret;
+		GetSoftImageSize(*this, &ret.x, &ret.y);
+		return ret;
+	}
 
 	
+
+
+
+	static SoftGraphData Make(const std::string& path) {
+		SoftGraphData ret;
+		ret.Init(LoadARGB8ColorSoftImage(path.c_str()));
+		return ret;
+	}
+
+	static SoftGraphData Make(const Val2D<int>& size) {
+		SoftGraphData ret;
+		ret.Init(MakeARGB8ColorSoftImage(size.x, size.y));
+		return ret;
+	}
 };

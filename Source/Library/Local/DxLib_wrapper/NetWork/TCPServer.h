@@ -17,6 +17,7 @@ public:
 			return;
 		}
 		PreparationListenNetWork(port);
+		listeningPort = port;
 		isListening = true;
 	}
 	void Stop() {
@@ -24,6 +25,7 @@ public:
 			return;
 		}
 		StopListenNetWork();
+		listeningPort = 0;
 		isListening = false;
 	}
 	bool Pending() {
@@ -32,7 +34,7 @@ public:
 		}
 
 		int n = GetNewAcceptNetWork();
-		if (n != -1) {
+		if (n != TCPSocket::HandleNull) {
 			pendingClients.push_back(n);
 		}
 
@@ -43,13 +45,13 @@ public:
 		if (pendingClients.empty()) {
 			return ret;
 		}
-		int h = pendingClients.front();
+		ret.Init(pendingClients.front());
 		pendingClients.pop_front();
-		ret.handle = h;
 		return ret;
 	}
 
 private:
 	std::deque<int> pendingClients;
 	static inline bool isListening = false;
+	static inline uint16_t listeningPort = 0;
 };
