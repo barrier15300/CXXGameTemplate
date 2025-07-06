@@ -177,7 +177,7 @@ inline void DrawableString::Draw(const Val2D<T>& pos, const Val2D<float>& origin
 			pos.y - offset.y,
 			Text.data(),
 			Font->Color,
-			*Font,
+			Font->GetRawHandle(),
 			Font->EdgeColor
 		);
 	}
@@ -187,7 +187,7 @@ inline void DrawableString::Draw(const Val2D<T>& pos, const Val2D<float>& origin
 			pos.y - offset.y,
 			Text.data(),
 			Font->Color,
-			*Font,
+			Font->GetRawHandle(),
 			Font->EdgeColor
 		);
 	}

@@ -13,6 +13,8 @@ bool SampleScene::Init() {
 
 	Scene->Regist<FunctionRefTest>();
 
+	Text = Font.ToDrawable("press Ctrl+F1 to spawn console. press D key to test output.");
+
 	return true;
 }
 
@@ -31,6 +33,7 @@ void SampleScene::Proc() {
 
 void SampleScene::Draw() {
 
+	Text.Draw(Val2D{0, 0});
 	
 	return;
 }
