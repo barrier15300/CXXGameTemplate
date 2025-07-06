@@ -334,6 +334,7 @@
     <ClInclude Include="Source\Library\fmt_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
     <ClInclude Include="Source\Library\Local\Composite.h" />
+    <ClInclude Include="Source\Library\Local\Console.h" />
     <ClInclude Include="Source\Library\Local\ContainerLINQ.h" />
     <ClInclude Include="Source\Library\Local\DataStorage.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\DxLib_wrapper.h" />

@@ -51,7 +51,7 @@ struct IndexedVertex2D {
 	}
 
 	void Draw(const GraphData &data, bool alpha = false) const {
-		DrawPolygon32bitIndexed2D((VERTEX2D*)vertex.data(), vertex.size(), index.data(), index.size() / 3, data, alpha);
+		DrawPolygon32bitIndexed2D((VERTEX2D*)vertex.data(), vertex.size(), index.data(), index.size() / 3, data.GetRawHandle(), alpha);
 	}
 
 	

@@ -9,6 +9,7 @@
 #include "Composite.h"
 #include "ContainerLINQ.h"
 #include "function_ref.h"
+#include "Console.h"
 
 // TODO:
 //#include "Transform.h"

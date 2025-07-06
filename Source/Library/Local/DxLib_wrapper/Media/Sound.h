@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "../Helper/Helper.h"
-#include "../../DataImageView.h"
 
 struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 
@@ -83,9 +82,9 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 	}
 
 	template<class T = int16_t>
-	DataImageView<T> GetSamples() const {
-		auto begin = reinterpret_cast<int16_t*>(GetSoftSoundDataImage(*this));
-		return DataImageView<T>(begin, begin + GetSampleNum());
+	std::span<T> GetSamples() const {
+		auto begin = reinterpret_cast<T*>(GetSoftSoundDataImage(*this));
+		return std::span<T>(begin, GetSampleNum());
 	}
 
 	void _UpdateFormat() {
