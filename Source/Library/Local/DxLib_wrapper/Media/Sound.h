@@ -15,6 +15,7 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 	/// 
 	/// Data Use
 	/// 
+
 	void Play() {
 		PlaySoundMem(m_Handle, DX_PLAYTYPE_BACK, TopPositionPlay);
 	}
@@ -59,6 +60,10 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 	template<class>
 	struct DataImageView;
 
+	///
+	/// Data Use
+	/// 
+
 	int GetChannel() const {
 		return Format.channel;
 	}
@@ -89,9 +94,9 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 		GetSoftSoundFormat(*this, &Format.channel, &Format.bitPerSample, &Format.samplePerSec, &Format.isFloatType);
 	}
 
-	//
-	// Factory
-	//
+	///
+	/// Factory
+	///
 
 	static SoftSoundData Make(const std::string &path) {
 		SoftSoundData ret;

@@ -336,6 +336,7 @@
     <ClInclude Include="Source\Library\Local\Composite.h" />
     <ClInclude Include="Source\Library\Local\ContainerLINQ.h" />
     <ClInclude Include="Source\Library\Local\DataStorage.h" />
+    <ClInclude Include="Source\Library\Local\DataView.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\DxLib_wrapper.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\Helper.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\MV1.h" />

@@ -1,11 +1,12 @@
 ﻿#pragma once
-#include "DxLib.h"
+#include "../Helper/Helper.h"
+#include "../Value/Value.h"
 #include <string>
 #include <vector>
 
 class TCPServer;
 
-class TCPSocket {
+class TCPSocket : public DXHandle<DXHandleType::NetWork, CloseNetWork> {
 
 	TCPSocket(const TCPSocket&) = default;
 	TCPSocket& operator=(const TCPSocket&) = default;
@@ -16,45 +17,51 @@ public:
 
 	TCPSocket() = default;
 	~TCPSocket() = default;
+
 	bool Connect(std::string address, unsigned short port) {
 		if (address.empty() || port == 0) {
 			return false;
 		}
 		IPDATA ip{};
 		GetHostIPbyName(address.c_str(), &ip);
-		handle = ConnectNetWork(ip, port);
-		if (handle == -1) {
+		Init(ConnectNetWork(ip, port));
+		if (*this == -1) {
 			return false;
 		}
 		return true;
 	}
-	void Close() {
-		if (handle != -1) {
-			CloseNetWork(handle);
-			handle = -1;
-		}
-	}
 	void Send(const std::vector<byte> &buffer) {
-		NetWorkSend(handle, buffer.data(), buffer.size());
+		NetWorkSend(*this, buffer.data(), buffer.size());
 	}
 	std::vector<byte> Receive() {
 		int size = Available();
 		std::vector<byte> buffer;
 		buffer.resize(size);
-		NetWorkRecv(handle, buffer.data(), size);
+		NetWorkRecv(*this, buffer.data(), size);
 		return buffer;
 	}
 	int Available() const {
-		return GetNetWorkDataLength(handle);
+		return GetNetWorkDataLength(*this);
 	}
 	bool IsConnected() const {
-		return GetNetWorkAcceptState(handle);
-	}
-	int GetHandle() const {
-		return handle;
+		return GetNetWorkAcceptState(*this);
 	}
 
 protected:
 
-	int handle = -1;
+	struct ReceiveData {
+
+		void Parse(byte* dataptr) {
+			auto p = reinterpret_cast<uint32_t*>(dataptr);
+			Header = *p++;
+			Size = *p++;
+			Data.reserve(Size);
+			std::copy(p, p + Size, std::back_inserter(Data));
+		}
+
+		uint32_t Header = 0;
+		uint32_t Size = 0;
+		std::vector<byte> Data;
+	};
+
 };

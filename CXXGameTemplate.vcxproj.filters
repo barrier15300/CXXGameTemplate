@@ -281,6 +281,9 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\TCPSocket.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Library\Local\DataView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
