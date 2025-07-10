@@ -384,6 +384,8 @@
     <ClInclude Include="Source\Library\Local\Properties.h" />
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />
+    <ClInclude Include="Source\Library\Local\SimpleIO.h" />
+    <ClInclude Include="Source\Library\Local\union_cast.h" />
     <ClInclude Include="Source\Library\strconv.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\Analize.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\strexprconv.h" />

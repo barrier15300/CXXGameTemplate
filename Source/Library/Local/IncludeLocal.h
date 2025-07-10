@@ -10,6 +10,8 @@
 #include "ContainerLINQ.h"
 #include "function_ref.h"
 #include "Console.h"
+#include "SimpleIO.h"
+#include "union_cast.h"
 
 // TODO:
 //#include "Transform.h"

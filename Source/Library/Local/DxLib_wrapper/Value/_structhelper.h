@@ -11,6 +11,7 @@
 #include "Library/fmt_include.h"
 #include "Library/Local/template_type.h"
 #include "Library/Local/MacroHelper.h"
+#include "Library/Local/union_cast.h"
 
 #define FUNC_GETTER(T, name) const T& name() const { return m_##name; }
 

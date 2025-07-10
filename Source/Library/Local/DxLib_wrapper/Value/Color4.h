@@ -8,7 +8,7 @@ struct Color4 {
 
 	Color4() : a(0), r(0), g(0), b(0) {}
 	Color4(int _r, int _g, int _b, int _a) : a(_a), r(_r), g(_g), b(_b) {}
-	Color4(unsigned int color) : hexcolor(color) {}
+	Color4(unsigned int color) { ParseHex(color); }
 	Color4(const COLOR_U8& from) {
 		r = from.r;
 		g = from.g;
@@ -17,7 +17,7 @@ struct Color4 {
 	}
 
 	operator unsigned int() const {
-		return hexcolor;
+		return GetHex();
 	}
 
 	operator COLOR_U8() const {
@@ -31,15 +31,20 @@ struct Color4 {
 		struct {
 			std::array<byte, 4> arr;
 		};
-		struct {
-			unsigned int hexcolor;
-		};
 	};
+
+	uint32_t GetHex() const {
+		return union_cast<uint32_t>(arr);
+	}
+
+	void ParseHex(uint32_t from) {
+		arr = union_cast<std::array<byte, 4>>(from);
+	}
 
 	std::string ToString(bool hex = true) const {
 		std::string ret;
 		if (hex) {
-			ret = fmt::format("#{:0>8X}", hexcolor);
+			ret = fmt::format("#{:0>8X}", GetHex());
 		}
 		else {
 			ret = fmt::format("{}{:>3}{}", '{', fmt::join(arr.rbegin(), arr.rend(), ", "), '}');

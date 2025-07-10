@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include <io.h>
-#include <Fcntl.h>
+#include <consoleapi.h>
 
 class AttachConsole {
 	int hConsole = 0;
@@ -10,8 +9,8 @@ class AttachConsole {
 		
 		AllocConsole();
 
-		freopen_s(&fp, "CONOUT$", "w", stdout);
-		freopen_s(&fp, "CONOUT$", "w", stderr);
+		fopen_s(&fp, "CONOUT$", "w");
+		fopen_s(&fp, "CONOUT$", "w");
 	}
 	~AttachConsole() {
 		FreeConsole();
