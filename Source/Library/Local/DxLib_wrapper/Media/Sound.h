@@ -65,7 +65,7 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 		return Format.channel;
 	}
 	
-	int GetFrecuency() const {
+	int GetFrequency() const {
 		return Format.samplePerSec;
 	}
 
@@ -102,9 +102,9 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 		return ret;
 	}
 
-	static SoftSoundData Make(int channel, int bitPerSample, int samplePerSec, size_t sampleNum, bool floattype = false) {
+	static SoftSoundData Make(int channel, int bitPerSample, int samplePerSec, size_t sampleNum, bool isFloatType = false) {
 		SoftSoundData ret;
-		ret.Init(MakeSoftSoundCustom(channel, bitPerSample, samplePerSec, sampleNum, floattype));
+		ret.Init(MakeSoftSoundCustom(channel, bitPerSample, samplePerSec, sampleNum, isFloatType));
 		ret._UpdateFormat();
 		return ret;
 	}

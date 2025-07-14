@@ -26,22 +26,22 @@ enum class DXHandleType : int {
 	HandleTypeCount
 };
 
-static int __nowork_deleter_func(int) { return 0; }
-template<DXHandleType handletype = DXHandleType::None,int (*deleter_func)(int) = __nowork_deleter_func>
+static int __NoWorkDeleteFunc(int) { return 0; }
+template<DXHandleType handletype = DXHandleType::None,int (*deleter_func)(int) = __NoWorkDeleteFunc>
 struct DXHandle {
 
-	DXHandle() : m_Handle(HandleNull) { }
-	explicit DXHandle(int from) : m_Handle(from) {}
+	constexpr DXHandle() : m_Handle(HandleNull) { }
+	constexpr explicit DXHandle(int from) : m_Handle(from) {}
 
-	DXHandle(const DXHandle& from) = delete;
-	DXHandle(DXHandle &&from) noexcept : m_Handle(from.m_Handle) {
+	constexpr DXHandle(const DXHandle& from) = delete;
+	constexpr DXHandle(DXHandle &&from) noexcept : m_Handle(from.m_Handle) {
 		from.m_Handle = HandleNull;
 	}
 	~DXHandle() {
 		Init();
 	}
 
-	DXHandle &operator=(DXHandle &&from) {
+	constexpr DXHandle &operator=(DXHandle &&from) noexcept {
 		m_Handle = from.m_Handle;
 		from.m_Handle = HandleNull;
 		return *this;
@@ -67,7 +67,7 @@ struct DXHandle {
 	static int GetHandleUsingCount() {
 		return GetHandleNum(static_cast<int>(handletype));
 	}
-	static int GetAvaliableCount() {
+	static int GetAvailableCount() {
 		return GetHandleLimitCount() - GetHandleUsingCount();
 	}
 

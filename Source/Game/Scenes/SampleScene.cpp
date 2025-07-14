@@ -21,20 +21,13 @@ bool SampleScene::Init() {
 void SampleScene::Proc() {
 
 	auto& IO = SimpleIO::GetInstance();
-	auto& Console = IO.ViewConsole();
 
 	if (Input.Keyboard[Keys::ControlKey].Press() && Input.Keyboard[Keys::F1].Down()) {
-		if (Console.IsOpen()) {
-			Console.Close();
-		}
-		else {
-			Console.Open();
-		}
+
 	}
 
 	if (Input.Keyboard[Keys::D].Down()) {
-		Console << "D key pressed" << "\n";
-		Console.flush();
+
 	}
 
 	return;

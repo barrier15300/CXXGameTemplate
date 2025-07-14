@@ -94,7 +94,7 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 		return ret;
 	}
 
-	static FontData Make(const std::string& path, int size, int thick, int edgesize = 0, size_t index = 0) {
+	static FontData Make(const std::string& path, int size, int thick, int edgeSize = 0, size_t index = 0) {
 		FontData font;
 		
 		font.Init(
@@ -104,7 +104,7 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 				thick,
 				DX_FONTTYPE_ANTIALIASING_EDGE_4X4,
 				DX_CHARSET_UTF8,
-				edgesize
+				edgeSize
 			)
 		);
 		font.SetCharCodeFormat(CodeFormat);
@@ -113,9 +113,6 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 	}
 
 	static std::string GetFontNameAndLoad(std::string path, size_t index) {
-		
-		auto& gdi = GDIInitializer::GetInstance();
-		auto& input = gdi.GetStartupInput();
 
 		if (FontNameCollections.find(path) != FontNameCollections.end()) {
 			if (index >= FontNameCollections[path].size()) {
@@ -124,11 +121,12 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 			return FontNameCollections[path][index];
 		}
 
+		auto& gdi = GDIInitializer::GetInstance();
+		
 		Gdiplus::PrivateFontCollection fontCollection;
-
+		
 		auto wpath = cp_to_wide(path, CodeFormat);
 		fontCollection.AddFontFile(wpath.c_str());
-		
 		
 		int familyCount = fontCollection.GetFamilyCount();
 		int found = 0;
@@ -142,22 +140,21 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 			index = 0;
 		}
 		
-		WCHAR familyName[LF_FACESIZE]{};
-		families[index].GetFamilyName(familyName);
-
+		constexpr size_t FontNameMaxLength = 256;
+		
 		std::vector<std::string> names;
-		names.resize(familyCount);
-		std::transform(families, families + familyCount, names.begin(), [](auto&& v) {
-			WCHAR _familyName[LF_FACESIZE]{};
-			v.GetFamilyName(_familyName);
-			return wide_to_cp(_familyName, CodeFormat);;
+		names.reserve(familyCount);
+		std::transform(families, families + familyCount, std::back_inserter(names), [](auto&& v) {
+			WCHAR familyName[FontNameMaxLength]{};
+			v.GetFamilyName(familyName);
+			return wide_to_cp(familyName, CodeFormat);
 			});
 
 		free(families);
 
 		FontNameCollections[path] = std::move(names);
 
-		return wide_to_cp(familyName, CodeFormat);
+		return GetFontNameAndLoad(path, index);
 	}
 
 	static inline CharCodeFormat CodeFormat = UTF8;

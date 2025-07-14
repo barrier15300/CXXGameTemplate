@@ -13,7 +13,7 @@ public:
 
 	using DXHandle::DXHandle;
 	
-	bool Connect(std::string address, unsigned short port) {
+	bool Connect(const std::string& address, unsigned short port) {
 		if (address.empty() || port == 0) {
 			return false;
 		}

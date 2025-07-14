@@ -6,12 +6,33 @@ size_t GetTypeHashCode() {
 	return typeid(T).hash_code();
 }
 
+template<class T>
+concept Enum = std::is_enum_v<T>;
+
 struct NetUtils {
-	
-	template<class T>
-	struct DataPacket {
-		size_t header = GetTypeHashCode<T>();
-		T data;
+
+	template<Enum enumT>
+	struct Header {
+		Header(enumT type) : Type(type) {}
+
+		uint32_t Size = 0;
+		union {
+			enumT Type;
+			size_t rawType;
+		};
+	};
+
+	struct Packet {
+
+		template<Enum enumT>
+		Packet(Header<enumT> head) {
+
+		}
+		
+	private:
+
+		bool m_available = false;
+		std::vector<uint8_t> m_buffer;
 	};
 
 	template<class T>
