@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include <fstream>
 #include <string>
-#include "nlohmann/json.hpp"
-#include "exstring.h"
+#include "Common/Common.h"
 
 template<size_t Size>
 class static_string {

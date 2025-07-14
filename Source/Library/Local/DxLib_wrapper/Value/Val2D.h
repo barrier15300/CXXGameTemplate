@@ -1,19 +1,14 @@
 ﻿#pragma once
-#include "_structhelper.h"
+#include "Common.h"
 
 /// <summary>
 /// Val2D
 /// </summary>
 /// <typeparam name="T"></typeparam>
-template<IsArithmetic T>
-struct Val2D : ICompare<Val2D<T>> {
+template<typeis::Arithmetic T>
+struct Val2D {
 
-	using value_type = T;
-	using Lcvr = const Val2D<T>&;
-	using Rvr = Val2D<T>&&;
-	template<class fromT> using LcvrFrom = const Val2D<fromT>&;
-	template<class fromT> using RvrFrom = Val2D<fromT>&&;
-
+	DEFINE_TRAITS(Val2D);
 
 	/// <summary>
 	/// constructor
@@ -24,16 +19,16 @@ struct Val2D : ICompare<Val2D<T>> {
 	constexpr Val2D(T _x, T _y) noexcept : x(_x), y(_y) {}
 	constexpr explicit Val2D(const std::complex<T> &_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
 	constexpr explicit Val2D(std::complex<T> &&_complex) : x(SCAST(_complex.real())), y(SCAST(_complex.imag())) {}
-	template<IsArithmetic fT1, IsArithmetic fT2> constexpr Val2D(fT1 ft1, fT2 ft2) noexcept : x(SCAST(ft1)), y(SCAST(ft2)) {}
-	template<IsArithmetic fromT> constexpr Val2D(LcvrFrom<fromT> v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
-	template<IsArithmetic fromT> constexpr Val2D(RvrFrom<fromT> v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
-	template<IsArithmetic fromT> constexpr Val2D(const std::initializer_list<fromT>& list) {
+	template<typeis::Arithmetic fT1, typeis::Arithmetic fT2> constexpr Val2D(fT1 ft1, fT2 ft2) noexcept : x(SCAST(ft1)), y(SCAST(ft2)) {}
+	template<typeis::Arithmetic fromT> constexpr Val2D(LcvrFrom<fromT> v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
+	template<typeis::Arithmetic fromT> constexpr Val2D(RvrFrom<fromT> v) noexcept : x(SCAST(v.x)), y(SCAST(v.y)) {}
+	template<typeis::Arithmetic fromT> constexpr Val2D(const std::initializer_list<fromT>& list) {
 		if (list.size() != 2) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
 		std::copy(list.begin(), list.end(), arr.begin());
 	}
-	template<IsArithmetic fromT> constexpr Val2D(std::initializer_list<fromT>&& list) {
+	template<typeis::Arithmetic fromT> constexpr Val2D(std::initializer_list<fromT>&& list) {
 		if (list.size() != 2) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
@@ -141,7 +136,7 @@ struct Val2D : ICompare<Val2D<T>> {
 		return std::atan2(this->Cross(v), this->Dot(v));
 	}
 
-	template<IsArithmetic floatT>
+	template<typeis::Arithmetic floatT>
 	constexpr Val2D Rotate(floatT angle) const {
 		auto rotatevector = Val2D<floatT>{sin(angle), cos(angle)};
 		return {this->Cross(rotatevector), this->Dot(rotatevector)};
@@ -187,7 +182,7 @@ struct Val2D : ICompare<Val2D<T>> {
 		return std::sqrt(v.x + v.y);
 	}
 
-	template<IsArithmetic floatT = double>
+	template<typeis::Arithmetic floatT = double>
 	static constexpr Val2D<double> Lerp(Lcvr a, Lcvr b, floatT t) noexcept {
 		return a + (b - a) * t;
 	}
@@ -200,20 +195,18 @@ struct Val2D : ICompare<Val2D<T>> {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 
-	TEMPLATE_ASSINMENT_OPERATOR(Val2D, x, y);
+	/// <summary>
+	/// operators
+	/// </summary>
+	
+	TEMPLATE_ASSIGNMENT_OPERATOR(Val2D, x, y);
+
 };
 
-TEMPLATE_COMPARE_OPERATOR(Val2D, lhs.x < rhs.x && lhs.y < rhs.y);
+TEMPLATE_COMPARE_OPERATOR(Val2D, lhs.x < rhs.x&& lhs.y < rhs.y);
 
 TEMPLATE_BINARY_OPERATOR(Val2D);
-
-/// <summary>
-/// template auto compreation helpers
-/// </summary>
-
-template<IsArithmetic fT1, IsArithmetic fT2> Val2D(fT1, fT2) -> Val2D<std::common_type_t<fT1, fT2>>;
-template<IsArithmetic fromT> Val2D(std::initializer_list<fromT>) -> Val2D<fromT>;
-
+	
 /// <summary>
 /// json converter
 /// </summary>
@@ -227,4 +220,9 @@ FROM_JSON(template<class T>, Val2D<T>, {
 		j.at(i).get_to(v.arr.at(i));
 	}
 		});
+/// <summary>
+/// template auto completion helpers
+/// </summary>
+template<typeis::Arithmetic fT1, typeis::Arithmetic fT2> Val2D(fT1, fT2) -> Val2D<std::common_type_t<fT1, fT2>>;
+template<typeis::Arithmetic fromT> Val2D(std::initializer_list<fromT>) -> Val2D<fromT>;
 

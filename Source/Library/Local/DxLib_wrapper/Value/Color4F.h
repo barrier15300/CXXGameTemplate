@@ -1,5 +1,5 @@
-#pragma once
-#include "_structhelper.h"
+﻿#pragma once
+#include "Common.h"
 
 /// <summary>
 /// Color4F
@@ -30,14 +30,15 @@ struct Color4F {
 		ret = fmt::format("{}{:>1.{}f}{}",'{',fmt::join(arr.rbegin(),arr.rend(),", "), digit + 1,'}');
 		return ret;
 	}
+	
+	TO_JSON( , Color4F, {
+		j = nlohmann::json{v.r,v.g,v.b};
+			});
+
+	FROM_JSON( , Color4F, {
+		for(size_t i = 0,size = v.arr.size(); i < size; ++i) {
+			j.at(i).get_to(v.arr[i]);
+		}
+			});
 };
 
-TO_JSON( , Color4F, {
-	j = nlohmann::json{v.r,v.g,v.b};
-		});
-
-FROM_JSON( , Color4F, {
-	for(size_t i = 0,size = v.arr.size(); i < size; ++i) {
-		j.at(i).get_to(v.arr[i]);
-	}
-		});

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "_structhelper.h"
+#include "Common.h"
 
 /// <summary>
 /// Color3
@@ -45,14 +45,15 @@ struct Color3 {
 		}
 		return ret;
 	}
+
+	TO_JSON(, Color3, {
+		j = nlohmann::json{v.r, v.g, v.b};
+			});
+
+	FROM_JSON(, Color3, {
+		for (size_t i = 0, size = v.arr.size(); i < size; ++i) {
+			j.at(i).get_to(v.arr[i]);
+		}
+			});
 };
 
-TO_JSON(, Color3, {
-	j = nlohmann::json{v.r, v.g, v.b};
-		});
-
-FROM_JSON(, Color3, {
-	for (size_t i = 0, size = v.arr.size(); i < size; ++i) {
-		j.at(i).get_to(v.arr[i]);
-	}
-		});

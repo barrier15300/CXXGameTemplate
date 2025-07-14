@@ -1,19 +1,19 @@
 ﻿#pragma once
 
-#include "_structhelper.h"
+#include "Common.h"
 
 /// <summary>
 /// ValClamp
 /// </summary>
-template<IsArithmetic T>
+template<typeis::Arithmetic T>
 struct ValClamp {
 	
 	constexpr ValClamp() noexcept = default;
 	constexpr ValClamp(T _val, T _min, T _max) : val(_val), min(_min), max(_max) { check_error(); clamp(); }
-	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3> constexpr ValClamp(fT1 _val, fT2 _min, fT3 _max) : val(SCAST(_val)), min(SCAST(_min)), max(SCAST(_max)) { check_error(); clamp(); }
-	template<IsArithmetic fT> constexpr ValClamp(T _val, std::pair<fT, fT> _minmax) : val(_val), min(SCAST(_minmax.first)), max(SCAST(_minmax.second)) { check_error(); clamp(); }
-	template<IsArithmetic fT> constexpr ValClamp(std::pair<T, T> _minmax) : min(SCAST(_minmax.first)), max(SCAST(_minmax.second)) { check_error(); clamp(); }
-	template<IsArithmetic fT> constexpr ValClamp(const ValClamp<fT> &from) : val(SCAST(from.val)), min(SCAST(from.min)), max(SCAST(from.max)) { check_error(); clamp(); }
+	template<typeis::Arithmetic fT1, typeis::Arithmetic fT2, typeis::Arithmetic fT3> constexpr ValClamp(fT1 _val, fT2 _min, fT3 _max) : val(SCAST(_val)), min(SCAST(_min)), max(SCAST(_max)) { check_error(); clamp(); }
+	template<typeis::Arithmetic fT> constexpr ValClamp(T _val, std::pair<fT, fT> _minmax) : val(_val), min(SCAST(_minmax.first)), max(SCAST(_minmax.second)) { check_error(); clamp(); }
+	template<typeis::Arithmetic fT> constexpr ValClamp(std::pair<T, T> _minmax) : min(SCAST(_minmax.first)), max(SCAST(_minmax.second)) { check_error(); clamp(); }
+	template<typeis::Arithmetic fT> constexpr ValClamp(const ValClamp<fT> &from) : val(SCAST(from.val)), min(SCAST(from.min)), max(SCAST(from.max)) { check_error(); clamp(); }
 
 private:
 	
@@ -27,21 +27,21 @@ public:
 		return val;
 	}
 
-	template<IsArithmetic fT>
+	template<typeis::Arithmetic fT>
 	constexpr void SetMin(fT _min) {
 		min = SCAST(_min);
 		check_error();
 		clamp();
 	}
 
-	template<IsArithmetic fT>
+	template<typeis::Arithmetic fT>
 	constexpr void SetMax(fT _max) {
 		max = SCAST(_max);
 		check_error();
 		clamp();
 	}
 
-	template<IsArithmetic fT>
+	template<typeis::Arithmetic fT>
 	constexpr void SetRange(fT _min, fT _max) {
 		min = SCAST(_min);
 		max = SCAST(_max);
@@ -49,7 +49,7 @@ public:
 		clamp();
 	}
 
-	template<IsArithmetic fT>
+	template<typeis::Arithmetic fT>
 	constexpr void SetRange(const std::pair<fT, fT> &_minmax) {
 		min = SCAST(_minmax.first);
 		max = SCAST(_minmax.second);
@@ -57,7 +57,7 @@ public:
 		clamp();
 	}
 
-	template<IsArithmetic floatT = double>
+	template<typeis::Arithmetic floatT = double>
 	constexpr floatT Rate() const noexcept {
 		if (min == max) { return 0.0; }
 		return static_cast<floatT>(val - min) / static_cast<floatT>(max - min);
@@ -70,8 +70,8 @@ public:
 	// define operator
 
 #define VALCLAMP_ASSINMENT_OPERATOR_base(type, cv, ref) \
-	template<IsArithmetic fromT> constexpr ValClamp &operator##type##=(cv fromT ref##v) noexcept { val type##= v; clamp(); return *this; } \
-	template<IsArithmetic fromT> constexpr ValClamp &operator##type##=(cv ValClamp<fromT> ref##v) noexcept { val type##= v.val; clamp(); return *this; }
+	template<typeis::Arithmetic fromT> constexpr ValClamp &operator##type##=(cv fromT ref##v) noexcept { val type##= v; clamp(); return *this; } \
+	template<typeis::Arithmetic fromT> constexpr ValClamp &operator##type##=(cv ValClamp<fromT> ref##v) noexcept { val type##= v.val; clamp(); return *this; }
 	
 #define VALCLAMP_ASSINMENT_OPERATOR_s1(type) \
 	VALCLAMP_ASSINMENT_OPERATOR_base(type, const, &) \
@@ -104,15 +104,15 @@ private:
 
 };
 
-template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3> ValClamp(fT1, fT2, fT3) -> ValClamp<std::common_type_t<fT1, fT2, fT3>>;
-template<IsArithmetic fT> ValClamp(std::pair<fT, fT>) -> ValClamp<fT>;
+template<typeis::Arithmetic fT1, typeis::Arithmetic fT2, typeis::Arithmetic fT3> ValClamp(fT1, fT2, fT3) -> ValClamp<std::common_type_t<fT1, fT2, fT3>>;
+template<typeis::Arithmetic fT> ValClamp(std::pair<fT, fT>) -> ValClamp<fT>;
 
 // define binary operator
 
 #define VALCLAMP_BINARY_OPERATOR_base(type, cva, refa, cvb, refb) \
-	template<IsArithmetic lfromT, IsArithmetic rfromT, IsArithmetic returnT = std::common_type_t<lfromT, rfromT>> constexpr returnT operator##type##(cva ValClamp<lfromT> refa lhs, cvb ValClamp<rfromT> refb rhs) noexcept { return lhs.val type##= rhs.val; } \
-	template<IsArithmetic lfromT, IsArithmetic rfromT, IsArithmetic returnT = std::common_type_t<lfromT, rfromT>> constexpr returnT operator##type##(cva ValClamp<lfromT> refa lhs, cvb rfromT refb rhs) noexcept { return lhs.val type##= rhs; } \
-	template<IsArithmetic lfromT, IsArithmetic rfromT, IsArithmetic returnT = std::common_type_t<lfromT, rfromT>> constexpr returnT operator##type##(cva lfromT refa lhs, cvb ValClamp<rfromT> refb rhs) noexcept { return lhs type##= rhs.val; }
+	template<typeis::Arithmetic lfromT, typeis::Arithmetic rfromT, typeis::Arithmetic returnT = std::common_type_t<lfromT, rfromT>> constexpr returnT operator##type##(cva ValClamp<lfromT> refa lhs, cvb ValClamp<rfromT> refb rhs) noexcept { return lhs.val type##= rhs.val; } \
+	template<typeis::Arithmetic lfromT, typeis::Arithmetic rfromT, typeis::Arithmetic returnT = std::common_type_t<lfromT, rfromT>> constexpr returnT operator##type##(cva ValClamp<lfromT> refa lhs, cvb rfromT refb rhs) noexcept { return lhs.val type##= rhs; } \
+	template<typeis::Arithmetic lfromT, typeis::Arithmetic rfromT, typeis::Arithmetic returnT = std::common_type_t<lfromT, rfromT>> constexpr returnT operator##type##(cva lfromT refa lhs, cvb ValClamp<rfromT> refb rhs) noexcept { return lhs type##= rhs.val; }
 
 #define VALCLAMP_BINARY_OPERATOR_s1(type, cva, refa) \
 	VALCLAMP_BINARY_OPERATOR_base(type, cva, refa, const, &) \
@@ -137,7 +137,7 @@ VALCLAMP_BINARY_OPERATOR;
 
 // define compare operator
 
-#define VALCLAMP_SMALLDEFINE template<IsArithmetic lfromT, IsArithmetic rfromT> constexpr bool operator
+#define VALCLAMP_SMALLDEFINE template<typeis::Arithmetic lfromT, typeis::Arithmetic rfromT> constexpr bool operator
 #define VALCLAMP_COMPARE_OPERATOR_base(cva, refa, cvb, refb) \
 	VALCLAMP_SMALLDEFINE<(cva ValClamp<lfromT> refa lhs, cvb ValClamp<rfromT> refb rhs) noexcept { return lhs.val < rhs.val; } \
 	VALCLAMP_SMALLDEFINE<(cva ValClamp<lfromT> refa lhs, cvb rfromT refb rhs) noexcept { return lhs.val < rhs; } \

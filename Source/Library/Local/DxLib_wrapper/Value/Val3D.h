@@ -1,20 +1,16 @@
 ﻿#pragma once
-#include "_structhelper.h"
+#include "Common.h"
 
-#include "./Val2D.h"
+#include "Val2D.h"
 
 /// <summary>
 /// Val3D
 /// </summary>
 /// <typeparam name="T"></typeparam>
-template<IsArithmetic T>
+template<typeis::Arithmetic T>
 struct Val3D {
 
-	using value_type = T;
-	using Lcvr = const Val3D<T>&;
-	using Rvr = Val3D<T>&&;
-	template<class fromT> using LcvrFrom = const Val3D<fromT>&;
-	template<class fromT> using RvrFrom = Val3D<fromT>&&;
+	DEFINE_TRAITS(Val3D);
 
 	/// <summary>
 	/// constructor
@@ -23,16 +19,16 @@ struct Val3D {
 	constexpr Val3D() : x(0), y(0), z(0) {}
 	constexpr explicit Val3D(T _all) : x(_all), y(_all), z(_all) {}
 	constexpr Val3D(T _x, T _y, T _z) : x(_x), y(_y), z(_z) {}
-	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3> constexpr Val3D(fT1 ft1, fT2 ft2, fT3 ft3) : x(SCAST(ft1)), y(SCAST(ft2)), z(SCAST(ft3)) {}
-	template<IsArithmetic fromT> constexpr Val3D(LcvrFrom<fromT> v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)) {}
-	template<IsArithmetic fromT> constexpr Val3D(RvrFrom<fromT> v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)) {}
-	template<IsArithmetic fromT> constexpr Val3D(const std::initializer_list<fromT>& list) {
+	template<typeis::Arithmetic fT1, typeis::Arithmetic fT2, typeis::Arithmetic fT3> constexpr Val3D(fT1 ft1, fT2 ft2, fT3 ft3) : x(SCAST(ft1)), y(SCAST(ft2)), z(SCAST(ft3)) {}
+	template<typeis::Arithmetic fromT> constexpr Val3D(LcvrFrom<fromT> v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)) {}
+	template<typeis::Arithmetic fromT> constexpr Val3D(RvrFrom<fromT> v) : x(SCAST(v.x)), y(SCAST(v.y)), z(SCAST(v.z)) {}
+	template<typeis::Arithmetic fromT> constexpr Val3D(const std::initializer_list<fromT>& list) {
 		if (list.size() != 3) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
 		std::copy(list.begin(), list.end(), arr.begin());
 	}
-	template<IsArithmetic fromT> constexpr Val3D(std::initializer_list<fromT>&& list) {
+	template<typeis::Arithmetic fromT> constexpr Val3D(std::initializer_list<fromT>&& list) {
 		if (list.size() != 3) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
@@ -206,9 +202,9 @@ struct Val3D {
 		return (lhs.yzx() * rhs.zxy()) - (lhs.zxy() * rhs.yzx());
 	}
 
-	template<IsArithmetic floatT = double>
+	template<typeis::Arithmetic floatT = double>
 	static constexpr Val3D RotateBase(Lcvr v, floatT angle) {
-		const std::array<Val3D<floatT>, 3> rotatevector = {
+		std::array<Val3D<floatT>, 3> rotatevector = {
 			{
 				{1, 0, 0},
 				{0, cos(angle), -sin(angle)},
@@ -228,7 +224,7 @@ struct Val3D {
 		return std::sqrt(v.x + v.y);
 	}
 
-	template<IsArithmetic floatT = double>
+	template<typeis::Arithmetic floatT = double>
 	static constexpr Val3D<double> Lerp(Lcvr a, Lcvr b, floatT t) noexcept {
 		return a + (b - a) * t;
 	}
@@ -241,19 +237,17 @@ struct Val3D {
 		return fmt::format("{}{:>{}.{}f}{}", '{', fmt::join(arr, ", "), spacewidth + digit + 1, digit, '}');
 	}
 
-	TEMPLATE_ASSINMENT_OPERATOR(Val3D, x, y, z);
+	/// <summary>
+	/// operator
+	/// </summary>
+
+	TEMPLATE_ASSIGNMENT_OPERATOR(Val3D, x, y, z);
+
 };
 
 TEMPLATE_COMPARE_OPERATOR(Val3D, lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z);
 
 TEMPLATE_BINARY_OPERATOR(Val3D);
-
-/// <summary>
-/// template auto compreation helper
-/// </summary>
-
-template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3> Val3D(fT1, fT2, fT3) -> Val3D<std::common_type_t<fT1, fT2, fT3>>;
-template<IsArithmetic fromT> Val3D(std::initializer_list<fromT>) -> Val3D<fromT>;
 
 /// <summary>
 /// json converter
@@ -267,4 +261,12 @@ FROM_JSON(template<class T>, Val3D<T>, {
 	for (size_t i = 0, size = v.arr.size(); i < size; ++i) {
 		j.at(i).get_to(v.arr.at(i));
 	}
-		  });
+			});
+
+/// <summary>
+/// template auto compreation helper
+/// </summary>
+
+template<typeis::Arithmetic fT1, typeis::Arithmetic fT2, typeis::Arithmetic fT3> Val3D(fT1, fT2, fT3) -> Val3D<std::common_type_t<fT1, fT2, fT3>>;
+template<typeis::Arithmetic fromT> Val3D(std::initializer_list<fromT>) -> Val3D<fromT>;
+

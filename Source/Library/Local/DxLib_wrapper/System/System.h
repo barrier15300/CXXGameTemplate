@@ -1,9 +1,7 @@
 ﻿#pragma once
 #include "../Helper/DXHandle.h"
 #include "SoundDevice.h"
-#include "./Window.h"
-
-#include "../../ExString.h"
+#include "Window.h"
 
 class DxLibSystem final {
 public:

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "nlohmann/json.hpp"
 
 #define TO_JSON(temp, type, ...) \

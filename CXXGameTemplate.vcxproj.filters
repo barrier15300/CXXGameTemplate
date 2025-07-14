@@ -41,7 +41,7 @@
     <ClInclude Include="Source\Library\LibraryInclude.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\boost_include.h">
+    <ClInclude Include="Source\Library\Common\boost_include.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
@@ -62,7 +62,7 @@
     <ClInclude Include="Source\Library\Local\IncludeLocal.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\ExString.h">
+    <ClInclude Include="Source\Library\Common\ExString.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Scenes\SampleScene.h">
@@ -81,9 +81,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\Transform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Library\Local\template_type.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\TextAnalizer\strexprconv.h">
@@ -149,7 +146,7 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Mouse.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\ExMath.h">
+    <ClInclude Include="Source\Library\Common\ExMath.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Geometry\Geometry.h">
@@ -167,7 +164,7 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Color4.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\_structhelper.h">
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Common.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\MV1.h">
@@ -197,7 +194,7 @@
     <ClInclude Include="Source\Library\Local\Result.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\MacroHelper.h">
+    <ClInclude Include="Source\Library\Common\MacroHelper.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\ValClamp.h">
@@ -260,7 +257,7 @@
     <ClInclude Include="libs\fmt\include\fmt\xchar.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\fmt_include.h">
+    <ClInclude Include="Source\Library\Common\fmt_include.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h">
@@ -269,7 +266,7 @@
     <ClInclude Include="..\..\制作してたもの\FreedomBarrierStyle\FreedomBarrierStyle_Old\Source\System\Library\ExLib\ExString\strconv.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\strconv.h">
+    <ClInclude Include="Source\Library\Common\strconv.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\NetWork.h">
@@ -284,10 +281,16 @@
     <ClInclude Include="Source\Library\Local\Console.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\union_cast.h">
+    <ClInclude Include="Source\Library\Common\union_cast.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\Local\SimpleIO.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\Common\Common.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\Common\Concepts.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

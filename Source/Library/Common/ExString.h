@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <string>
+#include <string_view>
 #include <vector>
 
 constexpr std::vector<std::string_view> split(std::string_view str, std::string_view delim) {

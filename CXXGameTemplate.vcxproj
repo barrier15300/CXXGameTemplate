@@ -330,9 +330,11 @@
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h" />
     <ClInclude Include="Source\Include.hpp" />
-    <ClInclude Include="Source\Library\boost_include.h" />
-    <ClInclude Include="Source\Library\fmt_include.h" />
+    <ClInclude Include="Source\Library\Common\boost_include.h" />
+    <ClInclude Include="Source\Library\Common\fmt_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
+    <ClInclude Include="Source\Library\Common\Common.h" />
+    <ClInclude Include="Source\Library\Common\Concepts.h" />
     <ClInclude Include="Source\Library\Local\Composite.h" />
     <ClInclude Include="Source\Library\Local\Console.h" />
     <ClInclude Include="Source\Library\Local\ContainerLINQ.h" />
@@ -373,10 +375,10 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Value.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\System\System.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Timer.h" />
-    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\_structhelper.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Common.h" />
     <ClInclude Include="Source\Library\Local\Easing.h" />
-    <ClInclude Include="Source\Library\Local\ExMath.h" />
-    <ClInclude Include="Source\Library\Local\ExString.h" />
+    <ClInclude Include="Source\Library\Common\ExMath.h" />
+    <ClInclude Include="Source\Library\Common\ExString.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
     <ClInclude Include="Source\Library\Local\function_ref.h" />
     <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
@@ -385,14 +387,13 @@
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />
     <ClInclude Include="Source\Library\Local\SimpleIO.h" />
-    <ClInclude Include="Source\Library\Local\union_cast.h" />
-    <ClInclude Include="Source\Library\strconv.h" />
+    <ClInclude Include="Source\Library\Common\union_cast.h" />
+    <ClInclude Include="Source\Library\Common\strconv.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\Analize.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\strexprconv.h" />
-    <ClInclude Include="Source\Library\Local\template_type.h" />
     <ClInclude Include="Source\Library\Local\TextAnalizer\TextAnalizer.h" />
     <ClInclude Include="Source\Library\Local\Transform.h" />
-    <ClInclude Include="Source\Library\Local\MacroHelper.h" />
+    <ClInclude Include="Source\Library\Common\MacroHelper.h" />
     <ClInclude Include="Source\MacroConfig.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>

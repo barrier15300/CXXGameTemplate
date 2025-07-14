@@ -5,7 +5,7 @@
 /// Rect2D
 /// </summary>
 /// <typeparam name="T"></typeparam>
-template<IsArithmetic T>
+template<typeis::Arithmetic T>
 struct Rect2D {
 
 	using value_type = T;
@@ -18,19 +18,19 @@ struct Rect2D {
 	constexpr explicit Rect2D(T _all) noexcept : off(_all), size(_all) {}
 	constexpr Rect2D(T _x, T _y, T _w, T _h) noexcept : x(_x), y(_y), w(_w), h(_h) {}
 	constexpr Rect2D(Val2D<T> _p1, Val2D<T> _p2) noexcept : off(_p1), size(_p2) {}
-	template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> constexpr Rect2D(fT1 ft1, fT2 ft2, fT3 ft3, fT4 ft4) noexcept
+	template<typeis::Arithmetic fT1, typeis::Arithmetic fT2, typeis::Arithmetic fT3, typeis::Arithmetic fT4> constexpr Rect2D(fT1 ft1, fT2 ft2, fT3 ft3, fT4 ft4) noexcept
 		: x(SCAST(ft1)), y(SCAST(ft2)), w(SCAST(ft3)), h(SCAST(ft4)) {}
-	template<IsArithmetic fromT> constexpr Rect2D(LcvrFrom<fromT> v) noexcept
+	template<typeis::Arithmetic fromT> constexpr Rect2D(LcvrFrom<fromT> v) noexcept
 		: off(SCAST(v.off)), size(SCAST(v.size)) {}
-	template<IsArithmetic fromT> constexpr Rect2D(RvrFrom<fromT> v) noexcept
+	template<typeis::Arithmetic fromT> constexpr Rect2D(RvrFrom<fromT> v) noexcept
 		: off(SCAST(v.off)), size(SCAST(v.size)) {}
-	template<IsArithmetic fromT> constexpr Rect2D(const std::initializer_list<fromT>& list) {
+	template<typeis::Arithmetic fromT> constexpr Rect2D(const std::initializer_list<fromT>& list) {
 		if (list.size() != 4) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
 		std::copy(list.begin(), list.end(), list.begin());
 	}
-	template<IsArithmetic fromT> constexpr Rect2D(std::initializer_list<fromT>&& list) {
+	template<typeis::Arithmetic fromT> constexpr Rect2D(std::initializer_list<fromT>&& list) {
 		if (list.size() != 4) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
@@ -121,17 +121,15 @@ struct Rect2D {
 		return fmt::format("{}{}, {}{}", '{', off.ToString(), (off + size).ToString(), '}');
 	}
 
-	TEMPLATE_ASSINMENT_OPERATOR(Rect2D, x, y, w, h);
+	/// <summary>
+	/// operator
+	/// </summary>
+
+	TEMPLATE_ASSIGNMENT_OPERATOR(Rect2D, x, y, w, h);
+
 };
 
 TEMPLATE_BINARY_OPERATOR(Rect2D);
-
-/// <summary>
-/// template auto compreation helper
-/// </summary>
-
-template<IsArithmetic fT1, IsArithmetic fT2, IsArithmetic fT3, IsArithmetic fT4> Rect2D(fT1, fT2, fT3, fT4) -> Rect2D<std::common_type_t<fT1, fT2, fT3, fT4>>;
-template<class fT1, class fT2> Rect2D(fT1, fT2) -> Rect2D<std::common_type_t<typename fT1::value_type, typename fT2::value_type>>;
 
 /// <summary>
 /// json converter
@@ -150,4 +148,12 @@ FROM_JSON(template<class T>, Rect2D<T>, {
 	for (size_t i = 0, size = v.size.arr.size(); i < size; ++i) {
 		j.at(1).get_to(v.size.arr[i]);
 	}
-		  });
+			});
+
+/// <summary>
+/// template auto completion helper
+/// </summary>
+
+template<typeis::Arithmetic fT1, typeis::Arithmetic fT2, typeis::Arithmetic fT3, typeis::Arithmetic fT4> Rect2D(fT1, fT2, fT3, fT4) -> Rect2D<std::common_type_t<fT1, fT2, fT3, fT4>>;
+template<class fT1, class fT2> Rect2D(fT1, fT2) -> Rect2D<std::common_type_t<typename fT1::value_type, typename fT2::value_type>>;
+

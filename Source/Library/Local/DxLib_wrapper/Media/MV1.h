@@ -1,6 +1,8 @@
-#pragma once
+﻿#pragma once
 #include "../Helper/Helper.h"
 #include "../Value/Value.h"
+
+#define FUNC_GETTER(T, name) const T& name() const { return m_##name; }
 
 struct ModelData : DXHandle<DXHandleType::Model, MV1DeleteModel> {
 
@@ -64,3 +66,5 @@ private:
 	Color4F m_AmbColor;
 	float m_Opacity{};
 };
+
+#undef FUNC_GETTER

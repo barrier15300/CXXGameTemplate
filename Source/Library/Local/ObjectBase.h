@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "ExString.h"
+#include "Library/Common/Common.h"
 #include "DataStorage.h"
 #include "function_ref.h"
 #include "DxLib_wrapper/DxLib_wrapper.h"
