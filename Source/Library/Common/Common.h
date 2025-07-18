@@ -4,7 +4,8 @@
 #include "lua.hpp"
 #include "nlohmann/json.hpp"
 #include "magic_enum.hpp"
-#include "fmt_include.h"
+#include "fmt.h"
+#include "xsimd.h"
 #include "strconv.h"
 
 #include "Concepts.h"

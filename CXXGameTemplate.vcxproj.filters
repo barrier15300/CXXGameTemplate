@@ -215,51 +215,6 @@
     <ClInclude Include="Source\Library\Local\function_ref.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\args.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\base.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\chrono.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\color.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\compile.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\core.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\format.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\format-inl.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\os.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\ostream.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\printf.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\ranges.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\std.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\fmt\include\fmt\xchar.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Library\Common\fmt_include.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -309,6 +264,9 @@
     <None Include="scripts\cache.py" />
     <None Include="scripts\DirCopy.py" />
     <None Include="scripts\RecToUTF8.py" />
+    <None Include="scripts\GitClone.bat">
+      <Filter>ソース ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODOLIST.txt" />

@@ -153,7 +153,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -172,7 +172,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir)\ $(TargetDir)\</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -191,7 +191,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -215,7 +215,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir)\ $(TargetDir)\</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -231,7 +231,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -250,7 +250,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir)\ $(TargetDir)\</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -269,7 +269,7 @@
       <AssemblerListingLocation>$(IntDir)%(RelativeDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/fmt/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);Source;libs/include</AdditionalIncludeDirectories>
       <ShowIncludes>false</ShowIncludes>
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -293,7 +293,7 @@
       <AdditionalManifestFiles>$(ProjectDir)manifest\ActiveCodePageUTF8.manifest</AdditionalManifestFiles>
     </Manifest>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir) $(TargetDir)</Command>
+      <Command>"$(SolutionDir)scripts\PreBuildEvent.bat" $(SolutionDir)\ $(TargetDir)\</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -311,27 +311,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\制作してたもの\FreedomBarrierStyle\FreedomBarrierStyle_Old\Source\System\Library\ExLib\ExString\strconv.h" />
-    <ClInclude Include="libs\fmt\include\fmt\args.h" />
-    <ClInclude Include="libs\fmt\include\fmt\base.h" />
-    <ClInclude Include="libs\fmt\include\fmt\chrono.h" />
-    <ClInclude Include="libs\fmt\include\fmt\color.h" />
-    <ClInclude Include="libs\fmt\include\fmt\compile.h" />
-    <ClInclude Include="libs\fmt\include\fmt\core.h" />
-    <ClInclude Include="libs\fmt\include\fmt\format-inl.h" />
-    <ClInclude Include="libs\fmt\include\fmt\format.h" />
-    <ClInclude Include="libs\fmt\include\fmt\os.h" />
-    <ClInclude Include="libs\fmt\include\fmt\ostream.h" />
-    <ClInclude Include="libs\fmt\include\fmt\printf.h" />
-    <ClInclude Include="libs\fmt\include\fmt\ranges.h" />
-    <ClInclude Include="libs\fmt\include\fmt\std.h" />
-    <ClInclude Include="libs\fmt\include\fmt\xchar.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Game\GameMain.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h" />
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\Common\boost_include.h" />
-    <ClInclude Include="Source\Library\Common\fmt_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
     <ClInclude Include="Source\Library\Common\Common.h" />
     <ClInclude Include="Source\Library\Common\Concepts.h" />
@@ -402,6 +387,7 @@
     <None Include=".gitignore" />
     <None Include="cpp.hint" />
     <None Include="packages.config" />
+    <None Include="scripts\GitClone.bat" />
     <None Include="scripts\PreBuildEvent.bat" />
     <None Include="scripts\cache.py" />
     <None Include="scripts\DirCopy.py" />
