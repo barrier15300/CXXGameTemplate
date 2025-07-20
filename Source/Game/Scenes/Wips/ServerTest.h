@@ -13,6 +13,8 @@ public:
 	std::vector<TCPSocket> clients;
 	RingArray<int, 8> RecvData;
 
+	
+
 };
 
 bool ServerTest::Init() {
@@ -27,17 +29,14 @@ void ServerTest::Proc() {
 
 	for (auto&& c : clients) {
 		if (c.Available() > 0) {
-			auto buf = c.Receive();
+			auto pak = c.Receive();
 			int ret = 0;
-			memcpy(&ret, buf.data(), 4);
-
-			RecvData.write_back(ret);
-
-			buf.clear();
-			buf.resize(4);
-			++ret;
-			memcpy(buf.data(), &ret, 4);
-			c.Send(buf);
+			if (pak.GetHeader().IsSameType<int>()) {
+				ret = pak.Get<int>();
+				RecvData.write_back(ret);
+				++ret;
+				c.Send(Packet(ret));
+			}
 		}
 	}
 

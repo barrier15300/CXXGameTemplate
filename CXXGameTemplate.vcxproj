@@ -315,6 +315,7 @@
     <ClInclude Include="Source\Game\GameMain.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\ClientTest.h" />
+    <ClInclude Include="Source\Game\Scenes\Wips\CommonProtocol.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\ServerTest.h" />
     <ClInclude Include="Source\Include.hpp" />

@@ -24,11 +24,11 @@ void SampleScene::Proc() {
 	Input.Update();
 
 	if (Input.Keyboard[Keys::D1].Down()) {
-		Scene->Change(typeid(ServerTest));
+		Scene->Change<ServerTest>();
 	}
 
 	if (Input.Keyboard[Keys::D2].Down()) {
-		Scene->Change(typeid(ClientTest));
+		Scene->Change<ClientTest>();
 	}
 	
 	Scene->Proc();

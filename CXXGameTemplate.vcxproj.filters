@@ -257,6 +257,9 @@
     <ClInclude Include="Source\Game\Scenes\Wips\ClientTest.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Scenes\Wips\CommonProtocol.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
