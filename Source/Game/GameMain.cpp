@@ -11,6 +11,7 @@ bool Game::Init() {
 
 	if (!DXSystem
 		.AlwaysRunFlag(true)
+		.DoubleStartFlag(true)
 		.CharCodeFormat(DxLibSystem::CharCodeFormat::UTF8)
 		.CharSet(DxLibSystem::CharSet::UTF8)
 		.SysCommandOffFlag(true)

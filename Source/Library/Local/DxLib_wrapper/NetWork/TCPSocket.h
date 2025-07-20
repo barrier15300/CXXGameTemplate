@@ -33,15 +33,17 @@ public:
 			Init(HandleNull);
 		}
 	}
-	void Send(const std::vector<byte> &buffer) {
-		NetWorkSend(*this, buffer.data(), buffer.size());
+	void Send(Packet packet) {
+		auto&& buf = packet.GetBuffer();
+		NetWorkSend(*this, buf.data(), buf.size());
 	}
-	std::vector<byte> Receive() {
+	Packet Receive() {
 		int size = Available();
-		std::vector<byte> buffer;
-		buffer.resize(size);
+		std::vector<byte> buffer(size);
 		NetWorkRecv(*this, buffer.data(), size);
-		return buffer;
+		Packet packet;
+		packet.SetBuffer(std::move(buffer));
+		return packet;
 	}
 	int Available() const {
 		return GetNetWorkDataLength(*this);
@@ -49,22 +51,4 @@ public:
 	bool IsConnected() const {
 		return GetNetWorkAcceptState(*this);
 	}
-
-protected:
-
-	struct ReceiveData {
-
-		void Parse(byte* dataptr) {
-			auto p = reinterpret_cast<uint32_t*>(dataptr);
-			Header = *p++;
-			Size = *p++;
-			Data.reserve(Size);
-			std::copy(p, p + Size, std::back_inserter(Data));
-		}
-
-		uint32_t Header = 0;
-		uint32_t Size = 0;
-		std::vector<byte> Data;
-	};
-
 };

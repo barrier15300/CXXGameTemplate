@@ -12,7 +12,7 @@ public:
 	void End() { if (DxLib_IsInit() == TRUE) { DxLib_End(); } }
 
 	void Setting() {
-		SetUseDXNetWorkProtocol(false);
+		SetUseDXNetWorkProtocol(true);
 	}
 
 	enum class CharSet : int { 

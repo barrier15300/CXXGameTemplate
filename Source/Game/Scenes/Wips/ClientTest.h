@@ -26,7 +26,7 @@ void ClientTest::Proc() {
 	}
 
 	if (Input.Keyboard[Keys::C].Down()) {
-		server.Connect("106.179.19.81", 12345);
+		server.Connect("localhost", 12345);
 	}
 
 	if (Input.Keyboard[Keys::D].Down()) {
@@ -34,17 +34,16 @@ void ClientTest::Proc() {
 	}
 
 	if (Input.Keyboard[Keys::I].Down()) {
-		std::vector<byte> buffer;
-		buffer.resize(4);
-		memcpy(buffer.data(), &current, 4);
-		server.Send(buffer);
+		server.Send(Packet(current));
 	}
 
 	if (server.Available() > 0) {
-		std::vector<byte> buffer = server.Receive();
-		int recv = 0;
-		memcpy(&recv, buffer.data(), 4);
-		RecvData.write_back(recv);
+		auto pak = server.Receive();
+		int ret = 0;
+		if (pak.GetHeader().IsSameType<int>()) {
+			ret = pak.Get<int>();
+			RecvData.write_back(ret);
+		}
 	}
 
 	return;

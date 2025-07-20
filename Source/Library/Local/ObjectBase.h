@@ -102,17 +102,19 @@ public:
 
 	template<std::derived_from<IObjectBase> T>
 	void Regist() {
-		std::type_index id = GetTypeID<T>();
+		auto id = GetTypeID<T>();
 		m_RegistObjects[id] = [=] {
 			IObjectBase *ret = new T();
 			return ret->SetParent(m_ParentObject);
 		};
 		if (m_NowObject == nullptr) {
-			this->Change(id);
+			this->Change<T>();
 		}
 	}
 
-	void Change(const std::type_index &id) {
+	template<std::derived_from<IObjectBase> T>
+	void Change() {
+		auto id = GetTypeID<T>();
 		auto it = m_RegistObjects.find(id);
 		if (it == m_RegistObjects.end()) {
 			throw std::runtime_error("Object name not found: " + std::string(id.name()));
