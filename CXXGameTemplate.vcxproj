@@ -204,7 +204,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
@@ -282,7 +282,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
@@ -314,7 +314,9 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Game\GameMain.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
+    <ClInclude Include="Source\Game\Scenes\Wips\ClientTest.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h" />
+    <ClInclude Include="Source\Game\Scenes\Wips\ServerTest.h" />
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\Common\boost_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
@@ -328,6 +330,7 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Helper\Helper.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\MV1.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Screen.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\Common.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\TCPSocket.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\NetWork.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\NetWork\TCPServer.h" />

@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "Common.h"
+
 class TCPServer;
 
 class TCPSocket : public DXHandle<DXHandleType::NetWork, CloseNetWork> {
@@ -24,6 +26,12 @@ public:
 			return false;
 		}
 		return true;
+	}
+	void Close() {
+		if (IsConnected()) {
+			CloseNetWork(*this);
+			Init(HandleNull);
+		}
 	}
 	void Send(const std::vector<byte> &buffer) {
 		NetWorkSend(*this, buffer.data(), buffer.size());

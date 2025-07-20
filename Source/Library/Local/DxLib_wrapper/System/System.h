@@ -8,8 +8,12 @@ public:
 
 	using ThisT = DxLibSystem;
 
-	bool Init() { return DxLib_Init() != -1; };
+	bool Init() { Setting(); return DxLib_Init() != -1; };
 	void End() { if (DxLib_IsInit() == TRUE) { DxLib_End(); } }
+
+	void Setting() {
+		SetUseDXNetWorkProtocol(false);
+	}
 
 	enum class CharSet : int { 
 		Default = DX_CHARSET_DEFAULT,

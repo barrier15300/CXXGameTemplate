@@ -27,6 +27,10 @@ public:
 	ValClamp<size_t> idx{};
 	double t = 0.1;
 
+	int current = 0;
+	TCPSocket client;
+	RingArray<int, 6> RecvData;
+
 	void printFPS() {
 		auto fmtstr = fmt::format("FPS: {}",(int)GetFPS());
 		DrawBox(0, 0, GetDrawStringWidth(fmtstr.c_str(), fmtstr.size()) + 16, 16, Color3(16, 16, 16), TRUE);

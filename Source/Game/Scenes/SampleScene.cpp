@@ -1,5 +1,7 @@
 ﻿#include "SampleScene.h"
 #include "Wips/function_ref.h"
+#include "Wips/ClientTest.h"
+#include "Wips/ServerTest.h"
 
 bool SampleScene::Init() {
 	Graph = GraphData::Make("Asset/coursesymbol_easy.png");
@@ -12,31 +14,30 @@ bool SampleScene::Init() {
 	Input.Mouse.Lock();
 
 	Scene->Regist<FunctionRefTest>();
-
-	Text = Font.ToDrawable("press Ctrl+F1 to spawn console. press D key to test output.");
+	Scene->Regist<ClientTest>();
+	Scene->Regist<ServerTest>();
 
 	return true;
 }
 
 void SampleScene::Proc() {
+	Input.Update();
 
-	auto& IO = SimpleIO::GetInstance();
-
-	if (Input.Keyboard[Keys::ControlKey].Press() && Input.Keyboard[Keys::F1].Down()) {
-
+	if (Input.Keyboard[Keys::D1].Down()) {
+		Scene->Change(typeid(ServerTest));
 	}
 
-	if (Input.Keyboard[Keys::D].Down()) {
-
+	if (Input.Keyboard[Keys::D2].Down()) {
+		Scene->Change(typeid(ClientTest));
 	}
+	
+	Scene->Proc();
 
 	return;
 }
 
 void SampleScene::Draw() {
-
-	Text.Draw(Val2D{0, 0});
-	
+	Scene->Draw();
 	return;
 }
 

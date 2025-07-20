@@ -49,7 +49,7 @@ public:
 	}
 
 	virtual void Invoke_Proc() {
-		Input.Update();
+		//Input.Update();
 		Proc();
 	}
 
