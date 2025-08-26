@@ -9,6 +9,12 @@ class Properties {
 
 public:
 
+	enum class PropertyType {
+		GETTER = 1,
+		SETTER = 2,
+		GETSET = GETTER | SETTER
+	};
+
 	using getF = function_ref<T(void)>;
 	using setF = function_ref<void(T)>;
 

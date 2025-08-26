@@ -12,6 +12,15 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 		FileStream = DX_SOUNDDATATYPE_FILE,
 	};
 
+	bool Load(PathType path, DataType type, int buffernum = 3) {
+		*this = Make(path, type, buffernum);
+		return !IsNull();
+	}
+
+	bool Load(PathType path, int buffernum = 3) {
+		return this->Load(path, DataType::Stable, buffernum);
+	}
+
 	/// 
 	/// Data Use
 	/// 
@@ -32,30 +41,34 @@ struct SoundData : public DXHandle<DXHandleType::Sound, DeleteSoundMem> {
 		SetVolumeSoundMem(std::log(1 + (pal / 10)) * 10000, m_Handle);
 	}
 
+	bool TopPositionPlay = true;
+
+
 	/// 
 	/// Factory
 	/// 
-	
-	static SoundData Make(const std::string &path, DataType type, int buffernum = 3) {
+
+	static SoundData Make(PathType path, DataType type, int buffernum = 3) {
 		SoundData ret;
 		SetCreateSoundDataType(static_cast<int>(type));
 		ret.Init(LoadSoundMem(path.c_str(), buffernum));
-		SetCreateSoundDataType(static_cast<int>(DataType::Stable));
 		return ret;
 	}
-
-	static SoundData Make(const std::string &path, int buffernum = 3) {
-		SoundData ret = Make(path, DataType::Stable, buffernum);
-		return ret;
-	}
-
-	bool TopPositionPlay = true;
-
 };
 
 struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound> {
 
 	using DXHandle::DXHandle;
+
+	bool Load(PathType path) {
+		*this = Make(path);
+		return !this-IsNull();
+	}
+
+	bool Create(int channel, int bitPerSample, int samplePerSec, size_t sampleNum, bool isFloatType = false) {
+		*this = Make(channel, bitPerSample, samplePerSec, sampleNum, isFloatType);
+		return !this->IsNull();
+	}
 
 	///
 	/// Data Use
@@ -95,7 +108,7 @@ struct SoftSoundData : public DXHandle<DXHandleType::SoftSound, DeleteSoftSound>
 	/// Factory
 	///
 
-	static SoftSoundData Make(const std::string &path) {
+	static SoftSoundData Make(PathType path) {
 		SoftSoundData ret;
 		ret.Init(LoadSoftSound(path.c_str()));
 		ret._UpdateFormat();

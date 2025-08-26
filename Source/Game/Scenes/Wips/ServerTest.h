@@ -11,10 +11,7 @@ public:
 
 	TCPServer server;
 	std::vector<TCPSocket> clients;
-	RingArray<int, 8> RecvData;
-
-	
-
+	ring::array<int, 8> RecvData;
 };
 
 bool ServerTest::Init() {

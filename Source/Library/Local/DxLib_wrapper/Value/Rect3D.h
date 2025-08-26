@@ -25,13 +25,13 @@ struct Rect3D {
 		if (list.size() != 6) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
-		std::copy(list.begin(), list.end(), list.begin());
+		std::copy(list.begin(), list.end(), arr.begin());
 	}
 	template<typeis::Arithmetic fromT> constexpr Rect3D(std::initializer_list<fromT>&& list) {
 		if (list.size() != 6) {
 			throw std::invalid_argument("Initializer list must contain exactly two elements.");
 		}
-		std::copy(list.begin(), list.end(), list.begin());
+		std::copy(list.begin(), list.end(), arr.begin());
 	}
 
 	/// <summary>
@@ -39,10 +39,13 @@ struct Rect3D {
 	/// </summary>
 	union {
 		struct {
+			T x, y, z, w, h, d;
+		};
+		struct {
 			Val3D<T> off, size;
 		};
 		struct {
-			T x, y, z, w, h, d;
+			std::array<T, 6> arr;
 		};
 	};
 

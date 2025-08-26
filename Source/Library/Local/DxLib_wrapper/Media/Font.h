@@ -27,23 +27,6 @@ public:
 	}
 };
 
-struct FontData;
-
-struct DrawableString {
-
-	friend FontData;
-
-	DrawableString() {}
-
-	template<class T>
-	void Draw(const Val2D<T>& pos, const Val2D<float>& origin = {});
-	
-private:
-	Val2D<int> Size;
-	std::string Text;
-	const FontData* Font = nullptr;
-};
-
 struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 
 	using DXHandle::DXHandle;
@@ -63,35 +46,56 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 		UTF32BE = DX_CHARCODEFORMAT_UTF32BE,
 	};
 
-	Color3 Color{255,255,255};
-	Color3 EdgeColor;
-
-	void SetCharCodeFormat(CharCodeFormat format) {
-		SetFontCharCodeFormatToHandle(format, *this);
+	bool Load(const std::string& path, int size, int thick, int edgeSize = 0, size_t index = 0) {
+		Init(Make(path, size, thick, edgeSize, index));
+		return !IsNull();
 	}
 
-	void SetFontSpace(int pixel) {
-		SetFontSpaceToHandle(pixel, *this);
+	template<class T>
+	inline void Draw(const std::string& str, const Val2D<T>& pos, const Val2D<T>& offset, const Color3& color = {}, const Color3& edgeColor = {}) {
+		if constexpr (std::is_integral<T>::value) {
+			DrawStringToHandle(
+				pos.x - offset.x,
+				pos.y - offset.y,
+				str.c_str(),
+				color,
+				*this,
+				edgeColor
+			);
+		}
+		else {
+			DrawStringFToHandle(
+				pos.x - offset.x,
+				pos.y - offset.y,
+				str.c_str(),
+				color,
+				*this,
+				edgeColor
+			);
+		}
 	}
 
-	void SetFontLineSpace(int pixel) {
-		SetFontLineSpaceToHandle(pixel, *this);
-	}
-
-	DrawableString ToDrawable(const std::string_view& text) const {
-		DrawableString ret;
-		ret.Text = text;
-		ret.Font = this;
+	Val2D<int> GetSize(const std::string& text) const {
 		size_t c = 1;
 		size_t idx = 0;
-		while ((idx = ret.Text.find('\n', idx + 1)) != std::string::npos) {
+		while ((idx = text.find('\n', idx + 1)) != std::string::npos) {
 			++c;
 		}
-		ret.Size = {
+		Val2D<int> ret = {
 			GetDrawStringWidthToHandle(text.data(), text.size(), *this),
 			GetFontSizeToHandle(*this) * c
 		};
 		return ret;
+	}
+
+	void SetCharCodeFormat(CharCodeFormat format) {
+		SetFontCharCodeFormatToHandle(format, *this);
+	}
+	void SetFontSpace(int pixel) {
+		SetFontSpaceToHandle(pixel, *this);
+	}
+	void SetFontLineSpace(int pixel) {
+		SetFontLineSpaceToHandle(pixel, *this);
 	}
 
 	static FontData Make(const std::string& path, int size, int thick, int edgeSize = 0, size_t index = 0) {
@@ -162,30 +166,3 @@ struct FontData : public DXHandle<DXHandleType::Font, DeleteFontToHandle> {
 };
 
 
-template<class T>
-inline void DrawableString::Draw(const Val2D<T>& pos, const Val2D<float>& origin) {
-	Val2D<float> offset = {
-		origin.x * Size.x,
-		origin.y * Size.y
-	};
-	if constexpr (std::is_integral_v<T>) {
-		DrawStringToHandle(
-			pos.x - offset.x,
-			pos.y - offset.y,
-			Text.data(),
-			Font->Color,
-			Font->GetRawHandle(),
-			Font->EdgeColor
-		);
-	}
-	else {
-		DrawStringFToHandle(
-			pos.x - offset.x,
-			pos.y - offset.y,
-			Text.data(),
-			Font->Color,
-			Font->GetRawHandle(),
-			Font->EdgeColor
-		);
-	}
-}

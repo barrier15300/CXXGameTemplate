@@ -1,14 +1,14 @@
 ﻿#include "function_ref.h"
 
-constexpr int add_func(int l, int r) { return l + r; }
+constexpr int add_func(int l, int r) { return l + r + l + r + l + r + l + r; }
 
 bool FunctionRefTest::Init() {
 
-	std::function<int(int, int)> add = [](int l, int r) { return l + r; };
-	function_ref<int(int, int)> add_ref = [](int l, int r) { return l + r; };
+	std::function<int(int, int)> add = [](int l, int r) { return l + r + l + r + l + r + l + r; };
+	function_ref<int(int, int)> add_ref = [](int l, int r) { return l + r + l + r + l + r + l + r; };
 	function_ref<int(int, int)> add_func_ref = add_func;
 
-	constexpr size_t count = 1000;
+	constexpr size_t count = 10000;
 
 	Timer t;
 	size_t _ret = 0;
@@ -49,7 +49,7 @@ bool FunctionRefTest::Init() {
 	t.Restart();
 	for (size_t i = 0; i < count; ++i) {
 		for (size_t j = 0; j < count; ++j) {
-			_ret += i + j;
+			_ret += i + j + i + j + i + j + i + j;
 		}
 	}
 	time[3] = t.Elapsed().Second();

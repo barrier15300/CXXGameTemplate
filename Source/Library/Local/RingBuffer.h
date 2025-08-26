@@ -111,7 +111,7 @@ public:
 		write_back_impl(v);
 	}
 	constexpr void write_back(T&& v) noexcept {
-		write_back_impl(v);
+		write_back_impl(std::move(v));
 	}
 	constexpr void clear_front() noexcept {
 		this->front() = value_type();
@@ -126,7 +126,7 @@ public:
 	}
 private:
 	template<class fT>
-	constexpr void write_back_impl(fT&& v) requires std::is_same<fT, T>::value noexcept {
+	constexpr void write_back_impl(fT&& v) noexcept {
 		(*this)[m_current_size] = std::forward<fT>(v);
 
 		if (++m_current_size >= size()) {
@@ -193,11 +193,14 @@ public:
 	using iterator = ringbuffer_iterator<value_type, _container_T>;
 
 	constexpr ringbuffer_iterator() noexcept = default;
+	constexpr ringbuffer_iterator(const ringbuffer_iterator&) = default;
+	constexpr ringbuffer_iterator(ringbuffer_iterator&&) = default;
 	constexpr ringbuffer_iterator(iterator it, parent_pointer parent) noexcept : m_it(it.m_it), m_parent(parent) {}
 	constexpr ringbuffer_iterator(container_iterator it, parent_pointer parent) noexcept : m_it(it), m_parent(parent) {}
 	constexpr ~ringbuffer_iterator() noexcept = default;
 
-	constexpr iterator& operator=(const iterator&) noexcept = default;
+	constexpr iterator& operator=(const ringbuffer_iterator&) noexcept = default;
+	constexpr iterator& operator=(ringbuffer_iterator&&) noexcept = default;
 
 	constexpr reference operator*() const { return *m_it; }
 	constexpr reference operator->() const { return *m_it; }

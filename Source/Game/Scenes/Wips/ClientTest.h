@@ -10,7 +10,7 @@ public:
 
 	TCPSocket server;
 	int current = 0;
-	RingArray<int, 8> RecvData;
+	ring::array<int, 8> RecvData;
 };
 
 bool ClientTest::Init() {
@@ -26,7 +26,7 @@ void ClientTest::Proc() {
 	}
 
 	if (Input.Keyboard[Keys::C].Down()) {
-		server.Connect("localhost", 12345);
+		server.Connect("barrisrv.f5.si", 12345);
 	}
 
 	if (Input.Keyboard[Keys::D].Down()) {

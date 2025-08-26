@@ -33,9 +33,10 @@ public:
 			return false;
 		}
 
-		int n = GetNewAcceptNetWork();
-		if (n != TCPSocket::HandleNull) {
-			pendingClients.push_back(n);
+		TCPSocket newsock;
+		newsock.Init(GetNewAcceptNetWork());
+		if (newsock.IsNull()) {
+			pendingClients.push_back(newsock);
 		}
 
 		return !pendingClients.empty();
@@ -51,6 +52,7 @@ public:
 	}
 
 private:
+
 	std::deque<int> pendingClients;
 	static inline bool isListening = false;
 	static inline uint16_t listeningPort = 0;

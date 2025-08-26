@@ -9,6 +9,7 @@
 #include "function_ref.h"
 #include "Console.h"
 #include "SimpleIO.h"
+#include "HandlerList.h"
 
 // TODO:
 //#include "Transform.h"

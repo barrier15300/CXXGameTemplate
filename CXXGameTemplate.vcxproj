@@ -317,6 +317,8 @@
     <ClInclude Include="Source\Game\Scenes\Wips\ClientTest.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\CommonProtocol.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h" />
+    <ClInclude Include="Source\Game\Scenes\Wips\HandlerListTest.h" />
+    <ClInclude Include="Source\Game\Scenes\Wips\RingBufferTest.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\ServerTest.h" />
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\Common\boost_include.h" />
@@ -353,6 +355,7 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Font.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Sound.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Color3.h" />
+    <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\MultiInt.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Polar2D.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Value\Rect3D.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Media\Graph.h" />
@@ -370,6 +373,7 @@
     <ClInclude Include="Source\Library\Common\ExString.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
     <ClInclude Include="Source\Library\Local\function_ref.h" />
+    <ClInclude Include="Source\Library\Local\HandlerList.h" />
     <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
     <ClInclude Include="Source\Library\Local\ObjectBase.h" />
     <ClInclude Include="Source\Library\Local\Properties.h" />

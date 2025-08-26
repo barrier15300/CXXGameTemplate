@@ -26,15 +26,15 @@ struct Rect2D {
 		: off(SCAST(v.off)), size(SCAST(v.size)) {}
 	template<typeis::Arithmetic fromT> constexpr Rect2D(const std::initializer_list<fromT>& list) {
 		if (list.size() != 4) {
-			throw std::invalid_argument("Initializer list must contain exactly two elements.");
+			throw std::invalid_argument("Initializer list must contain exactly four elements.");
 		}
-		std::copy(list.begin(), list.end(), list.begin());
+		std::copy(list.begin(), list.end(), arr.begin());
 	}
 	template<typeis::Arithmetic fromT> constexpr Rect2D(std::initializer_list<fromT>&& list) {
 		if (list.size() != 4) {
-			throw std::invalid_argument("Initializer list must contain exactly two elements.");
+			throw std::invalid_argument("Initializer list must contain exactly four elements.");
 		}
-		std::copy(list.begin(), list.end(), list.begin());
+		std::copy(list.begin(), list.end(), arr.begin());
 	}
 
 	/// <summary>
@@ -47,6 +47,9 @@ struct Rect2D {
 		};
 		struct {
 			Val2D<T> off, size;
+		};
+		struct {
+			std::array<T, 4> arr;
 		};
 	};
 

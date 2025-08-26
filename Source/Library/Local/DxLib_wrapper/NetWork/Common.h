@@ -86,6 +86,16 @@ public:
 	template<typeis::Enum enumT, class T>
 	Packet(enumT type, const T& data) : Packet(type, std::addressof(data), sizeof(T)) {}
 
+	Packet(size_t id, const std::vector<uint8_t>& data) : Packet(id, data.data(), data.size()) {}
+
+	template<class T>
+	Packet(size_t id, const std::vector<T>& data) : Packet(id, data.data(), data.size() * sizeof(T)) {}
+
+	Packet(size_t id, const std::string& data) : Packet(id, data.data(), data.size()) {}
+	
+	template<class T>
+	Packet(size_t id, const T& data) : Packet(id, std::addressof(data), sizeof(T)) {}
+
 	Packet(const std::vector<uint8_t>& data) : Packet(GetTypeHashCode<std::vector<uint8_t>>(), data.data(), data.size()) {}
 
 	template<class T>

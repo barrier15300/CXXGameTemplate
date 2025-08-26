@@ -26,7 +26,7 @@ enum class DXHandleType : int {
 	HandleTypeCount
 };
 
-static int __NoWorkDeleteFunc(int) { return 0; }
+static inline int __NoWorkDeleteFunc(int) { return 0; }
 template<DXHandleType handletype = DXHandleType::None,int (*deleter_func)(int) = __NoWorkDeleteFunc>
 struct DXHandle {
 
@@ -71,24 +71,24 @@ struct DXHandle {
 		return GetHandleLimitCount() - GetHandleUsingCount();
 	}
 
-	int GetRawHandle() const {
+	constexpr int GetRawHandle() const {
 		return m_Handle;
 	}
 
-	void Init(int from = HandleNull) {
+	constexpr void Init(int from = HandleNull) {
 		deleter_func(*this);
 		m_Handle = from;
 	}
 
-	inline static const int HandleNull = -1;
+	static constexpr int HandleNull = -1;
 
 protected:
 
-	operator const int() const {
+	constexpr operator int() const {
 		return m_Handle;
 	}
 	
-	bool IsNull() {
+	constexpr bool IsNull() {
 		return m_Handle == HandleNull;
 	}
 
@@ -98,13 +98,13 @@ protected:
 template<>
 struct DXHandle<DXHandleType::None> {
 
-	DXHandle() : m_Handle(HandleNull) { }
-	DXHandle(int from) : m_Handle(from) { }
-	operator const int() const {
+	constexpr DXHandle() : m_Handle(HandleNull) { }
+	constexpr explicit DXHandle(int from) : m_Handle(from) { }
+	constexpr operator int() const {
 		return m_Handle;
 	}
 
-	inline static const int HandleNull = -1;
+	static constexpr int HandleNull = -1;
 
 protected:
 

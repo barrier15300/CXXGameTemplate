@@ -83,6 +83,10 @@ struct Val3D {
 		return ret;
 	}
 
+	constexpr operator std::tuple<T, T, T>() const {
+		return {x, y, z};
+	}
+
 	/// <summary>
 	/// arr accessor
 	/// </summary>

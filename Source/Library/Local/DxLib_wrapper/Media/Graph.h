@@ -6,6 +6,11 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 
 	using DXHandle::DXHandle;
 	
+	bool Load(PathType path) {
+		*this = Make(path);
+		return !this->IsNull();
+	}
+
 	/// <summary>
 	/// Utility
 	/// </summary>
@@ -76,8 +81,6 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 		);
 	}
 
-
-
 	/// 
 	/// Factory
 	///
@@ -95,8 +98,7 @@ struct GraphData : public DXHandle<DXHandleType::Graph, DeleteGraph> {
 	}
 
 	static std::vector<GraphData> MakeDivGraph(const std::string &path, const Val2D<int> &size, const Val2D<int> &div) {
-		std::vector<GraphData> ret;
-		ret.resize((size_t)div.x * div.y);
+		std::vector<GraphData> ret(div.x * div.y);
 		LoadDivGraph(
 			path.c_str(),
 			ret.size(),
@@ -123,6 +125,16 @@ struct SoftGraphData : public DXHandle<DXHandleType::SoftImage, DeleteSoftImage>
 		XRGB8,
 	};
 
+	bool Load(PathType path) {
+		*this = Make(path);
+		return !this->IsNull();
+	}
+
+	bool Create(const Val2D<int>& size) {
+		*this = Make(size);
+		return !this->IsNull();
+	}
+
 	Val2D<int> Size() const {
 		Val2D<int> ret;
 		GetSoftImageSize(*this, &ret.x, &ret.y);
@@ -133,7 +145,7 @@ struct SoftGraphData : public DXHandle<DXHandleType::SoftImage, DeleteSoftImage>
 
 
 
-	static SoftGraphData Make(const std::string& path) {
+	static SoftGraphData Make(PathType path) {
 		SoftGraphData ret;
 		ret.Init(LoadARGB8ColorSoftImage(path.c_str()));
 		return ret;

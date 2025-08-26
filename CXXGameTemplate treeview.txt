@@ -1,0 +1,2305 @@
+S:.
+│  .gitattributes
+│  .gitignore
+│  cpp.hint                     // マクロのヒント
+│  CXXGameTemplate.sln
+│  CXXGameTemplate.vcxproj
+│  CXXGameTemplate.vcxproj.filters
+│  CXXGameTemplate.vcxproj.user
+│  LICENSE.txt                  // DxLibのライセンス
+│  packages.config              // Nugetパッケージのコンフィグ？
+│  pch.cpp                      // プリコンパイルソース
+│  pch.h                        // プリコンパイルヘッダー
+│  README.md                    // りーどみー
+│  TODOLIST.txt                 // 今後実装する予定のもの、あまり書いてない
+│  treeview.txt                 // このファイル
+│  
+├─Asset                         // 使用するアセットフォルダ(自動的に出力ディレクトリにコピーされる)
+│  │  coursesymbol_easy.png
+│  │  coursesymbol_edit.png
+│  │  coursesymbol_hard.png
+│  │  coursesymbol_normal.png
+│  │  coursesymbol_oni.png
+│  │  Don.wav
+│  │  Font.ttf
+│  │  Ka.wav
+│  │  
+│  └─DTMF
+│          dtmf_#.wav
+│          dtmf_0.wav
+│          dtmf_1.wav
+│          dtmf_2.wav
+│          dtmf_3.wav
+│          dtmf_4.wav
+│          dtmf_5.wav
+│          dtmf_6.wav
+│          dtmf_7.wav
+│          dtmf_8.wav
+│          dtmf_9.wav
+│          dtmf_A.wav
+│          dtmf_B.wav
+│          dtmf_C.wav
+│          dtmf_D.wav
+│          
+├─CXXGameTemplate // 中間ファイルなどのフォルダ、よくわかんない
+│  └─x64
+│      ├─Debug
+│      │  │  CodeAnalysisResultManifest.txt
+│      │  │  CXXGameTemplate.Build.CppClean.log
+│      │  │  CXXGameTemplate.exe.embed.manifest
+│      │  │  CXXGameTemplate.exe.embed.manifest.res
+│      │  │  CXXGameTemplate.exe.recipe
+│      │  │  CXXGameTemplate.ilk
+│      │  │  CXXGameTemplate.log
+│      │  │  CXXGameTemplate.pch
+│      │  │  CXXGameTemplate.pchast
+│      │  │  CXXGameTemplate.vcxproj.FileListAbsolute.txt
+│      │  │  CXXGameTemplate_manifest.rc
+│      │  │  espCAE3.tmp
+│      │  │  Interface.h_56ACB5C8F7E5C688.ifc.dt.module.json.command
+│      │  │  NativeCodeAnalysis.read.1.tlog
+│      │  │  pch.nativecodeanalysis.sarif
+│      │  │  pch.nativecodeanalysis.xml
+│      │  │  pch.obj
+│      │  │  SampleScene.h.obj.dt.module.json.command
+│      │  │  vc.nativecodeanalysis.all.xml
+│      │  │  vc143.idb
+│      │  │  vc143.pdb
+│      │  │  vcpkg.applocal.log
+│      │  │  
+│      │  ├─CXXGameTemplate.tlog
+│      │  │      CL.command.1.tlog
+│      │  │      Cl.items.tlog
+│      │  │      CL.read.1.tlog
+│      │  │      CL.write.1.tlog
+│      │  │      CXXGameTemplate.lastbuildstate
+│      │  │      link.command.1.tlog
+│      │  │      link.read.1.tlog
+│      │  │      link.secondary.1.tlog
+│      │  │      link.write.1.tlog
+│      │  │      rc.command.1.tlog
+│      │  │      rc.read.1.tlog
+│      │  │      rc.write.1.tlog
+│      │  │      
+│      │  ├─CXXGameTemplate_MD.tlog
+│      │  ├─libs
+│      │  │  └─fmt
+│      │  │      └─src
+│      │  │              format.obj
+│      │  │              os.nativecodeanalysis.sarif
+│      │  │              os.nativecodeanalysis.xml
+│      │  │              os.obj
+│      │  │              
+│      │  └─Source
+│      │      │  EntryPoint.nativecodeanalysis.sarif
+│      │      │  EntryPoint.nativecodeanalysis.xml
+│      │      │  entrypoint.new.obj.enc
+│      │      │  EntryPoint.obj
+│      │      │  Main.nativecodeanalysis.sarif
+│      │      │  Main.nativecodeanalysis.xml
+│      │      │  main.new.obj.enc
+│      │      │  Main.obj
+│      │      │  
+│      │      ├─Game
+│      │      │  │  esp1810.tmp
+│      │      │  │  GameMain.nativecodeanalysis.sarif
+│      │      │  │  GameMain.nativecodeanalysis.xml
+│      │      │  │  gamemain.new.obj.enc
+│      │      │  │  GameMain.obj
+│      │      │  │  
+│      │      │  └─Scenes
+│      │      │      │  SampleScene.nativecodeanalysis.sarif
+│      │      │      │  SampleScene.nativecodeanalysis.xml
+│      │      │      │  samplescene.new.obj.enc
+│      │      │      │  SampleScene.obj
+│      │      │      │  
+│      │      │      └─Wips
+│      │      │              function_ref.nativecodeanalysis.sarif
+│      │      │              function_ref.nativecodeanalysis.xml
+│      │      │              function_ref.obj
+│      │      │              
+│      │      ├─Library
+│      │      │  └─Local
+│      │      │      └─Common
+│      │      └─Local_Library
+│      │              ObjectBase.obj
+│      │              
+│      └─Release
+│          │  CodeAnalysisResultManifest.txt
+│          │  CXXGameTemplate.Build.CppClean.log
+│          │  CXXGameTemplate.exe.recipe
+│          │  CXXGameTemplate.iobj
+│          │  CXXGameTemplate.log
+│          │  CXXGameTemplate.pch
+│          │  CXXGameTemplate.pchast
+│          │  CXXGameTemplate.vcxproj.FileListAbsolute.txt
+│          │  NativeCodeAnalysis.read.1.tlog
+│          │  pch.nativecodeanalysis.sarif
+│          │  pch.nativecodeanalysis.xml
+│          │  pch.obj
+│          │  vc.nativecodeanalysis.all.xml
+│          │  vc143.pdb
+│          │  vcpkg.applocal.log
+│          │  
+│          ├─CXXGameTemplate.tlog
+│          │      CL.command.1.tlog
+│          │      Cl.items.tlog
+│          │      CL.read.1.tlog
+│          │      CL.write.1.tlog
+│          │      CXXGameTemplate.lastbuildstate
+│          │      link.command.1.tlog
+│          │      link.read.1.tlog
+│          │      link.secondary.1.tlog
+│          │      link.write.1.tlog
+│          │      
+│          └─Source
+│              │  EntryPoint.nativecodeanalysis.sarif
+│              │  EntryPoint.nativecodeanalysis.xml
+│              │  EntryPoint.obj
+│              │  Main.nativecodeanalysis.sarif
+│              │  Main.nativecodeanalysis.xml
+│              │  Main.obj
+│              │  
+│              └─Game
+│                  │  GameMain.nativecodeanalysis.sarif
+│                  │  GameMain.nativecodeanalysis.xml
+│                  │  GameMain.obj
+│                  │  
+│                  └─Scenes
+│                      │  SampleScene.nativecodeanalysis.sarif
+│                      │  SampleScene.nativecodeanalysis.xml
+│                      │  SampleScene.obj
+│                      │  
+│                      └─Wips
+│                              function_ref.nativecodeanalysis.sarif
+│                              function_ref.nativecodeanalysis.xml
+│                              function_ref.obj
+│                              
+├─doxygen // ドキュメント生成やってみようとしたけどよくわからず放置してるもの
+│  │  Doxyfile
+│  │  index.html - ショートカット.lnk
+│  │  
+│  ├─html
+│  │  │  annotated.html
+│  │  │  annotated_dup.js
+│  │  │  bc_s.png
+│  │  │  bc_sd.png
+│  │  │  boost__include_8h.html
+│  │  │  boost__include_8h_source.html
+│  │  │  classes.html
+│  │  │  classstatic__string-members.html
+│  │  │  classstatic__string.html
+│  │  │  classstatic__string.js
+│  │  │  classstring__expr2val-members.html
+│  │  │  classstring__expr2val.html
+│  │  │  classstring__expr2val.js
+│  │  │  class_audio_session_control-members.html
+│  │  │  class_audio_session_control.html
+│  │  │  class_audio_session_control.js
+│  │  │  class_audio_session_control.png
+│  │  │  class_audio_session_control_old-members.html
+│  │  │  class_audio_session_control_old.html
+│  │  │  class_audio_session_control_old.js
+│  │  │  class_audio_session_control_old.png
+│  │  │  class_audio_session_enumerator-members.html
+│  │  │  class_audio_session_enumerator.html
+│  │  │  class_audio_session_enumerator.js
+│  │  │  class_audio_session_enumerator.png
+│  │  │  class_audio_session_manager-members.html
+│  │  │  class_audio_session_manager.html
+│  │  │  class_audio_session_manager.js
+│  │  │  class_audio_session_manager.png
+│  │  │  class_com-members.html
+│  │  │  class_com.html
+│  │  │  class_com.js
+│  │  │  class_com.png
+│  │  │  class_com_base-members.html
+│  │  │  class_com_base.html
+│  │  │  class_com_base.js
+│  │  │  class_com_base.png
+│  │  │  class_com_base_1_1_release_com-members.html
+│  │  │  class_com_base_1_1_release_com.html
+│  │  │  class_com_base_1_1_release_com.js
+│  │  │  class_com_c_c_i-members.html
+│  │  │  class_com_c_c_i.html
+│  │  │  class_com_c_c_i.js
+│  │  │  class_com_c_c_i.png
+│  │  │  class_dx_lib_system-members.html
+│  │  │  class_dx_lib_system.html
+│  │  │  class_dx_lib_system.js
+│  │  │  class_easing-members.html
+│  │  │  class_easing.html
+│  │  │  class_easing.js
+│  │  │  class_game-members.html
+│  │  │  class_game.html
+│  │  │  class_game.js
+│  │  │  class_game.png
+│  │  │  class_input_devices-members.html
+│  │  │  class_input_devices.html
+│  │  │  class_input_devices.js
+│  │  │  class_i_object_base-members.html
+│  │  │  class_i_object_base.html
+│  │  │  class_i_object_base.js
+│  │  │  class_i_object_base.png
+│  │  │  class_main-members.html
+│  │  │  class_main.html
+│  │  │  class_main.js
+│  │  │  class_m_m_device-members.html
+│  │  │  class_m_m_device.html
+│  │  │  class_m_m_device.js
+│  │  │  class_m_m_device.png
+│  │  │  class_m_m_device_enumerator-members.html
+│  │  │  class_m_m_device_enumerator.html
+│  │  │  class_m_m_device_enumerator.js
+│  │  │  class_m_m_device_enumerator.png
+│  │  │  class_object_switcher-members.html
+│  │  │  class_object_switcher.html
+│  │  │  class_object_switcher.js
+│  │  │  class_sample_scene-members.html
+│  │  │  class_sample_scene.html
+│  │  │  class_sample_scene.js
+│  │  │  class_sample_scene.png
+│  │  │  class_simple_audio_volume-members.html
+│  │  │  class_simple_audio_volume.html
+│  │  │  class_simple_audio_volume.js
+│  │  │  class_simple_audio_volume.png
+│  │  │  class_sound_device-members.html
+│  │  │  class_sound_device.html
+│  │  │  class_sound_device.js
+│  │  │  class_storage_1_1_data-members.html
+│  │  │  class_storage_1_1_data.html
+│  │  │  class_storage_1_1_data.js
+│  │  │  class_storage_1_1_____data__sc-members.html
+│  │  │  class_storage_1_1_____data__sc.html
+│  │  │  class_storage_1_1_____data__sc.js
+│  │  │  class_text_analize_1_1_text_analizer-members.html
+│  │  │  class_text_analize_1_1_text_analizer.html
+│  │  │  class_text_analize_1_1_text_analizer.js
+│  │  │  class_timer-members.html
+│  │  │  class_timer.html
+│  │  │  class_timer.js
+│  │  │  class_transform-members.html
+│  │  │  class_transform.html
+│  │  │  class____base_input_device-members.html
+│  │  │  class____base_input_device.html
+│  │  │  class____base_input_device.js
+│  │  │  class____base_input_device.png
+│  │  │  class____keyboard_input__sc-members.html
+│  │  │  class____keyboard_input__sc.html
+│  │  │  class____keyboard_input__sc.js
+│  │  │  class____keyboard_input__sc.png
+│  │  │  class____mouse_input__sc-members.html
+│  │  │  class____mouse_input__sc.html
+│  │  │  class____mouse_input__sc.js
+│  │  │  class____mouse_input__sc.png
+│  │  │  clipboard.js
+│  │  │  closed.png
+│  │  │  concepts.html
+│  │  │  concepts.js
+│  │  │  concept_is_arithmetic.html
+│  │  │  concept_is_function.html
+│  │  │  concept_motion_func.html
+│  │  │  concept_storage_1_1_value_type.html
+│  │  │  cookie.js
+│  │  │  dir_3777292849a1481e53303ca2af78ff89.html
+│  │  │  dir_3777292849a1481e53303ca2af78ff89.js
+│  │  │  dir_5b2695d9ffe8e32ec2a89455f64b03a4.html
+│  │  │  dir_5b2695d9ffe8e32ec2a89455f64b03a4.js
+│  │  │  dir_71091f6c1c4e9296b8bf18e2ab395fca.html
+│  │  │  dir_71091f6c1c4e9296b8bf18e2ab395fca.js
+│  │  │  dir_74389ed8173ad57b461b9d623a1f3867.html
+│  │  │  dir_74389ed8173ad57b461b9d623a1f3867.js
+│  │  │  dir_77c39039fd483268efea48c6f176e7df.html
+│  │  │  dir_77c39039fd483268efea48c6f176e7df.js
+│  │  │  dir_a43466370fc53a91bbfb8ea125518f6b.html
+│  │  │  dir_a43466370fc53a91bbfb8ea125518f6b.js
+│  │  │  dir_fb81218c06ae21f6143ce0d1ee075725.html
+│  │  │  dir_fb81218c06ae21f6143ce0d1ee075725.js
+│  │  │  doc.svg
+│  │  │  docd.svg
+│  │  │  doxygen.css
+│  │  │  doxygen.svg
+│  │  │  doxygen_crawl.html
+│  │  │  dynsections.js
+│  │  │  exstring_8h.html
+│  │  │  exstring_8h.js
+│  │  │  exstring_8h_source.html
+│  │  │  files.html
+│  │  │  files_dup.js
+│  │  │  folderclosed.svg
+│  │  │  folderclosedd.svg
+│  │  │  folderopen.svg
+│  │  │  folderopend.svg
+│  │  │  functions.html
+│  │  │  functions_a.html
+│  │  │  functions_b.html
+│  │  │  functions_c.html
+│  │  │  functions_d.html
+│  │  │  functions_dup.js
+│  │  │  functions_e.html
+│  │  │  functions_enum.html
+│  │  │  functions_eval.html
+│  │  │  functions_f.html
+│  │  │  functions_func.html
+│  │  │  functions_func.js
+│  │  │  functions_func_a.html
+│  │  │  functions_func_b.html
+│  │  │  functions_func_c.html
+│  │  │  functions_func_d.html
+│  │  │  functions_func_e.html
+│  │  │  functions_func_f.html
+│  │  │  functions_func_g.html
+│  │  │  functions_func_h.html
+│  │  │  functions_func_i.html
+│  │  │  functions_func_k.html
+│  │  │  functions_func_l.html
+│  │  │  functions_func_m.html
+│  │  │  functions_func_o.html
+│  │  │  functions_func_p.html
+│  │  │  functions_func_r.html
+│  │  │  functions_func_s.html
+│  │  │  functions_func_t.html
+│  │  │  functions_func_u.html
+│  │  │  functions_func_v.html
+│  │  │  functions_func_w.html
+│  │  │  functions_func_~.html
+│  │  │  functions_g.html
+│  │  │  functions_h.html
+│  │  │  functions_i.html
+│  │  │  functions_k.html
+│  │  │  functions_l.html
+│  │  │  functions_m.html
+│  │  │  functions_n.html
+│  │  │  functions_o.html
+│  │  │  functions_p.html
+│  │  │  functions_q.html
+│  │  │  functions_r.html
+│  │  │  functions_s.html
+│  │  │  functions_t.html
+│  │  │  functions_u.html
+│  │  │  functions_v.html
+│  │  │  functions_vars.html
+│  │  │  functions_w.html
+│  │  │  functions_x.html
+│  │  │  functions_y.html
+│  │  │  functions_z.html
+│  │  │  functions_~.html
+│  │  │  globals.html
+│  │  │  globals_defs.html
+│  │  │  globals_enum.html
+│  │  │  globals_func.html
+│  │  │  globals_type.html
+│  │  │  globals_vars.html
+│  │  │  hierarchy.html
+│  │  │  hierarchy.js
+│  │  │  index.html
+│  │  │  jquery.js
+│  │  │  menu.js
+│  │  │  menudata.js
+│  │  │  minus.svg
+│  │  │  minusd.svg
+│  │  │  namespacemembers.html
+│  │  │  namespacemembers_func.html
+│  │  │  namespaces.html
+│  │  │  namespaces_dup.js
+│  │  │  namespace_storage.html
+│  │  │  namespace_storage.js
+│  │  │  namespace_text_analize.html
+│  │  │  namespace_text_analize.js
+│  │  │  navtree.css
+│  │  │  navtree.js
+│  │  │  navtreedata.js
+│  │  │  navtreeindex0.js
+│  │  │  navtreeindex1.js
+│  │  │  navtreeindex2.js
+│  │  │  navtreeindex3.js
+│  │  │  navtreeindex4.js
+│  │  │  nav_f.png
+│  │  │  nav_fd.png
+│  │  │  nav_g.png
+│  │  │  nav_h.png
+│  │  │  nav_hd.png
+│  │  │  open.png
+│  │  │  plus.svg
+│  │  │  plusd.svg
+│  │  │  resize.js
+│  │  │  special_8h.html
+│  │  │  special_8h.js
+│  │  │  special_8h_source.html
+│  │  │  splitbar.png
+│  │  │  splitbard.png
+│  │  │  strexprconv_8h.html
+│  │  │  strexprconv_8h.js
+│  │  │  strexprconv_8h_source.html
+│  │  │  structrename__member-members.html
+│  │  │  structrename__member.html
+│  │  │  structrename__member.js
+│  │  │  structstring__expr2val_1_1exprobj-members.html
+│  │  │  structstring__expr2val_1_1exprobj.html
+│  │  │  structstring__expr2val_1_1exprobj.js
+│  │  │  structstring__expr2val_1_1exprobj_1_1expr-members.html
+│  │  │  structstring__expr2val_1_1exprobj_1_1expr.html
+│  │  │  structstring__expr2val_1_1exprobj_1_1expr.js
+│  │  │  struct_color3-members.html
+│  │  │  struct_color3.html
+│  │  │  struct_color3.js
+│  │  │  struct_color4-members.html
+│  │  │  struct_color4.html
+│  │  │  struct_color4.js
+│  │  │  struct_draw_blend-members.html
+│  │  │  struct_draw_blend.html
+│  │  │  struct_draw_blend.js
+│  │  │  struct_graph_data-members.html
+│  │  │  struct_graph_data.html
+│  │  │  struct_graph_data.js
+│  │  │  struct_input_state-members.html
+│  │  │  struct_input_state.html
+│  │  │  struct_input_state.js
+│  │  │  struct_optimization_graph-members.html
+│  │  │  struct_optimization_graph.html
+│  │  │  struct_optimization_graph.js
+│  │  │  struct_pos2_d-members.html
+│  │  │  struct_pos2_d.html
+│  │  │  struct_pos2_d.png
+│  │  │  struct_pos3_d-members.html
+│  │  │  struct_pos3_d.html
+│  │  │  struct_pos3_d.js
+│  │  │  struct_pos3_d.png
+│  │  │  struct_rect2_d-members.html
+│  │  │  struct_rect2_d.html
+│  │  │  struct_rect2_d.js
+│  │  │  struct_rect3_d-members.html
+│  │  │  struct_rect3_d.html
+│  │  │  struct_rect3_d.js
+│  │  │  struct_size2_d-members.html
+│  │  │  struct_size2_d.html
+│  │  │  struct_size2_d.js
+│  │  │  struct_size2_d.png
+│  │  │  struct_size3_d-members.html
+│  │  │  struct_size3_d.html
+│  │  │  struct_size3_d.js
+│  │  │  struct_size3_d.png
+│  │  │  struct_storage_1_1_data_1_1_value-members.html
+│  │  │  struct_storage_1_1_data_1_1_value.html
+│  │  │  struct_storage_1_1_data_1_1_value.js
+│  │  │  struct_val2_d-members.html
+│  │  │  struct_val2_d.html
+│  │  │  struct_val2_d.js
+│  │  │  struct_val3_d-members.html
+│  │  │  struct_val3_d.html
+│  │  │  struct_val3_d.js
+│  │  │  struct_value2_d-members.html
+│  │  │  struct_value2_d.html
+│  │  │  struct_value2_d.js
+│  │  │  struct_value2_d.png
+│  │  │  struct_value3_d-members.html
+│  │  │  struct_value3_d.html
+│  │  │  struct_value3_d.js
+│  │  │  struct_value3_d.png
+│  │  │  sync_off.png
+│  │  │  sync_on.png
+│  │  │  tabs.css
+│  │  │  tab_a.png
+│  │  │  tab_ad.png
+│  │  │  tab_b.png
+│  │  │  tab_bd.png
+│  │  │  tab_h.png
+│  │  │  tab_hd.png
+│  │  │  tab_s.png
+│  │  │  tab_sd.png
+│  │  │  template__type_8h.html
+│  │  │  template__type_8h.js
+│  │  │  template__type_8h_source.html
+│  │  │  _analize_8h.html
+│  │  │  _analize_8h.js
+│  │  │  _analize_8h_source.html
+│  │  │  _data_storage_8h.html
+│  │  │  _data_storage_8h.js
+│  │  │  _data_storage_8h_source.html
+│  │  │  _dx_lib__wrapper_8h.html
+│  │  │  _dx_lib__wrapper_8h_source.html
+│  │  │  _easing_8h.html
+│  │  │  _easing_8h.js
+│  │  │  _easing_8h_source.html
+│  │  │  _entry_point_8cpp.html
+│  │  │  _entry_point_8cpp.js
+│  │  │  _entry_point_8cpp_source.html
+│  │  │  _game_main_8cpp.html
+│  │  │  _game_main_8cpp_source.html
+│  │  │  _game_main_8h.html
+│  │  │  _game_main_8h.js
+│  │  │  _game_main_8h_source.html
+│  │  │  _graph_8h.html
+│  │  │  _graph_8h.js
+│  │  │  _graph_8h_source.html
+│  │  │  _include_8hpp.html
+│  │  │  _include_8hpp.js
+│  │  │  _include_8hpp_source.html
+│  │  │  _input_8h.html
+│  │  │  _input_8h.js
+│  │  │  _input_8h_source.html
+│  │  │  _keys_8h.html
+│  │  │  _keys_8h.js
+│  │  │  _keys_8h_source.html
+│  │  │  _library_include_8h.html
+│  │  │  _library_include_8h_source.html
+│  │  │  _local_lib_include_8h.html
+│  │  │  _local_lib_include_8h_source.html
+│  │  │  _main_8cpp.html
+│  │  │  _main_8cpp_source.html
+│  │  │  _main_8h.html
+│  │  │  _main_8h.js
+│  │  │  _main_8h_source.html
+│  │  │  _object_base_8h.html
+│  │  │  _object_base_8h.js
+│  │  │  _object_base_8h_source.html
+│  │  │  _sample_scene_8cpp.html
+│  │  │  _sample_scene_8cpp_source.html
+│  │  │  _sample_scene_8h.html
+│  │  │  _sample_scene_8h.js
+│  │  │  _sample_scene_8h_source.html
+│  │  │  _sound_device_8h.html
+│  │  │  _sound_device_8h.js
+│  │  │  _sound_device_8h_source.html
+│  │  │  _struct_8h.html
+│  │  │  _struct_8h.js
+│  │  │  _struct_8h_source.html
+│  │  │  _system_8h.html
+│  │  │  _system_8h.js
+│  │  │  _system_8h_source.html
+│  │  │  _text_analizer_8h.html
+│  │  │  _text_analizer_8h_source.html
+│  │  │  _timer_8h.html
+│  │  │  _timer_8h.js
+│  │  │  _timer_8h_source.html
+│  │  │  _transform_8h.html
+│  │  │  _transform_8h.js
+│  │  │  _transform_8h_source.html
+│  │  │  ___struct_8h.html
+│  │  │  ___struct_8h.js
+│  │  │  ___struct_8h_source.html
+│  │  │  
+│  │  └─search
+│  │          all_0.js
+│  │          all_1.js
+│  │          all_10.js
+│  │          all_11.js
+│  │          all_12.js
+│  │          all_13.js
+│  │          all_14.js
+│  │          all_15.js
+│  │          all_16.js
+│  │          all_17.js
+│  │          all_18.js
+│  │          all_19.js
+│  │          all_1a.js
+│  │          all_1b.js
+│  │          all_2.js
+│  │          all_3.js
+│  │          all_4.js
+│  │          all_5.js
+│  │          all_6.js
+│  │          all_7.js
+│  │          all_8.js
+│  │          all_9.js
+│  │          all_a.js
+│  │          all_b.js
+│  │          all_c.js
+│  │          all_d.js
+│  │          all_e.js
+│  │          all_f.js
+│  │          classes_0.js
+│  │          classes_1.js
+│  │          classes_2.js
+│  │          classes_3.js
+│  │          classes_4.js
+│  │          classes_5.js
+│  │          classes_6.js
+│  │          classes_7.js
+│  │          classes_8.js
+│  │          classes_9.js
+│  │          classes_a.js
+│  │          classes_b.js
+│  │          classes_c.js
+│  │          classes_d.js
+│  │          close.svg
+│  │          concepts_0.js
+│  │          concepts_1.js
+│  │          concepts_2.js
+│  │          defines_0.js
+│  │          defines_1.js
+│  │          defines_2.js
+│  │          defines_3.js
+│  │          defines_4.js
+│  │          defines_5.js
+│  │          defines_6.js
+│  │          defines_7.js
+│  │          enums_0.js
+│  │          enums_1.js
+│  │          enums_2.js
+│  │          enums_3.js
+│  │          enums_4.js
+│  │          enums_5.js
+│  │          enumvalues_0.js
+│  │          enumvalues_1.js
+│  │          enumvalues_10.js
+│  │          enumvalues_11.js
+│  │          enumvalues_12.js
+│  │          enumvalues_13.js
+│  │          enumvalues_14.js
+│  │          enumvalues_15.js
+│  │          enumvalues_16.js
+│  │          enumvalues_17.js
+│  │          enumvalues_18.js
+│  │          enumvalues_19.js
+│  │          enumvalues_2.js
+│  │          enumvalues_3.js
+│  │          enumvalues_4.js
+│  │          enumvalues_5.js
+│  │          enumvalues_6.js
+│  │          enumvalues_7.js
+│  │          enumvalues_8.js
+│  │          enumvalues_9.js
+│  │          enumvalues_a.js
+│  │          enumvalues_b.js
+│  │          enumvalues_c.js
+│  │          enumvalues_d.js
+│  │          enumvalues_e.js
+│  │          enumvalues_f.js
+│  │          files_0.js
+│  │          files_1.js
+│  │          files_2.js
+│  │          files_3.js
+│  │          files_4.js
+│  │          files_5.js
+│  │          files_6.js
+│  │          files_7.js
+│  │          files_8.js
+│  │          files_9.js
+│  │          files_a.js
+│  │          files_b.js
+│  │          files_c.js
+│  │          functions_0.js
+│  │          functions_1.js
+│  │          functions_10.js
+│  │          functions_11.js
+│  │          functions_12.js
+│  │          functions_13.js
+│  │          functions_14.js
+│  │          functions_15.js
+│  │          functions_2.js
+│  │          functions_3.js
+│  │          functions_4.js
+│  │          functions_5.js
+│  │          functions_6.js
+│  │          functions_7.js
+│  │          functions_8.js
+│  │          functions_9.js
+│  │          functions_a.js
+│  │          functions_b.js
+│  │          functions_c.js
+│  │          functions_d.js
+│  │          functions_e.js
+│  │          functions_f.js
+│  │          mag.svg
+│  │          mag_d.svg
+│  │          mag_sel.svg
+│  │          mag_seld.svg
+│  │          namespaces_0.js
+│  │          namespaces_1.js
+│  │          search.css
+│  │          search.js
+│  │          searchdata.js
+│  │          typedefs_0.js
+│  │          variables_0.js
+│  │          variables_1.js
+│  │          variables_10.js
+│  │          variables_11.js
+│  │          variables_12.js
+│  │          variables_13.js
+│  │          variables_14.js
+│  │          variables_15.js
+│  │          variables_16.js
+│  │          variables_2.js
+│  │          variables_3.js
+│  │          variables_4.js
+│  │          variables_5.js
+│  │          variables_6.js
+│  │          variables_7.js
+│  │          variables_8.js
+│  │          variables_9.js
+│  │          variables_a.js
+│  │          variables_b.js
+│  │          variables_c.js
+│  │          variables_d.js
+│  │          variables_e.js
+│  │          variables_f.js
+│  │          
+│  └─latex
+│          annotated.tex
+│          boost__include_8h.tex
+│          boost__include_8h_source.tex
+│          classstatic__string.tex
+│          classstring__expr2val.tex
+│          class_audio_session_control.eps
+│          class_audio_session_control.tex
+│          class_audio_session_control_old.eps
+│          class_audio_session_control_old.tex
+│          class_audio_session_enumerator.eps
+│          class_audio_session_enumerator.tex
+│          class_audio_session_manager.eps
+│          class_audio_session_manager.tex
+│          class_com.eps
+│          class_com.tex
+│          class_com_base.eps
+│          class_com_base.tex
+│          class_com_base_1_1_release_com.tex
+│          class_com_c_c_i.eps
+│          class_com_c_c_i.tex
+│          class_dx_lib_system.tex
+│          class_easing.tex
+│          class_game.eps
+│          class_game.tex
+│          class_input_devices.tex
+│          class_i_object_base.eps
+│          class_i_object_base.tex
+│          class_main.tex
+│          class_m_m_device.eps
+│          class_m_m_device.tex
+│          class_m_m_device_enumerator.eps
+│          class_m_m_device_enumerator.tex
+│          class_object_switcher.tex
+│          class_sample_scene.eps
+│          class_sample_scene.tex
+│          class_simple_audio_volume.eps
+│          class_simple_audio_volume.tex
+│          class_sound_device.tex
+│          class_storage_1_1_data.tex
+│          class_storage_1_1_____data__sc.tex
+│          class_text_analize_1_1_text_analizer.tex
+│          class_timer.tex
+│          class_transform.tex
+│          class____base_input_device.eps
+│          class____base_input_device.tex
+│          class____keyboard_input__sc.eps
+│          class____keyboard_input__sc.tex
+│          class____mouse_input__sc.eps
+│          class____mouse_input__sc.tex
+│          concepts.tex
+│          concept_is_arithmetic.tex
+│          concept_is_function.tex
+│          concept_motion_func.tex
+│          concept_storage_1_1_value_type.tex
+│          dir_3777292849a1481e53303ca2af78ff89.tex
+│          dir_5b2695d9ffe8e32ec2a89455f64b03a4.tex
+│          dir_71091f6c1c4e9296b8bf18e2ab395fca.tex
+│          dir_74389ed8173ad57b461b9d623a1f3867.tex
+│          dir_77c39039fd483268efea48c6f176e7df.tex
+│          dir_a43466370fc53a91bbfb8ea125518f6b.tex
+│          dir_fb81218c06ae21f6143ce0d1ee075725.tex
+│          doxygen.sty
+│          etoc_doxygen.sty
+│          exstring_8h.tex
+│          exstring_8h_source.tex
+│          files.tex
+│          hierarchy.tex
+│          longtable_doxygen.sty
+│          make.bat
+│          Makefile
+│          namespaces.tex
+│          namespace_storage.tex
+│          namespace_text_analize.tex
+│          refman.tex
+│          special_8h.tex
+│          special_8h_source.tex
+│          strexprconv_8h.tex
+│          strexprconv_8h_source.tex
+│          structrename__member.tex
+│          structstring__expr2val_1_1exprobj.tex
+│          structstring__expr2val_1_1exprobj_1_1expr.tex
+│          struct_color3.tex
+│          struct_color4.tex
+│          struct_draw_blend.tex
+│          struct_graph_data.tex
+│          struct_input_state.tex
+│          struct_optimization_graph.tex
+│          struct_pos2_d.eps
+│          struct_pos2_d.tex
+│          struct_pos3_d.eps
+│          struct_pos3_d.tex
+│          struct_rect2_d.tex
+│          struct_rect3_d.tex
+│          struct_size2_d.eps
+│          struct_size2_d.tex
+│          struct_size3_d.eps
+│          struct_size3_d.tex
+│          struct_storage_1_1_data_1_1_value.tex
+│          struct_val2_d.tex
+│          struct_val3_d.tex
+│          struct_value2_d.eps
+│          struct_value2_d.tex
+│          struct_value3_d.eps
+│          struct_value3_d.tex
+│          tabu_doxygen.sty
+│          template__type_8h.tex
+│          template__type_8h_source.tex
+│          _analize_8h.tex
+│          _analize_8h_source.tex
+│          _data_storage_8h.tex
+│          _data_storage_8h_source.tex
+│          _dx_lib__wrapper_8h.tex
+│          _dx_lib__wrapper_8h_source.tex
+│          _easing_8h.tex
+│          _easing_8h_source.tex
+│          _entry_point_8cpp.tex
+│          _entry_point_8cpp_source.tex
+│          _game_main_8cpp.tex
+│          _game_main_8cpp_source.tex
+│          _game_main_8h.tex
+│          _game_main_8h_source.tex
+│          _graph_8h.tex
+│          _graph_8h_source.tex
+│          _include_8hpp.tex
+│          _include_8hpp_source.tex
+│          _input_8h.tex
+│          _input_8h_source.tex
+│          _keys_8h.tex
+│          _keys_8h_source.tex
+│          _library_include_8h.tex
+│          _library_include_8h_source.tex
+│          _local_lib_include_8h.tex
+│          _local_lib_include_8h_source.tex
+│          _main_8cpp.tex
+│          _main_8cpp_source.tex
+│          _main_8h.tex
+│          _main_8h_source.tex
+│          _object_base_8h.tex
+│          _object_base_8h_source.tex
+│          _sample_scene_8cpp.tex
+│          _sample_scene_8cpp_source.tex
+│          _sample_scene_8h.tex
+│          _sample_scene_8h_source.tex
+│          _sound_device_8h.tex
+│          _sound_device_8h_source.tex
+│          _struct_8h.tex
+│          _struct_8h_source.tex
+│          _system_8h.tex
+│          _system_8h_source.tex
+│          _text_analizer_8h.tex
+│          _text_analizer_8h_source.tex
+│          _timer_8h.tex
+│          _timer_8h_source.tex
+│          _transform_8h.tex
+│          _transform_8h_source.tex
+│          ___struct_8h.tex
+│          ___struct_8h_source.tex
+│          
+├─libs // Nugetにない外部ライブラリ、ビルド前に必ずクローンされる
+│  ├─fmt
+│  │  │  .clang-format
+│  │  │  .gitignore
+│  │  │  ChangeLog.md
+│  │  │  CMakeLists.txt
+│  │  │  CONTRIBUTING.md
+│  │  │  LICENSE
+│  │  │  README.md
+│  │  │  
+│  │  ├─.github
+│  │  │  │  dependabot.yml
+│  │  │  │  issue_template.md
+│  │  │  │  pull_request_template.md
+│  │  │  │  
+│  │  │  └─workflows
+│  │  │          cifuzz.yml
+│  │  │          doc.yml
+│  │  │          lint.yml
+│  │  │          linux.yml
+│  │  │          macos.yml
+│  │  │          scorecard.yml
+│  │  │          windows.yml
+│  │  │          
+│  │  ├─doc
+│  │  │      api.md
+│  │  │      ChangeLog-old.md
+│  │  │      fmt.css
+│  │  │      fmt.js
+│  │  │      get-started.md
+│  │  │      index.md
+│  │  │      perf.svg
+│  │  │      python-license.txt
+│  │  │      syntax.md
+│  │  │      
+│  │  ├─include
+│  │  │  └─fmt
+│  │  │          args.h
+│  │  │          base.h
+│  │  │          chrono.h
+│  │  │          color.h
+│  │  │          compile.h
+│  │  │          core.h
+│  │  │          format-inl.h
+│  │  │          format.h
+│  │  │          os.h
+│  │  │          ostream.h
+│  │  │          printf.h
+│  │  │          ranges.h
+│  │  │          std.h
+│  │  │          xchar.h
+│  │  │          
+│  │  ├─src
+│  │  │      fmt.cc
+│  │  │      format.cc
+│  │  │      os.cc
+│  │  │      
+│  │  ├─support
+│  │  │  │  Android.mk
+│  │  │  │  AndroidManifest.xml
+│  │  │  │  build.gradle
+│  │  │  │  C++.sublime-syntax
+│  │  │  │  check-commits
+│  │  │  │  docopt.py
+│  │  │  │  mkdocs
+│  │  │  │  mkdocs.yml
+│  │  │  │  printable.py
+│  │  │  │  README
+│  │  │  │  release.py
+│  │  │  │  Vagrantfile
+│  │  │  │  
+│  │  │  ├─bazel
+│  │  │  │      .bazelversion
+│  │  │  │      BUILD.bazel
+│  │  │  │      MODULE.bazel
+│  │  │  │      README.md
+│  │  │  │      WORKSPACE.bazel
+│  │  │  │      
+│  │  │  ├─cmake
+│  │  │  │      FindSetEnv.cmake
+│  │  │  │      fmt-config.cmake.in
+│  │  │  │      fmt.pc.in
+│  │  │  │      JoinPaths.cmake
+│  │  │  │      
+│  │  │  └─python
+│  │  │      └─mkdocstrings_handlers
+│  │  │          └─cxx
+│  │  │              │  __init__.py
+│  │  │              │  
+│  │  │              └─templates
+│  │  │                      README
+│  │  │                      
+│  │  └─test
+│  │      │  args-test.cc
+│  │      │  assert-test.cc
+│  │      │  base-test.cc
+│  │      │  chrono-test.cc
+│  │      │  CMakeLists.txt
+│  │      │  color-test.cc
+│  │      │  compile-fp-test.cc
+│  │      │  compile-test.cc
+│  │      │  detect-stdfs.cc
+│  │      │  enforce-checks-test.cc
+│  │      │  format-impl-test.cc
+│  │      │  format-test.cc
+│  │      │  gtest-extra-test.cc
+│  │      │  gtest-extra.cc
+│  │      │  gtest-extra.h
+│  │      │  header-only-test.cc
+│  │      │  mock-allocator.h
+│  │      │  module-test.cc
+│  │      │  no-builtin-types-test.cc
+│  │      │  noexception-test.cc
+│  │      │  os-test.cc
+│  │      │  ostream-test.cc
+│  │      │  perf-sanity.cc
+│  │      │  posix-mock-test.cc
+│  │      │  posix-mock.h
+│  │      │  printf-test.cc
+│  │      │  ranges-odr-test.cc
+│  │      │  ranges-test.cc
+│  │      │  scan-test.cc
+│  │      │  scan.h
+│  │      │  std-test.cc
+│  │      │  test-assert.h
+│  │      │  test-main.cc
+│  │      │  unicode-test.cc
+│  │      │  util.cc
+│  │      │  util.h
+│  │      │  xchar-test.cc
+│  │      │  
+│  │      ├─add-subdirectory-test
+│  │      │      CMakeLists.txt
+│  │      │      main.cc
+│  │      │      
+│  │      ├─compile-error-test
+│  │      │      CMakeLists.txt
+│  │      │      
+│  │      ├─cuda-test
+│  │      │      CMakeLists.txt
+│  │      │      cpp14.cc
+│  │      │      cuda-cpp14.cu
+│  │      │      
+│  │      ├─find-package-test
+│  │      │      CMakeLists.txt
+│  │      │      main.cc
+│  │      │      
+│  │      ├─fuzzing
+│  │      │      .gitignore
+│  │      │      build.sh
+│  │      │      chrono-duration.cc
+│  │      │      chrono-timepoint.cc
+│  │      │      CMakeLists.txt
+│  │      │      float.cc
+│  │      │      fuzzer-common.h
+│  │      │      main.cc
+│  │      │      named-arg.cc
+│  │      │      one-arg.cc
+│  │      │      README.md
+│  │      │      two-args.cc
+│  │      │      
+│  │      ├─gtest
+│  │      │  │  .clang-format
+│  │      │  │  CMakeLists.txt
+│  │      │  │  gmock-gtest-all.cc
+│  │      │  │  
+│  │      │  ├─gmock
+│  │      │  │      gmock.h
+│  │      │  │      
+│  │      │  └─gtest
+│  │      │          gtest-spi.h
+│  │      │          gtest.h
+│  │      │          
+│  │      └─static-export-test
+│  │              CMakeLists.txt
+│  │              library.cc
+│  │              main.cc
+│  │              
+│  ├─include
+│  │      fmt.h
+│  │      xsimd.h
+│  │      
+│  └─xsimd
+│      │  .clang-format
+│      │  .gitignore
+│      │  Changelog.rst
+│      │  CMakeLists.txt
+│      │  CONTRIBUTING.md
+│      │  environment.yml
+│      │  install_sde.sh
+│      │  LICENSE
+│      │  README.md
+│      │  readthedocs.yml
+│      │  xsimd.pc.in
+│      │  xsimdConfig.cmake.in
+│      │  
+│      ├─.github
+│      │  ├─cmake-test
+│      │  │      CMakeLists.txt
+│      │  │      main.cpp
+│      │  │      
+│      │  ├─toolchains
+│      │  │      clang-aarch64-linux-gnu.cmake
+│      │  │      clang-arm-linux-gnueabihf.cmake
+│      │  │      clang-riscv64-linux-gnu.cmake
+│      │  │      clang.cmake
+│      │  │      gcc-aarch64-linux-gnu.cmake
+│      │  │      gcc-arm-linux-gnueabihf.cmake
+│      │  │      gcc-riscv64-linux-gnu.cmake
+│      │  │      gcc.cmake
+│      │  │      
+│      │  └─workflows
+│      │          android.yml
+│      │          arch-consistency-check.yml
+│      │          benchmark.yml
+│      │          cmake.yml
+│      │          cross-rvv.yml
+│      │          cross-sve.yml
+│      │          cross.yml
+│      │          cxx-no-exceptions.yml
+│      │          cxx-versions.yml
+│      │          doxygen.yml
+│      │          emscripten.yml
+│      │          emulated.yml
+│      │          linux.yml
+│      │          macos.yml
+│      │          sanitizer.yml
+│      │          style-check.yml
+│      │          windows.yml
+│      │          
+│      ├─benchmark
+│      │      CMakeLists.txt
+│      │      main.cpp
+│      │      xsimd_benchmark.hpp
+│      │      
+│      ├─cmake
+│      │      JoinPaths.cmake
+│      │      
+│      ├─docs
+│      │  │  Doxyfile
+│      │  │  environment.yml
+│      │  │  make.bat
+│      │  │  Makefile
+│      │  │  
+│      │  └─source
+│      │      │  basic_usage.rst
+│      │      │  cmake.svg
+│      │      │  conda.svg
+│      │      │  conf.py
+│      │      │  index.rst
+│      │      │  installation.rst
+│      │      │  migration_guide.rst
+│      │      │  quantstack-white.svg
+│      │      │  spack.svg
+│      │      │  vectorized_code.rst
+│      │      │  xsimd.svg
+│      │      │  
+│      │      ├─api
+│      │      │      aligned_allocator.rst
+│      │      │      arch.rst
+│      │      │      arithmetic_index.rst
+│      │      │      batch_index.rst
+│      │      │      batch_manip.rst
+│      │      │      bitwise_operators_index.rst
+│      │      │      cast_index.rst
+│      │      │      comparison_index.rst
+│      │      │      data_transfer.rst
+│      │      │      dispatching.rst
+│      │      │      instr_macros.rst
+│      │      │      math_index.rst
+│      │      │      misc_index.rst
+│      │      │      reducer_index.rst
+│      │      │      type_traits.rst
+│      │      │      xsimd_batch.rst
+│      │      │      xsimd_batch_bool.rst
+│      │      │      xsimd_batch_complex.rst
+│      │      │      xsimd_batch_constant.rst
+│      │      │      
+│      │      └─_static
+│      │              main_stylesheet.css
+│      │              
+│      ├─examples
+│      │      CMakeLists.txt
+│      │      mandelbrot.cpp
+│      │      pico_bench.hpp
+│      │      
+│      ├─include
+│      │  └─xsimd
+│      │      │  xsimd.hpp
+│      │      │  
+│      │      ├─arch
+│      │      │  │  xsimd_avx.hpp
+│      │      │  │  xsimd_avx2.hpp
+│      │      │  │  xsimd_avx512bw.hpp
+│      │      │  │  xsimd_avx512cd.hpp
+│      │      │  │  xsimd_avx512dq.hpp
+│      │      │  │  xsimd_avx512er.hpp
+│      │      │  │  xsimd_avx512f.hpp
+│      │      │  │  xsimd_avx512ifma.hpp
+│      │      │  │  xsimd_avx512pf.hpp
+│      │      │  │  xsimd_avx512vbmi.hpp
+│      │      │  │  xsimd_avx512vbmi2.hpp
+│      │      │  │  xsimd_avx512vnni_avx512bw.hpp
+│      │      │  │  xsimd_avx512vnni_avx512vbmi2.hpp
+│      │      │  │  xsimd_avxvnni.hpp
+│      │      │  │  xsimd_common.hpp
+│      │      │  │  xsimd_common_fwd.hpp
+│      │      │  │  xsimd_constants.hpp
+│      │      │  │  xsimd_emulated.hpp
+│      │      │  │  xsimd_fma3_avx.hpp
+│      │      │  │  xsimd_fma3_avx2.hpp
+│      │      │  │  xsimd_fma3_sse.hpp
+│      │      │  │  xsimd_fma4.hpp
+│      │      │  │  xsimd_i8mm_neon64.hpp
+│      │      │  │  xsimd_isa.hpp
+│      │      │  │  xsimd_neon.hpp
+│      │      │  │  xsimd_neon64.hpp
+│      │      │  │  xsimd_rvv.hpp
+│      │      │  │  xsimd_scalar.hpp
+│      │      │  │  xsimd_sse2.hpp
+│      │      │  │  xsimd_sse3.hpp
+│      │      │  │  xsimd_sse4_1.hpp
+│      │      │  │  xsimd_sse4_2.hpp
+│      │      │  │  xsimd_ssse3.hpp
+│      │      │  │  xsimd_sve.hpp
+│      │      │  │  xsimd_wasm.hpp
+│      │      │  │  
+│      │      │  └─common
+│      │      │          xsimd_common_arithmetic.hpp
+│      │      │          xsimd_common_complex.hpp
+│      │      │          xsimd_common_details.hpp
+│      │      │          xsimd_common_logical.hpp
+│      │      │          xsimd_common_math.hpp
+│      │      │          xsimd_common_memory.hpp
+│      │      │          xsimd_common_rounding.hpp
+│      │      │          xsimd_common_trigo.hpp
+│      │      │          
+│      │      ├─config
+│      │      │      xsimd_arch.hpp
+│      │      │      xsimd_config.hpp
+│      │      │      xsimd_cpuid.hpp
+│      │      │      xsimd_inline.hpp
+│      │      │      
+│      │      ├─math
+│      │      │      xsimd_rem_pio2.hpp
+│      │      │      
+│      │      ├─memory
+│      │      │      xsimd_aligned_allocator.hpp
+│      │      │      xsimd_alignment.hpp
+│      │      │      
+│      │      └─types
+│      │              xsimd_all_registers.hpp
+│      │              xsimd_api.hpp
+│      │              xsimd_avx2_register.hpp
+│      │              xsimd_avx512bw_register.hpp
+│      │              xsimd_avx512cd_register.hpp
+│      │              xsimd_avx512dq_register.hpp
+│      │              xsimd_avx512er_register.hpp
+│      │              xsimd_avx512f_register.hpp
+│      │              xsimd_avx512ifma_register.hpp
+│      │              xsimd_avx512pf_register.hpp
+│      │              xsimd_avx512vbmi2_register.hpp
+│      │              xsimd_avx512vbmi_register.hpp
+│      │              xsimd_avx512vnni_avx512bw_register.hpp
+│      │              xsimd_avx512vnni_avx512vbmi2_register.hpp
+│      │              xsimd_avxvnni_register.hpp
+│      │              xsimd_avx_register.hpp
+│      │              xsimd_batch.hpp
+│      │              xsimd_batch_constant.hpp
+│      │              xsimd_common_arch.hpp
+│      │              xsimd_emulated_register.hpp
+│      │              xsimd_fma3_avx2_register.hpp
+│      │              xsimd_fma3_avx_register.hpp
+│      │              xsimd_fma3_sse_register.hpp
+│      │              xsimd_fma4_register.hpp
+│      │              xsimd_i8mm_neon64_register.hpp
+│      │              xsimd_neon64_register.hpp
+│      │              xsimd_neon_register.hpp
+│      │              xsimd_register.hpp
+│      │              xsimd_rvv_register.hpp
+│      │              xsimd_sse2_register.hpp
+│      │              xsimd_sse3_register.hpp
+│      │              xsimd_sse4_1_register.hpp
+│      │              xsimd_sse4_2_register.hpp
+│      │              xsimd_ssse3_register.hpp
+│      │              xsimd_sve_register.hpp
+│      │              xsimd_traits.hpp
+│      │              xsimd_utils.hpp
+│      │              xsimd_wasm_register.hpp
+│      │              
+│      └─test
+│          │  avx.sh
+│          │  avx2.sh
+│          │  check_arch.sh
+│          │  check_inline_specifier.sh
+│          │  CMakeLists.txt
+│          │  main.cpp
+│          │  sse.sh
+│          │  sse2.sh
+│          │  sse3.sh
+│          │  sse4_1.sh
+│          │  sse4_2.sh
+│          │  ssse3.sh
+│          │  test_api.cpp
+│          │  test_arch.cpp
+│          │  test_basic_math.cpp
+│          │  test_batch.cpp
+│          │  test_batch_bool.cpp
+│          │  test_batch_cast.cpp
+│          │  test_batch_complex.cpp
+│          │  test_batch_constant.cpp
+│          │  test_batch_float.cpp
+│          │  test_batch_int.cpp
+│          │  test_batch_manip.cpp
+│          │  test_bitwise_cast.cpp
+│          │  test_complex_exponential.cpp
+│          │  test_complex_hyperbolic.cpp
+│          │  test_complex_power.cpp
+│          │  test_complex_trigonometric.cpp
+│          │  test_conversion.cpp
+│          │  test_custom_default_arch.cpp
+│          │  test_error_gamma.cpp
+│          │  test_explicit_batch_instantiation.cpp
+│          │  test_exponential.cpp
+│          │  test_extract_pair.cpp
+│          │  test_fp_manipulation.cpp
+│          │  test_gnu_source.cpp
+│          │  test_hyperbolic.cpp
+│          │  test_load_store.cpp
+│          │  test_memory.cpp
+│          │  test_poly_evaluation.cpp
+│          │  test_power.cpp
+│          │  test_rounding.cpp
+│          │  test_select.cpp
+│          │  test_shuffle.cpp
+│          │  test_sum.cpp
+│          │  test_sum.hpp
+│          │  test_traits.cpp
+│          │  test_trigonometric.cpp
+│          │  test_utils.hpp
+│          │  test_xsimd_api.cpp
+│          │  
+│          ├─architectures
+│          │      CMakeLists.txt
+│          │      dummy.cpp
+│          │      
+│          ├─doc
+│          │      CMakeLists.txt
+│          │      explicit_use_of_an_instruction_set.cpp
+│          │      explicit_use_of_an_instruction_set_mean.cpp
+│          │      explicit_use_of_an_instruction_set_mean_aligned.cpp
+│          │      explicit_use_of_an_instruction_set_mean_arch_independent.cpp
+│          │      explicit_use_of_an_instruction_set_mean_tag_dispatch.cpp
+│          │      manipulating_abstract_batches.cpp
+│          │      manipulating_parametric_batches.cpp
+│          │      sum.hpp
+│          │      sum_avx2.cpp
+│          │      sum_sse2.cpp
+│          │      writing_vectorized_code.cpp
+│          │      
+│          └─test_wasm
+│                  browser_main.html
+│                  test_wasm.sh
+│                  test_wasm_playwright.py
+│                  
+├─manifest // UTF8を使って関数を動かすようにするためのマニフェスト...よくわかんない
+│      ActiveCodePageUTF8.manifest
+│      
+├─packages // Nugetパッケージ、ここに主要なライブラリがインストールされる
+│  ├─DxLib.vc.3.2.4.3
+│  │  │  .signature.p7s
+│  │  │  DxLib.vc.3.2.4.3.nupkg
+│  │  │  LICENSE.txt
+│  │  │  
+│  │  ├─build
+│  │  │  └─native
+│  │  │      │  DxLib.vc.targets
+│  │  │      │  
+│  │  │      ├─include
+│  │  │      │      DxCompileConfig.h
+│  │  │      │      DxDataType.h
+│  │  │      │      DxDataTypeWin.h
+│  │  │      │      DxFunctionWin.h
+│  │  │      │      DxLib.h
+│  │  │      │      
+│  │  │      └─lib
+│  │  │              celt.lib
+│  │  │              celt_d.lib
+│  │  │              celt_vs2012_x64.lib
+│  │  │              celt_vs2012_x64_d.lib
+│  │  │              celt_vs2012_x86.lib
+│  │  │              celt_vs2012_x86_d.lib
+│  │  │              celt_vs2013_x64.lib
+│  │  │              celt_vs2013_x64_d.lib
+│  │  │              celt_vs2013_x86.lib
+│  │  │              celt_vs2013_x86_d.lib
+│  │  │              celt_vs2015_x64_MD.lib
+│  │  │              celt_vs2015_x64_MDd.lib
+│  │  │              celt_vs2015_x64_MT.lib
+│  │  │              celt_vs2015_x64_MTd.lib
+│  │  │              celt_vs2015_x86_MD.lib
+│  │  │              celt_vs2015_x86_MDd.lib
+│  │  │              celt_vs2015_x86_MT.lib
+│  │  │              celt_vs2015_x86_MTd.lib
+│  │  │              celt_x64.lib
+│  │  │              celt_x64_d.lib
+│  │  │              DxDrawFunc.lib
+│  │  │              DxDrawFunc_d.lib
+│  │  │              DxDrawFunc_vs2012_x64.lib
+│  │  │              DxDrawFunc_vs2012_x64_d.lib
+│  │  │              DxDrawFunc_vs2012_x86.lib
+│  │  │              DxDrawFunc_vs2012_x86_d.lib
+│  │  │              DxDrawFunc_vs2015_x64_MD.lib
+│  │  │              DxDrawFunc_vs2015_x64_MDd.lib
+│  │  │              DxDrawFunc_vs2015_x64_MT.lib
+│  │  │              DxDrawFunc_vs2015_x64_MTd.lib
+│  │  │              DxDrawFunc_vs2015_x86_MD.lib
+│  │  │              DxDrawFunc_vs2015_x86_MDd.lib
+│  │  │              DxDrawFunc_vs2015_x86_MT.lib
+│  │  │              DxDrawFunc_vs2015_x86_MTd.lib
+│  │  │              DxDrawFunc_x64.lib
+│  │  │              DxDrawFunc_x64_d.lib
+│  │  │              DxLib.lib
+│  │  │              DxLibW.lib
+│  │  │              DxLibW_d.lib
+│  │  │              DxLibW_vs2012_x64.lib
+│  │  │              DxLibW_vs2012_x64_d.lib
+│  │  │              DxLibW_vs2012_x86.lib
+│  │  │              DxLibW_vs2012_x86_d.lib
+│  │  │              DxLibW_vs2015_x64_MD.lib
+│  │  │              DxLibW_vs2015_x64_MDd.lib
+│  │  │              DxLibW_vs2015_x64_MT.lib
+│  │  │              DxLibW_vs2015_x64_MTd.lib
+│  │  │              DxLibW_vs2015_x86_MD.lib
+│  │  │              DxLibW_vs2015_x86_MDd.lib
+│  │  │              DxLibW_vs2015_x86_MT.lib
+│  │  │              DxLibW_vs2015_x86_MTd.lib
+│  │  │              DxLibW_x64.lib
+│  │  │              DxLibW_x64_d.lib
+│  │  │              DxLib_d.lib
+│  │  │              DxLib_vs2012_x64.lib
+│  │  │              DxLib_vs2012_x64_d.lib
+│  │  │              DxLib_vs2012_x86.lib
+│  │  │              DxLib_vs2012_x86_d.lib
+│  │  │              DxLib_vs2015_x64_MD.lib
+│  │  │              DxLib_vs2015_x64_MDd.lib
+│  │  │              DxLib_vs2015_x64_MT.lib
+│  │  │              DxLib_vs2015_x64_MTd.lib
+│  │  │              DxLib_vs2015_x86_MD.lib
+│  │  │              DxLib_vs2015_x86_MDd.lib
+│  │  │              DxLib_vs2015_x86_MT.lib
+│  │  │              DxLib_vs2015_x86_MTd.lib
+│  │  │              DxLib_x64.lib
+│  │  │              DxLib_x64_d.lib
+│  │  │              DxUseCLib.lib
+│  │  │              DxUseCLibW.lib
+│  │  │              DxUseCLibW_d.lib
+│  │  │              DxUseCLibW_vs2012_x64.lib
+│  │  │              DxUseCLibW_vs2012_x64_d.lib
+│  │  │              DxUseCLibW_vs2012_x64_ItrDbgLv0_d.lib
+│  │  │              DxUseCLibW_vs2012_x86.lib
+│  │  │              DxUseCLibW_vs2012_x86_d.lib
+│  │  │              DxUseCLibW_vs2012_x86_ItrDbgLv0_d.lib
+│  │  │              DxUseCLibW_vs2013_x64.lib
+│  │  │              DxUseCLibW_vs2013_x64_d.lib
+│  │  │              DxUseCLibW_vs2013_x64_ItrDbgLv0_d.lib
+│  │  │              DxUseCLibW_vs2013_x86.lib
+│  │  │              DxUseCLibW_vs2013_x86_d.lib
+│  │  │              DxUseCLibW_vs2013_x86_ItrDbgLv0_d.lib
+│  │  │              DxUseCLibW_vs2015_x64_ItrDbgLv0_MTd.lib
+│  │  │              DxUseCLibW_vs2015_x64_MD.lib
+│  │  │              DxUseCLibW_vs2015_x64_MDd.lib
+│  │  │              DxUseCLibW_vs2015_x64_MT.lib
+│  │  │              DxUseCLibW_vs2015_x64_MTd.lib
+│  │  │              DxUseCLibW_vs2015_x86_ItrDbgLv0_MTd.lib
+│  │  │              DxUseCLibW_vs2015_x86_MD.lib
+│  │  │              DxUseCLibW_vs2015_x86_MDd.lib
+│  │  │              DxUseCLibW_vs2015_x86_MT.lib
+│  │  │              DxUseCLibW_vs2015_x86_MTd.lib
+│  │  │              DxUseCLibW_x64.lib
+│  │  │              DxUseCLibW_x64_d.lib
+│  │  │              DxUseCLib_d.lib
+│  │  │              DxUseCLib_vs2012_x64.lib
+│  │  │              DxUseCLib_vs2012_x64_d.lib
+│  │  │              DxUseCLib_vs2012_x64_ItrDbgLv0_d.lib
+│  │  │              DxUseCLib_vs2012_x86.lib
+│  │  │              DxUseCLib_vs2012_x86_d.lib
+│  │  │              DxUseCLib_vs2012_x86_ItrDbgLv0_d.lib
+│  │  │              DxUseCLib_vs2013_x64.lib
+│  │  │              DxUseCLib_vs2013_x64_d.lib
+│  │  │              DxUseCLib_vs2013_x64_ItrDbgLv0_d.lib
+│  │  │              DxUseCLib_vs2013_x86.lib
+│  │  │              DxUseCLib_vs2013_x86_d.lib
+│  │  │              DxUseCLib_vs2013_x86_ItrDbgLv0_d.lib
+│  │  │              DxUseCLib_vs2015_x64_ItrDbgLv0_MTd.lib
+│  │  │              DxUseCLib_vs2015_x64_MD.lib
+│  │  │              DxUseCLib_vs2015_x64_MDd.lib
+│  │  │              DxUseCLib_vs2015_x64_MT.lib
+│  │  │              DxUseCLib_vs2015_x64_MTd.lib
+│  │  │              DxUseCLib_vs2015_x86_ItrDbgLv0_MTd.lib
+│  │  │              DxUseCLib_vs2015_x86_MD.lib
+│  │  │              DxUseCLib_vs2015_x86_MDd.lib
+│  │  │              DxUseCLib_vs2015_x86_MT.lib
+│  │  │              DxUseCLib_vs2015_x86_MTd.lib
+│  │  │              DxUseCLib_x64.lib
+│  │  │              DxUseCLib_x64_d.lib
+│  │  │              libbulletcollision_vc6.lib
+│  │  │              libbulletcollision_vc6_d.lib
+│  │  │              libbulletcollision_vc8_x64.lib
+│  │  │              libbulletcollision_vc8_x64_d.lib
+│  │  │              libbulletcollision_vs2012_x64.lib
+│  │  │              libbulletcollision_vs2012_x64_d.lib
+│  │  │              libbulletcollision_vs2012_x64_ItrDbgLv0_d.lib
+│  │  │              libbulletcollision_vs2012_x86.lib
+│  │  │              libbulletcollision_vs2012_x86_d.lib
+│  │  │              libbulletcollision_vs2012_x86_ItrDbgLv0_d.lib
+│  │  │              libbulletcollision_vs2013_x64.lib
+│  │  │              libbulletcollision_vs2013_x64_d.lib
+│  │  │              libbulletcollision_vs2013_x64_ItrDbgLv0_d.lib
+│  │  │              libbulletcollision_vs2013_x86.lib
+│  │  │              libbulletcollision_vs2013_x86_d.lib
+│  │  │              libbulletcollision_vs2013_x86_ItrDbgLv0_d.lib
+│  │  │              libbulletcollision_vs2015_x64_ItrDbgLv0_MTd.lib
+│  │  │              libbulletcollision_vs2015_x64_MD.lib
+│  │  │              libbulletcollision_vs2015_x64_MDd.lib
+│  │  │              libbulletcollision_vs2015_x64_MT.lib
+│  │  │              libbulletcollision_vs2015_x64_MTd.lib
+│  │  │              libbulletcollision_vs2015_x86_ItrDbgLv0_MTd.lib
+│  │  │              libbulletcollision_vs2015_x86_MD.lib
+│  │  │              libbulletcollision_vs2015_x86_MDd.lib
+│  │  │              libbulletcollision_vs2015_x86_MT.lib
+│  │  │              libbulletcollision_vs2015_x86_MTd.lib
+│  │  │              libbulletdynamics_vc6.lib
+│  │  │              libbulletdynamics_vc6_d.lib
+│  │  │              libbulletdynamics_vc8_x64.lib
+│  │  │              libbulletdynamics_vc8_x64_d.lib
+│  │  │              libbulletdynamics_vs2012_x64.lib
+│  │  │              libbulletdynamics_vs2012_x64_d.lib
+│  │  │              libbulletdynamics_vs2012_x64_ItrDbgLv0_d.lib
+│  │  │              libbulletdynamics_vs2012_x86.lib
+│  │  │              libbulletdynamics_vs2012_x86_d.lib
+│  │  │              libbulletdynamics_vs2012_x86_ItrDbgLv0_d.lib
+│  │  │              libbulletdynamics_vs2013_x64.lib
+│  │  │              libbulletdynamics_vs2013_x64_d.lib
+│  │  │              libbulletdynamics_vs2013_x64_ItrDbgLv0_d.lib
+│  │  │              libbulletdynamics_vs2013_x86.lib
+│  │  │              libbulletdynamics_vs2013_x86_d.lib
+│  │  │              libbulletdynamics_vs2013_x86_ItrDbgLv0_d.lib
+│  │  │              libbulletdynamics_vs2015_x64_ItrDbgLv0_MTd.lib
+│  │  │              libbulletdynamics_vs2015_x64_MD.lib
+│  │  │              libbulletdynamics_vs2015_x64_MDd.lib
+│  │  │              libbulletdynamics_vs2015_x64_MT.lib
+│  │  │              libbulletdynamics_vs2015_x64_MTd.lib
+│  │  │              libbulletdynamics_vs2015_x86_ItrDbgLv0_MTd.lib
+│  │  │              libbulletdynamics_vs2015_x86_MD.lib
+│  │  │              libbulletdynamics_vs2015_x86_MDd.lib
+│  │  │              libbulletdynamics_vs2015_x86_MT.lib
+│  │  │              libbulletdynamics_vs2015_x86_MTd.lib
+│  │  │              libbulletmath_vc6.lib
+│  │  │              libbulletmath_vc6_d.lib
+│  │  │              libbulletmath_vc8_x64.lib
+│  │  │              libbulletmath_vc8_x64_d.lib
+│  │  │              libbulletmath_vs2012_x64.lib
+│  │  │              libbulletmath_vs2012_x64_d.lib
+│  │  │              libbulletmath_vs2012_x64_ItrDbgLv0_d.lib
+│  │  │              libbulletmath_vs2012_x86.lib
+│  │  │              libbulletmath_vs2012_x86_d.lib
+│  │  │              libbulletmath_vs2012_x86_ItrDbgLv0_d.lib
+│  │  │              libbulletmath_vs2013_x64.lib
+│  │  │              libbulletmath_vs2013_x64_d.lib
+│  │  │              libbulletmath_vs2013_x64_ItrDbgLv0_d.lib
+│  │  │              libbulletmath_vs2013_x86.lib
+│  │  │              libbulletmath_vs2013_x86_d.lib
+│  │  │              libbulletmath_vs2013_x86_ItrDbgLv0_d.lib
+│  │  │              libbulletmath_vs2015_x64_ItrDbgLv0_MTd.lib
+│  │  │              libbulletmath_vs2015_x64_MD.lib
+│  │  │              libbulletmath_vs2015_x64_MDd.lib
+│  │  │              libbulletmath_vs2015_x64_MT.lib
+│  │  │              libbulletmath_vs2015_x64_MTd.lib
+│  │  │              libbulletmath_vs2015_x86_ItrDbgLv0_MTd.lib
+│  │  │              libbulletmath_vs2015_x86_MD.lib
+│  │  │              libbulletmath_vs2015_x86_MDd.lib
+│  │  │              libbulletmath_vs2015_x86_MT.lib
+│  │  │              libbulletmath_vs2015_x86_MTd.lib
+│  │  │              libjpeg.lib
+│  │  │              libjpeg_d.lib
+│  │  │              libjpeg_vs2012_x64.lib
+│  │  │              libjpeg_vs2012_x64_d.lib
+│  │  │              libjpeg_vs2012_x86.lib
+│  │  │              libjpeg_vs2012_x86_d.lib
+│  │  │              libjpeg_vs2013_x64.lib
+│  │  │              libjpeg_vs2013_x64_d.lib
+│  │  │              libjpeg_vs2013_x86.lib
+│  │  │              libjpeg_vs2013_x86_d.lib
+│  │  │              libjpeg_vs2015_x64_MD.lib
+│  │  │              libjpeg_vs2015_x64_MDd.lib
+│  │  │              libjpeg_vs2015_x64_MT.lib
+│  │  │              libjpeg_vs2015_x64_MTd.lib
+│  │  │              libjpeg_vs2015_x86_MD.lib
+│  │  │              libjpeg_vs2015_x86_MDd.lib
+│  │  │              libjpeg_vs2015_x86_MT.lib
+│  │  │              libjpeg_vs2015_x86_MTd.lib
+│  │  │              libjpeg_x64.lib
+│  │  │              libjpeg_x64_d.lib
+│  │  │              libpng.lib
+│  │  │              libpng_d.lib
+│  │  │              libpng_vs2012_x64.lib
+│  │  │              libpng_vs2012_x64_d.lib
+│  │  │              libpng_vs2012_x86.lib
+│  │  │              libpng_vs2012_x86_d.lib
+│  │  │              libpng_vs2013_x64.lib
+│  │  │              libpng_vs2013_x64_d.lib
+│  │  │              libpng_vs2013_x86.lib
+│  │  │              libpng_vs2013_x86_d.lib
+│  │  │              libpng_vs2015_x64_MD.lib
+│  │  │              libpng_vs2015_x64_MDd.lib
+│  │  │              libpng_vs2015_x64_MT.lib
+│  │  │              libpng_vs2015_x64_MTd.lib
+│  │  │              libpng_vs2015_x86_MD.lib
+│  │  │              libpng_vs2015_x86_MDd.lib
+│  │  │              libpng_vs2015_x86_MT.lib
+│  │  │              libpng_vs2015_x86_MTd.lib
+│  │  │              libpng_x64.lib
+│  │  │              libpng_x64_d.lib
+│  │  │              libtheora_static.lib
+│  │  │              libtheora_static_d.lib
+│  │  │              libtheora_static_vs2012_x64.lib
+│  │  │              libtheora_static_vs2012_x64_d.lib
+│  │  │              libtheora_static_vs2012_x86.lib
+│  │  │              libtheora_static_vs2012_x86_d.lib
+│  │  │              libtheora_static_vs2013_x64.lib
+│  │  │              libtheora_static_vs2013_x64_d.lib
+│  │  │              libtheora_static_vs2013_x86.lib
+│  │  │              libtheora_static_vs2013_x86_d.lib
+│  │  │              libtheora_static_vs2015_x64_MD.lib
+│  │  │              libtheora_static_vs2015_x64_MDd.lib
+│  │  │              libtheora_static_vs2015_x64_MT.lib
+│  │  │              libtheora_static_vs2015_x64_MTd.lib
+│  │  │              libtheora_static_vs2015_x86_MD.lib
+│  │  │              libtheora_static_vs2015_x86_MDd.lib
+│  │  │              libtheora_static_vs2015_x86_MT.lib
+│  │  │              libtheora_static_vs2015_x86_MTd.lib
+│  │  │              libtheora_static_x64.lib
+│  │  │              libtheora_static_x64_d.lib
+│  │  │              libtiff.lib
+│  │  │              libtiff_d.lib
+│  │  │              libtiff_vs2012_x64.lib
+│  │  │              libtiff_vs2012_x64_d.lib
+│  │  │              libtiff_vs2012_x86.lib
+│  │  │              libtiff_vs2012_x86_d.lib
+│  │  │              libtiff_vs2013_x64.lib
+│  │  │              libtiff_vs2013_x64_d.lib
+│  │  │              libtiff_vs2013_x86.lib
+│  │  │              libtiff_vs2013_x86_d.lib
+│  │  │              libtiff_vs2015_x64_MD.lib
+│  │  │              libtiff_vs2015_x64_MDd.lib
+│  │  │              libtiff_vs2015_x64_MT.lib
+│  │  │              libtiff_vs2015_x64_MTd.lib
+│  │  │              libtiff_vs2015_x86_MD.lib
+│  │  │              libtiff_vs2015_x86_MDd.lib
+│  │  │              libtiff_vs2015_x86_MT.lib
+│  │  │              libtiff_vs2015_x86_MTd.lib
+│  │  │              libtiff_x64.lib
+│  │  │              libtiff_x64_d.lib
+│  │  │              ogg_static.lib
+│  │  │              ogg_static_d.lib
+│  │  │              ogg_static_vs2012_x64.lib
+│  │  │              ogg_static_vs2012_x64_d.lib
+│  │  │              ogg_static_vs2012_x86.lib
+│  │  │              ogg_static_vs2012_x86_d.lib
+│  │  │              ogg_static_vs2013_x64.lib
+│  │  │              ogg_static_vs2013_x64_d.lib
+│  │  │              ogg_static_vs2013_x86.lib
+│  │  │              ogg_static_vs2013_x86_d.lib
+│  │  │              ogg_static_vs2015_x64_MD.lib
+│  │  │              ogg_static_vs2015_x64_MDd.lib
+│  │  │              ogg_static_vs2015_x64_MT.lib
+│  │  │              ogg_static_vs2015_x64_MTd.lib
+│  │  │              ogg_static_vs2015_x86_MD.lib
+│  │  │              ogg_static_vs2015_x86_MDd.lib
+│  │  │              ogg_static_vs2015_x86_MT.lib
+│  │  │              ogg_static_vs2015_x86_MTd.lib
+│  │  │              ogg_static_x64.lib
+│  │  │              ogg_static_x64_d.lib
+│  │  │              opus.lib
+│  │  │              opusfile.lib
+│  │  │              opusfile_d.lib
+│  │  │              opusfile_vs2012_x64.lib
+│  │  │              opusfile_vs2012_x64_d.lib
+│  │  │              opusfile_vs2012_x86.lib
+│  │  │              opusfile_vs2012_x86_d.lib
+│  │  │              opusfile_vs2013_x64.lib
+│  │  │              opusfile_vs2013_x64_d.lib
+│  │  │              opusfile_vs2013_x86.lib
+│  │  │              opusfile_vs2013_x86_d.lib
+│  │  │              opusfile_vs2015_x64_MD.lib
+│  │  │              opusfile_vs2015_x64_MDd.lib
+│  │  │              opusfile_vs2015_x64_MT.lib
+│  │  │              opusfile_vs2015_x64_MTd.lib
+│  │  │              opusfile_vs2015_x86_MD.lib
+│  │  │              opusfile_vs2015_x86_MDd.lib
+│  │  │              opusfile_vs2015_x86_MT.lib
+│  │  │              opusfile_vs2015_x86_MTd.lib
+│  │  │              opusfile_x64.lib
+│  │  │              opusfile_x64_d.lib
+│  │  │              opus_d.lib
+│  │  │              opus_vs2012_x64.lib
+│  │  │              opus_vs2012_x64_d.lib
+│  │  │              opus_vs2012_x86.lib
+│  │  │              opus_vs2012_x86_d.lib
+│  │  │              opus_vs2013_x64.lib
+│  │  │              opus_vs2013_x64_d.lib
+│  │  │              opus_vs2013_x86.lib
+│  │  │              opus_vs2013_x86_d.lib
+│  │  │              opus_vs2015_x64_MD.lib
+│  │  │              opus_vs2015_x64_MDd.lib
+│  │  │              opus_vs2015_x64_MT.lib
+│  │  │              opus_vs2015_x64_MTd.lib
+│  │  │              opus_vs2015_x86_MD.lib
+│  │  │              opus_vs2015_x86_MDd.lib
+│  │  │              opus_vs2015_x86_MT.lib
+│  │  │              opus_vs2015_x86_MTd.lib
+│  │  │              opus_x64.lib
+│  │  │              opus_x64_d.lib
+│  │  │              silk_common.lib
+│  │  │              silk_common_d.lib
+│  │  │              silk_common_vs2012_x64.lib
+│  │  │              silk_common_vs2012_x64_d.lib
+│  │  │              silk_common_vs2012_x86.lib
+│  │  │              silk_common_vs2012_x86_d.lib
+│  │  │              silk_common_vs2013_x64.lib
+│  │  │              silk_common_vs2013_x64_d.lib
+│  │  │              silk_common_vs2013_x86.lib
+│  │  │              silk_common_vs2013_x86_d.lib
+│  │  │              silk_common_vs2015_x64_MD.lib
+│  │  │              silk_common_vs2015_x64_MDd.lib
+│  │  │              silk_common_vs2015_x64_MT.lib
+│  │  │              silk_common_vs2015_x64_MTd.lib
+│  │  │              silk_common_vs2015_x86_MD.lib
+│  │  │              silk_common_vs2015_x86_MDd.lib
+│  │  │              silk_common_vs2015_x86_MT.lib
+│  │  │              silk_common_vs2015_x86_MTd.lib
+│  │  │              silk_common_x64.lib
+│  │  │              silk_common_x64_d.lib
+│  │  │              vorbisfile_static.lib
+│  │  │              vorbisfile_static_d.lib
+│  │  │              vorbisfile_static_vs2012_x64.lib
+│  │  │              vorbisfile_static_vs2012_x64_d.lib
+│  │  │              vorbisfile_static_vs2012_x86.lib
+│  │  │              vorbisfile_static_vs2012_x86_d.lib
+│  │  │              vorbisfile_static_vs2013_x64.lib
+│  │  │              vorbisfile_static_vs2013_x64_d.lib
+│  │  │              vorbisfile_static_vs2013_x86.lib
+│  │  │              vorbisfile_static_vs2013_x86_d.lib
+│  │  │              vorbisfile_static_vs2015_x64_MD.lib
+│  │  │              vorbisfile_static_vs2015_x64_MDd.lib
+│  │  │              vorbisfile_static_vs2015_x64_MT.lib
+│  │  │              vorbisfile_static_vs2015_x64_MTd.lib
+│  │  │              vorbisfile_static_vs2015_x86_MD.lib
+│  │  │              vorbisfile_static_vs2015_x86_MDd.lib
+│  │  │              vorbisfile_static_vs2015_x86_MT.lib
+│  │  │              vorbisfile_static_vs2015_x86_MTd.lib
+│  │  │              vorbisfile_static_x64.lib
+│  │  │              vorbisfile_static_x64_d.lib
+│  │  │              vorbis_static.lib
+│  │  │              vorbis_static_d.lib
+│  │  │              vorbis_static_vs2012_x64.lib
+│  │  │              vorbis_static_vs2012_x64_d.lib
+│  │  │              vorbis_static_vs2012_x86.lib
+│  │  │              vorbis_static_vs2012_x86_d.lib
+│  │  │              vorbis_static_vs2013_x64.lib
+│  │  │              vorbis_static_vs2013_x64_d.lib
+│  │  │              vorbis_static_vs2013_x86.lib
+│  │  │              vorbis_static_vs2013_x86_d.lib
+│  │  │              vorbis_static_vs2015_x64_MD.lib
+│  │  │              vorbis_static_vs2015_x64_MDd.lib
+│  │  │              vorbis_static_vs2015_x64_MT.lib
+│  │  │              vorbis_static_vs2015_x64_MTd.lib
+│  │  │              vorbis_static_vs2015_x86_MD.lib
+│  │  │              vorbis_static_vs2015_x86_MDd.lib
+│  │  │              vorbis_static_vs2015_x86_MT.lib
+│  │  │              vorbis_static_vs2015_x86_MTd.lib
+│  │  │              vorbis_static_x64.lib
+│  │  │              vorbis_static_x64_d.lib
+│  │  │              zlib.lib
+│  │  │              zlib_d.lib
+│  │  │              zlib_vs2012_x64.lib
+│  │  │              zlib_vs2012_x64_d.lib
+│  │  │              zlib_vs2012_x86.lib
+│  │  │              zlib_vs2012_x86_d.lib
+│  │  │              zlib_vs2013_x64.lib
+│  │  │              zlib_vs2013_x64_d.lib
+│  │  │              zlib_vs2013_x86.lib
+│  │  │              zlib_vs2013_x86_d.lib
+│  │  │              zlib_vs2015_x64_MD.lib
+│  │  │              zlib_vs2015_x64_MDd.lib
+│  │  │              zlib_vs2015_x64_MT.lib
+│  │  │              zlib_vs2015_x64_MTd.lib
+│  │  │              zlib_vs2015_x86_MD.lib
+│  │  │              zlib_vs2015_x86_MDd.lib
+│  │  │              zlib_vs2015_x86_MT.lib
+│  │  │              zlib_vs2015_x86_MTd.lib
+│  │  │              zlib_x64.lib
+│  │  │              zlib_x64_d.lib
+│  │  │              
+│  │  └─images
+│  │          DxLogo_144x144.png
+│  │          
+│  ├─lua.5.4.8
+│  │  │  .signature.p7s
+│  │  │  LICENSE
+│  │  │  lua.5.4.8.nupkg
+│  │  │  README.md
+│  │  │  
+│  │  ├─build
+│  │  │  └─native
+│  │  │      │  Lua-propertiesui.xml
+│  │  │      │  Lua.targets
+│  │  │      │  
+│  │  │      ├─bin
+│  │  │      │  ├─Win32
+│  │  │      │  │  ├─ClangCL
+│  │  │      │  │  │  ├─Debug
+│  │  │      │  │  │  │      lua.dll
+│  │  │      │  │  │  │      
+│  │  │      │  │  │  └─Release
+│  │  │      │  │  │          lua.dll
+│  │  │      │  │  │          
+│  │  │      │  │  ├─v120
+│  │  │      │  │  │  ├─Debug
+│  │  │      │  │  │  │      lua.dll
+│  │  │      │  │  │  │      
+│  │  │      │  │  │  └─Release
+│  │  │      │  │  │          lua.dll
+│  │  │      │  │  │          
+│  │  │      │  │  ├─v140
+│  │  │      │  │  │  ├─Debug
+│  │  │      │  │  │  │      lua.dll
+│  │  │      │  │  │  │      
+│  │  │      │  │  │  └─Release
+│  │  │      │  │  │          lua.dll
+│  │  │      │  │  │          
+│  │  │      │  │  ├─v141
+│  │  │      │  │  │  ├─Debug
+│  │  │      │  │  │  │      lua.dll
+│  │  │      │  │  │  │      
+│  │  │      │  │  │  └─Release
+│  │  │      │  │  │          lua.dll
+│  │  │      │  │  │          
+│  │  │      │  │  ├─v142
+│  │  │      │  │  │  ├─Debug
+│  │  │      │  │  │  │      lua.dll
+│  │  │      │  │  │  │      
+│  │  │      │  │  │  └─Release
+│  │  │      │  │  │          lua.dll
+│  │  │      │  │  │          
+│  │  │      │  │  └─v143
+│  │  │      │  │      ├─Debug
+│  │  │      │  │      │      lua.dll
+│  │  │      │  │      │      
+│  │  │      │  │      └─Release
+│  │  │      │  │              lua.dll
+│  │  │      │  │              lua.exe
+│  │  │      │  │              luac.exe
+│  │  │      │  │              
+│  │  │      │  └─x64
+│  │  │      │      ├─ClangCL
+│  │  │      │      │  ├─Debug
+│  │  │      │      │  │      lua.dll
+│  │  │      │      │  │      
+│  │  │      │      │  └─Release
+│  │  │      │      │          lua.dll
+│  │  │      │      │          
+│  │  │      │      ├─v120
+│  │  │      │      │  ├─Debug
+│  │  │      │      │  │      lua.dll
+│  │  │      │      │  │      
+│  │  │      │      │  └─Release
+│  │  │      │      │          lua.dll
+│  │  │      │      │          
+│  │  │      │      ├─v140
+│  │  │      │      │  ├─Debug
+│  │  │      │      │  │      lua.dll
+│  │  │      │      │  │      
+│  │  │      │      │  └─Release
+│  │  │      │      │          lua.dll
+│  │  │      │      │          
+│  │  │      │      ├─v141
+│  │  │      │      │  ├─Debug
+│  │  │      │      │  │      lua.dll
+│  │  │      │      │  │      
+│  │  │      │      │  └─Release
+│  │  │      │      │          lua.dll
+│  │  │      │      │          
+│  │  │      │      ├─v142
+│  │  │      │      │  ├─Debug
+│  │  │      │      │  │      lua.dll
+│  │  │      │      │  │      
+│  │  │      │      │  └─Release
+│  │  │      │      │          lua.dll
+│  │  │      │      │          
+│  │  │      │      └─v143
+│  │  │      │          ├─Debug
+│  │  │      │          │      lua.dll
+│  │  │      │          │      
+│  │  │      │          └─Release
+│  │  │      │                  lua.dll
+│  │  │      │                  lua.exe
+│  │  │      │                  luac.exe
+│  │  │      │                  
+│  │  │      ├─doc
+│  │  │      │      contents.html
+│  │  │      │      index.css
+│  │  │      │      logo.gif
+│  │  │      │      lua.1
+│  │  │      │      lua.css
+│  │  │      │      luac.1
+│  │  │      │      manual.css
+│  │  │      │      manual.html
+│  │  │      │      OSIApproved_100X125.png
+│  │  │      │      readme.html
+│  │  │      │      
+│  │  │      ├─include
+│  │  │      │      lauxlib.h
+│  │  │      │      lua.h
+│  │  │      │      lua.hpp
+│  │  │      │      luaconf.h
+│  │  │      │      lualib.h
+│  │  │      │      
+│  │  │      └─lib
+│  │  │          ├─Win32
+│  │  │          │  ├─ClangCL
+│  │  │          │  │  ├─Debug
+│  │  │          │  │  │      lua.lib
+│  │  │          │  │  │      lua_static.lib
+│  │  │          │  │  │      
+│  │  │          │  │  └─Release
+│  │  │          │  │          lua.lib
+│  │  │          │  │          lua_static.lib
+│  │  │          │  │          
+│  │  │          │  ├─v120
+│  │  │          │  │  ├─Debug
+│  │  │          │  │  │      lua.lib
+│  │  │          │  │  │      lua_lib.pdb
+│  │  │          │  │  │      lua_static.lib
+│  │  │          │  │  │      
+│  │  │          │  │  └─Release
+│  │  │          │  │          lua.lib
+│  │  │          │  │          lua_lib.pdb
+│  │  │          │  │          lua_static.lib
+│  │  │          │  │          
+│  │  │          │  ├─v140
+│  │  │          │  │  ├─Debug
+│  │  │          │  │  │      lua.lib
+│  │  │          │  │  │      lua_lib.pdb
+│  │  │          │  │  │      lua_static.lib
+│  │  │          │  │  │      
+│  │  │          │  │  └─Release
+│  │  │          │  │          lua.lib
+│  │  │          │  │          lua_lib.pdb
+│  │  │          │  │          lua_static.lib
+│  │  │          │  │          
+│  │  │          │  ├─v141
+│  │  │          │  │  ├─Debug
+│  │  │          │  │  │      lua.lib
+│  │  │          │  │  │      lua_lib.pdb
+│  │  │          │  │  │      lua_static.lib
+│  │  │          │  │  │      
+│  │  │          │  │  └─Release
+│  │  │          │  │          lua.lib
+│  │  │          │  │          lua_lib.pdb
+│  │  │          │  │          lua_static.lib
+│  │  │          │  │          
+│  │  │          │  ├─v142
+│  │  │          │  │  ├─Debug
+│  │  │          │  │  │      lua.lib
+│  │  │          │  │  │      lua_lib.pdb
+│  │  │          │  │  │      lua_static.lib
+│  │  │          │  │  │      lua_static.pdb
+│  │  │          │  │  │      
+│  │  │          │  │  └─Release
+│  │  │          │  │          lua.lib
+│  │  │          │  │          lua_lib.pdb
+│  │  │          │  │          lua_static.lib
+│  │  │          │  │          lua_static.pdb
+│  │  │          │  │          
+│  │  │          │  └─v143
+│  │  │          │      ├─Debug
+│  │  │          │      │      lua.lib
+│  │  │          │      │      lua_lib.pdb
+│  │  │          │      │      lua_static.lib
+│  │  │          │      │      lua_static.pdb
+│  │  │          │      │      
+│  │  │          │      └─Release
+│  │  │          │              lua.lib
+│  │  │          │              lua_lib.pdb
+│  │  │          │              lua_static.lib
+│  │  │          │              lua_static.pdb
+│  │  │          │              
+│  │  │          └─x64
+│  │  │              ├─ClangCL
+│  │  │              │  ├─Debug
+│  │  │              │  │      lua.lib
+│  │  │              │  │      lua_static.lib
+│  │  │              │  │      
+│  │  │              │  └─Release
+│  │  │              │          lua.lib
+│  │  │              │          lua_static.lib
+│  │  │              │          
+│  │  │              ├─v120
+│  │  │              │  ├─Debug
+│  │  │              │  │      lua.lib
+│  │  │              │  │      lua_lib.pdb
+│  │  │              │  │      lua_static.lib
+│  │  │              │  │      
+│  │  │              │  └─Release
+│  │  │              │          lua.lib
+│  │  │              │          lua_lib.pdb
+│  │  │              │          lua_static.lib
+│  │  │              │          
+│  │  │              ├─v140
+│  │  │              │  ├─Debug
+│  │  │              │  │      lua.lib
+│  │  │              │  │      lua_lib.pdb
+│  │  │              │  │      lua_static.lib
+│  │  │              │  │      
+│  │  │              │  └─Release
+│  │  │              │          lua.lib
+│  │  │              │          lua_lib.pdb
+│  │  │              │          lua_static.lib
+│  │  │              │          
+│  │  │              ├─v141
+│  │  │              │  ├─Debug
+│  │  │              │  │      lua.lib
+│  │  │              │  │      lua_lib.pdb
+│  │  │              │  │      lua_static.lib
+│  │  │              │  │      
+│  │  │              │  └─Release
+│  │  │              │          lua.lib
+│  │  │              │          lua_lib.pdb
+│  │  │              │          lua_static.lib
+│  │  │              │          
+│  │  │              ├─v142
+│  │  │              │  ├─Debug
+│  │  │              │  │      lua.lib
+│  │  │              │  │      lua_lib.pdb
+│  │  │              │  │      lua_static.lib
+│  │  │              │  │      lua_static.pdb
+│  │  │              │  │      
+│  │  │              │  └─Release
+│  │  │              │          lua.lib
+│  │  │              │          lua_lib.pdb
+│  │  │              │          lua_static.lib
+│  │  │              │          lua_static.pdb
+│  │  │              │          
+│  │  │              └─v143
+│  │  │                  ├─Debug
+│  │  │                  │      lua.lib
+│  │  │                  │      lua_lib.pdb
+│  │  │                  │      lua_static.lib
+│  │  │                  │      lua_static.pdb
+│  │  │                  │      
+│  │  │                  └─Release
+│  │  │                          lua.lib
+│  │  │                          lua_lib.pdb
+│  │  │                          lua_static.lib
+│  │  │                          lua_static.pdb
+│  │  │                          
+│  │  └─images
+│  │          logo.png
+│  │          
+│  ├─native.magic_enum.0.9.5
+│  │  │  .signature.p7s
+│  │  │  native.magic_enum.0.9.5.nupkg
+│  │  │  
+│  │  └─build
+│  │      │  configurations.autopkg
+│  │      │  publisher-info.txt
+│  │      │  
+│  │      └─native
+│  │          │  default-propertiesui.xml
+│  │          │  native.magic_enum-propertiesui-4fc7c9e9-75b1-4b35-a8b2-6975bf754aae.xml
+│  │          │  native.magic_enum.targets
+│  │          │  
+│  │          └─include
+│  │                  magic_enum.hpp
+│  │                  magic_enum_all.hpp
+│  │                  magic_enum_containers.hpp
+│  │                  magic_enum_flags.hpp
+│  │                  magic_enum_format.hpp
+│  │                  magic_enum_fuse.hpp
+│  │                  magic_enum_iostream.hpp
+│  │                  magic_enum_switch.hpp
+│  │                  magic_enum_utility.hpp
+│  │                  
+│  └─nlohmann.json.3.12.0
+│      │  .signature.p7s
+│      │  nlohmann.json.3.12.0.nupkg
+│      │  
+│      └─build
+│          └─native
+│              │  nlohmann.json.targets
+│              │  
+│              └─include
+│                  └─nlohmann
+│                          json.hpp
+│                          json_fwd.hpp
+│                          
+├─scripts // Pythonやbatchファイルによるビルド前に行うスクリプト
+│  │  cache.py
+│  │  DirCopy.py
+│  │  GitClone.bat
+│  │  PreBuildEvent.bat
+│  │  RecToUTF8.py
+│  │  
+│  ├─cache
+│  │      RecToUTF8
+│  │      
+│  └─__pycache__
+│          cache.cpython-311.pyc
+│          
+├─Source // 今回の主役フォルダー
+│  │  EntryPoint.cpp    // エントリポイント、WinMainから始まる
+│  │  Include.hpp       // ライブラリ全体をインクルードする恐ろしいヘッダー
+│  │  MacroConfig.h     // マクロで設定できるコンフィグだが現在使用していない
+│  │  Main.cpp          // エントリポイントに紐づけされている、ここからGameMainが呼ばれる
+│  │  Main.h            // 宣言のみ
+│  │  
+│  ├─Game // テンプレート使用者がいじるのはこのフォルダーから下
+│  │  │  GameMain.cpp   // ゲームの主要な設定やメインループをここで走らせる
+│  │  │  GameMain.h     // 宣言のみ
+│  │  │  
+│  │  └─Scenes
+│  │      │  SampleScene.cpp    // サンプルで何かしらが書いてあるソースコード
+│  │      │  SampleScene.h      // 宣言のみ
+│  │      │  
+│  │      └─Wips // 制作中の自作ライブラリのテスト環境
+│  │              ClientTest.h      // TCPSocketのテスト
+│  │              CommonProtocol.h  // 未使用
+│  │              function_ref.cpp  // function_refのテスト
+│  │              function_ref.h    // 宣言のみ
+│  │              ServerTest.h      // TCPServerのテスト
+│  │              
+│  └─Library // barrierが頑張って作ってるのがこのフォルダーから下
+│      │  LibraryInclude.h  // ローカルライブラリ全部インクルードするヘッダー
+│      │  
+│      ├─Common // 共通ライブラリ
+│      │      boost_include.h
+│      │      Common.h
+│      │      Concepts.h
+│      │      ExMath.h
+│      │      ExString.h
+│      │      MacroHelper.h
+│      │      strconv.h
+│      │      union_cast.h
+│      │      
+│      └─Local // 色や特徴が出てくるライブラリ群
+│          │  Composite.h
+│          │  Console.h
+│          │  ContainerLINQ.h
+│          │  DataStorage.h
+│          │  Easing.h
+│          │  function_ref.h
+│          │  IncludeLocal.h
+│          │  ObjectBase.h
+│          │  Properties.h
+│          │  Result.h
+│          │  RingBuffer.h
+│          │  SimpleIO.h
+│          │  Transform.h
+│          │  
+│          ├─DxLib_wrapper // DxLibのラッパー
+│          │  │  DxLib_wrapper.h    // ラッパーしたものすべてインクルードするヘッダー
+│          │  │  Font.h             // 古い、未使用
+│          │  │  Graph.h            // 古い、未使用
+│          │  │  Sound.h            // 古い、未使用
+│          │  │  
+│          │  ├─Geometry // 図形関連 (まだ未完成)
+│          │  │      Geometry.h // 図形関連のインクルード
+│          │  │      Square.h   // 四角形 (未完成)
+│          │  │      Triangle.h // 三角形 (未完成)
+│          │  │      Vertex.h   // 頂点群 (未完成)
+│          │  │      
+│          │  ├─GUI // GUI関連... 全く手がつけれてない
+│          │  ├─Helper // ヘルパー...？ラッパー内共通ライブラリでも良さそう
+│          │  │      DXHandle.h     // DxLibのハンドルを扱いやすくするためのベース
+│          │  │      Helper.h       // ヘルパー関連のインクルード
+│          │  │      JsonHelper.h   // nlohmann::jsonの相互パースを簡潔に定義するためのもの
+│          │  │      
+│          │  ├─Input // 入力関連 (未完成)
+│          │  │      DeviceBase.h   // デバイスのベース
+│          │  │      Input.h        // 入力関連のインクルード
+│          │  │      InputState.h   // 入力状態を保持したりするためのラッパー
+│          │  │      Keyboard.h     // キーボード
+│          │  │      Keys.h         // キーコードenumの定義
+│          │  │      Mouse.h        // マウス
+│          │  │      
+│          │  ├─Media // メディア関連 (未完成)
+│          │  │      Font.h     // フォント (未完成)
+│          │  │      Graph.h    // 画像 (未完成)
+│          │  │      MV1.h      // 3Dモデル (未完成)
+│          │  │      Screen.h   // 仮想スクリーン (未完成)
+│          │  │      Sound.h    // サウンド (未完成)
+│          │  │      
+│          │  ├─NetWork // ネットワーク関連 (ほぼ完成...？)
+│          │  │      Common.h       // 共通で使われるヘッダー
+│          │  │      NetWork.h      // ネットワーク関連のインクルード
+│          │  │      TCPServer.h    // TCPSocketを管理するサーバー
+│          │  │      TCPSocket.h    // 基本的なネットワークのラッパー
+│          │  │      
+│          │  ├─System // DxLib含めたシステム関連 (迷走中)
+│          │  │      SoundDevice.h  // システムの音量ミキサーを変更するためのもの
+│          │  │      System.h       // DxLibでの設定をするためのもの (迷走中)
+│          │  │      Window.h       // ウィンドウを管理するラッパー (全く手がついてない)
+│          │  │      
+│          │  └─Value // 値型関連 (ほぼ完成)
+│          │          Color3.h      // 24bitカラー (RGB)
+│          │          Color4.h      // 32bitカラー (RGBA)
+│          │          Color4F.h     // 16byte floatカラー (RGBA 0 ~ 1)
+│          │          Common.h      // 共通で使われるヘッダー
+│          │          Date.h        // 日付
+│          │          MultiInt.h    // 巨大数
+│          │          Polar2D.h     // 極形式
+│          │          Rect2D.h      // 矩形
+│          │          Rect3D.h      // 3D矩形...?????
+│          │          Timer.h       // タイマー、時間計測
+│          │          Val2D.h       // 2次元座標
+│          │          Val3D.h       // 3次元座標
+│          │          ValClamp.h    // 値の自動クランプ
+│          │          Value.h       // 値型関連のインクルード
+│          │          
+│          └─TextAnalizer // 文字列電卓を作るためのもの (手がついてない)
+│                  Analize.h
+│                  strexprconv.h
+│                  TextAnalizer.h
+│                  
+└─x64 // 出力フォルダー
+    ├─Debug
+    │  │  CXXGameTemplate.zip
+    │  │  
+    │  └─CXXGameTemplate
+    │      │  config.json
+    │      │  CXXGameTemplate.exe
+    │      │  CXXGameTemplate.exe.lastcodeanalysissucceeded
+    │      │  CXXGameTemplate.pdb
+    │      │  Log.txt
+    │      │  
+    │      └─Asset
+    │          │  asset.json
+    │          │  coursesymbol_easy.png
+    │          │  coursesymbol_edit.png
+    │          │  coursesymbol_hard.png
+    │          │  coursesymbol_normal.png
+    │          │  coursesymbol_oni.png
+    │          │  Don.wav
+    │          │  Font.ttf
+    │          │  Ka.wav
+    │          │  
+    │          └─DTMF
+    │                  dtmf_#.wav
+    │                  dtmf_0.wav
+    │                  dtmf_1.wav
+    │                  dtmf_2.wav
+    │                  dtmf_3.wav
+    │                  dtmf_4.wav
+    │                  dtmf_5.wav
+    │                  dtmf_6.wav
+    │                  dtmf_7.wav
+    │                  dtmf_8.wav
+    │                  dtmf_9.wav
+    │                  dtmf_A.wav
+    │                  dtmf_B.wav
+    │                  dtmf_C.wav
+    │                  dtmf_D.wav
+    │                  
+    └─Release
+        └─CXXGameTemplate
+            │  config.json
+            │  CXXGameTemplate.exe
+            │  CXXGameTemplate.exe.lastcodeanalysissucceeded
+            │  Log.txt
+            │  
+            └─Asset
+                │  coursesymbol_easy.png
+                │  coursesymbol_edit.png
+                │  coursesymbol_hard.png
+                │  coursesymbol_normal.png
+                │  coursesymbol_oni.png
+                │  Don.wav
+                │  Font.ttf
+                │  Ka.wav
+                │  
+                └─DTMF
+                        dtmf_#.wav
+                        dtmf_0.wav
+                        dtmf_1.wav
+                        dtmf_2.wav
+                        dtmf_3.wav
+                        dtmf_4.wav
+                        dtmf_5.wav
+                        dtmf_6.wav
+                        dtmf_7.wav
+                        dtmf_8.wav
+                        dtmf_9.wav
+                        dtmf_A.wav
+                        dtmf_B.wav
+                        dtmf_C.wav
+                        dtmf_D.wav
+                        
