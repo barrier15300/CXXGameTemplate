@@ -38,13 +38,22 @@ public:
 	}
 
 	template<std::derived_from<Lobject> T>
-	static Pointer Make() {
-		return Pointer(new T());
+	static Pointer Make(bool active = true) {
+		return Pointer(new T(active));
 	}
 
 	template<std::derived_from<Lobject> T>
+	static Pointer Make(bool active, std::initializer_list<Pointer&&>&& list) {
+		auto ret = new T(active);
+		for (auto&& p : list) {
+			ret->RegistChild(p);
+		}
+		return Pointer(ret);
+	}
+	
+	template<std::derived_from<Lobject> T>
 	static Pointer Make(std::initializer_list<Pointer&&>&& list) {
-		return Pointer(new T(list));
+		return Make(true, std::move(list));
 	}
 
 protected:
@@ -80,13 +89,9 @@ protected:
 	virtual void Draw() = 0;
 	virtual void Left() = 0;
 
-	Lobject() {
+	Lobject(bool active = true) {
+		_SetFlag<IsActive>(active);
 		IDRegister();
-	}
-	Lobject(std::initializer_list<Pointer&&>&& list) : Lobject() {
-		for (auto&& p : list) {
-			RegistChild(p);
-		}
 	}
 
 public:
@@ -135,9 +140,11 @@ public:
 	enum FlagType : size_t {
 		/// private flags
 		IsInitialized = 0,
+		PrivateFlagEnd,
 
 		/// public flags
 		IsActive = 32,
+		PublicFlagEnd,
 	};
 
 	template<size_t Ty>
