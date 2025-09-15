@@ -4,8 +4,11 @@ constexpr int add_func(int l, int r) { return l + r + l + r + l + r + l + r; }
 
 bool FunctionRefTest::Init() {
 
-	std::function<int(int, int)> add = [](int l, int r) { return l + r + l + r + l + r + l + r; };
-	function_ref<int(int, int)> add_ref = [](int l, int r) { return l + r + l + r + l + r + l + r; };
+	auto f = [](int l, int r) { return l + r + l + r + l + r + l + r; };
+
+	std::function<int(int, int)> add = f;
+	function_ref<int(int, int)> add_ref = f;
+	function_ref<int(int, int)> add_move = [](int l, int r) { return l + r + l + r + l + r + l + r; };
 	function_ref<int(int, int)> add_func_ref = add_func;
 
 	constexpr size_t count = 10000;
@@ -38,7 +41,7 @@ bool FunctionRefTest::Init() {
 	t.Restart();
 	for (size_t i = 0; i < count; ++i) {
 		for (size_t j = 0; j < count; ++j) {
-			_ret += add_func_ref(i, j);
+			_ret += add_move(i, j);
 		}
 	}
 
@@ -49,11 +52,22 @@ bool FunctionRefTest::Init() {
 	t.Restart();
 	for (size_t i = 0; i < count; ++i) {
 		for (size_t j = 0; j < count; ++j) {
+			_ret += add_func_ref(i, j);
+		}
+	}
+
+	time[3] = t.Elapsed().Second();
+	ret[3] = _ret;
+	_ret = 0;
+
+	t.Restart();
+	for (size_t i = 0; i < count; ++i) {
+		for (size_t j = 0; j < count; ++j) {
 			_ret += i + j + i + j + i + j + i + j;
 		}
 	}
-	time[3] = t.Elapsed().Second();
-	ret[3] = _ret;
+	time[4] = t.Elapsed().Second();
+	ret[4] = _ret;
 	_ret = 0;
 
     return true;

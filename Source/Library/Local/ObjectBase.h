@@ -6,9 +6,8 @@
 #include <vector>
 
 #include "Library/Common/Common.h"
-#include "DataStorage.h"
-#include "function_ref.h"
-#include "DxLib_wrapper/DxLib_wrapper.h"
+#include "Library/Local/DataStorage.h"
+#include "Library/Local/DxLib_wrapper/DxLib_wrapper.h"
 
 #define OBJECT_INTERFACE_INLINE_H(cls_t)\
 class cls_t : public IObjectBase {\

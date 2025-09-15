@@ -18,38 +18,24 @@ public:
 	};
 
 	void pak1_unpack(Packet pak) {
-		unpack1 = pak.Get<std::string>();
 		log << __FUNCTION__ << std::endl;
+		log << pak.Get<std::string>() << std::endl;
 	}
 
 	void pak2_unpack(Packet pak) {
-		unpack2 = pak.Get<int>();
 		log << __FUNCTION__ << std::endl;
+		log << fmt::format("{}", pak.Get<int>()) << std::endl;
 	}
 	
 	void pak3_unpack(Packet pak) {
-		unpack3 = pak.Get<std::vector<int>>();
 		log << __FUNCTION__ << std::endl;
+		log << fmt::format("{}{}{}", "{", fmt::join(pak.Get<std::vector<int>>(), ","), "}") << std::endl;
 	}
 	
-	std::string unpack1;
-	int unpack2 = 5;
-	std::vector<int> unpack3;
-
 	std::random_device engine;
 	std::uniform_int_distribution<> dist = std::uniform_int_distribution(1, 3);
 	std::stringstream log;
 };
-
-template<typename>
-struct func_parent_base;
-
-template<class T, class R, class ...Args>
-struct func_parent_base<R (T::*)(Args...)> {
-	using type = T;
-};
-
-#define member_func_ptr(p) (func_parent_base<decltype(p)*>::type::p)
 
 bool HandlerListTest::Init() {
 
@@ -68,8 +54,9 @@ bool HandlerListTest::Init() {
 	constexpr size_t count = 10;
 	
 	for (size_t i = 0; i < count; ++i) {
-		auto p = packets[dist(engine)];
+		auto&& p = packets[dist(engine)];
 		list[p.GetHeader().rawType](p);
+		log << i << std::endl;
 	}
 
 	return true;

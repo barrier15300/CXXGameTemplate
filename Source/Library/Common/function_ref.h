@@ -6,11 +6,34 @@
 #include <cstddef>
 #include <memory>
 
+class function_ref_unique_func_impl {
+protected:
+	struct _uniquefunc_base {
+		_uniquefunc_base() noexcept = default;
+		virtual ~_uniquefunc_base() noexcept = default;
+	};
+
+	template<class F>
+	struct _uniquefunc : public _uniquefunc_base {
+		_uniquefunc(F* f) noexcept : func_ptr(f) {}
+		~_uniquefunc() noexcept override { delete func_ptr; func_ptr = nullptr; }
+		F* func_ptr;
+	};
+
+	static inline std::vector<std::unique_ptr<_uniquefunc_base>> unique_functions;
+
+	template <class F>
+	static constexpr F* store_lambda(F&& f) noexcept {
+		unique_functions.push_back(std::make_unique<_uniquefunc<F>>(new F(std::forward<F>(f))));
+		return static_cast<_uniquefunc<F>*>(unique_functions.back().get())->func_ptr;
+	}
+};
+
 template <typename>
 class function_ref;
 
 template <typename R, typename... Args>
-class function_ref<R(Args...)> {
+class function_ref<R(Args...)> : function_ref_unique_func_impl {
 public:
 	function_ref() = delete;
 	function_ref(const function_ref&) noexcept = default;
@@ -26,14 +49,6 @@ private:
 
 	constexpr static bool is_nothrow_callable =
 		std::is_nothrow_invocable_r_v<R, decltype(callback_), void*, Args...>;
-
-	template <typename F>
-	constexpr F* store_lambda(F&& f) noexcept {
-		std::string s = typeid(typename std::remove_reference<decltype(f)>::type).name();
-		//static F instance = std::forward<F>(f);
-		//return &instance;
-		return new F(std::forward<F>(f));
-	}
 
 public:
 	
@@ -73,25 +88,17 @@ public:
 	template <typename T>
 	constexpr function_ref(R(T::* mf)(Args...), T& obj) noexcept {
 		auto pobj = std::addressof(obj);
-		auto plambda = store_lambda([mf, pobj](Args&&... args) noexcept(is_nothrow_callable) -> R {
+		*this = function_ref([mf, pobj](Args&&... args) noexcept(is_nothrow_callable) -> R {
 			return (pobj->*mf)(std::forward<Args>(args)...);
 			});
-		obj_ = static_cast<void*>(plambda);
-		callback_ = [](void* obj, Args&&... args) noexcept(is_nothrow_callable) -> R {
-			return std::invoke(*static_cast<decltype(plambda)>(obj), std::forward<Args>(args)...);
-			};
 	}
 
 	template <typename T>
 	constexpr function_ref(R(T::* mf)(Args...) const, const T& obj) noexcept {
 		auto pobj = std::addressof(obj);
-		auto plambda = store_lambda([mf, pobj](Args&&... args) noexcept(is_nothrow_callable) -> R {
+		*this = function_ref([mf, pobj](Args&&... args) noexcept(is_nothrow_callable) -> R {
 			return (pobj->*mf)(std::forward<Args>(args)...);
 			});
-		obj_ = static_cast<void*>(plambda);
-		callback_ = [](void* obj, Args&&... args) noexcept(is_nothrow_callable) -> R {
-			return std::invoke(*static_cast<decltype(plambda)>(obj), std::forward<Args>(args)...);
-			};
 	}
 
 	constexpr R operator()(Args... args) const noexcept(is_nothrow_callable) {

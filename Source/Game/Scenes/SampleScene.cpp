@@ -15,7 +15,7 @@ bool SampleScene::Init() {
 
 	Input.Mouse.Lock();
 
-	Scene->Regist<HandlerListTest>();
+	Scene->Regist<FunctionRefTest>();
 
 	return true;
 }

@@ -372,10 +372,12 @@
     <ClInclude Include="Source\Library\Common\ExMath.h" />
     <ClInclude Include="Source\Library\Common\ExString.h" />
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
-    <ClInclude Include="Source\Library\Local\function_ref.h" />
+    <ClInclude Include="Source\Library\Common\function_ref.h" />
     <ClInclude Include="Source\Library\Local\HandlerList.h" />
     <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
     <ClInclude Include="Source\Library\Local\ObjectBase.h" />
+    <ClInclude Include="Source\Lobject\Lobject.h" />
+    <ClInclude Include="Source\Lobject\SceneBase.h" />
     <ClInclude Include="Source\Library\Local\Properties.h" />
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />

@@ -50,9 +50,6 @@
     <ClInclude Include="Source\Main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\ObjectBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\GameMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -212,9 +209,6 @@
     <ClInclude Include="Source\MacroConfig.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Library\Local\function_ref.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Scenes\Wips\function_ref.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -270,6 +264,18 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Scenes\Wips\HandlerListTest.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\Common\function_ref.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lobject\Lobject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Lobject\SceneBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\Local\ObjectBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
