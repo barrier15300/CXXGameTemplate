@@ -12,6 +12,7 @@
 class Lobject {
 public:
 
+	using RawPointer = Lobject*;
 	using Pointer = std::unique_ptr<Lobject>;
 	using ChildrenType = std::vector<Pointer>;
 
@@ -38,13 +39,22 @@ public:
 	}
 
 	template<std::derived_from<Lobject> T>
-	static Pointer Make() {
-		return Pointer(new T());
+	static Pointer Make(bool active = true) {
+		return Pointer(new T(active));
 	}
 
 	template<std::derived_from<Lobject> T>
+	static Pointer Make(bool active, std::initializer_list<Pointer&&>&& list) {
+		auto ret = new T(active);
+		for (auto&& p : list) {
+			ret->RegistChild(p);
+		}
+		return Pointer(ret);
+	}
+	
+	template<std::derived_from<Lobject> T>
 	static Pointer Make(std::initializer_list<Pointer&&>&& list) {
-		return Pointer(new T(list));
+		return Make(true, std::move(list));
 	}
 
 protected:
@@ -80,13 +90,9 @@ protected:
 	virtual void Draw() = 0;
 	virtual void Left() = 0;
 
-	Lobject() {
+	Lobject(bool active = true) {
+		_SetFlag<IsActive>(active);
 		IDRegister();
-	}
-	Lobject(std::initializer_list<Pointer&&>&& list) : Lobject() {
-		for (auto&& p : list) {
-			RegistChild(p);
-		}
 	}
 
 public:
@@ -111,23 +117,23 @@ public:
 		return static_cast<T*>(this);
 	}
 
-	const Lobject* GetByID(size_t id) const {
+	const RawPointer GetByID(size_t id) const {
 		auto&& it = AllLobjects.find(id);
 		if (it == AllLobjects.end()) {
 			return nullptr;
 		}
 		return it->second;
 	}
-	const std::vector<std::unique_ptr<Lobject>>& GetChildren() const {
+	const ChildrenType& GetChildren() const {
 		return m_Children;
 	}
-	Lobject* GetChild(size_t idx) const {
+	RawPointer GetChild(size_t idx) const {
 		return m_Children.at(idx).get();
 	}
-	Lobject* operator[](size_t idx) const {
+	RawPointer operator[](size_t idx) const {
 		return m_Children[idx].get();
 	}
-	const Lobject* GetParent() const {
+	const RawPointer GetParent() const {
 		return m_Parent;
 	}
 
@@ -135,9 +141,11 @@ public:
 	enum FlagType : size_t {
 		/// private flags
 		IsInitialized = 0,
+		PrivateFlagEnd,
 
 		/// public flags
 		IsActive = 32,
+		PublicFlagEnd,
 	};
 
 	template<size_t Ty>
@@ -178,10 +186,10 @@ private:
 
 	std::bitset<64> m_Flags;
 	size_t m_ID = 0;
-	Lobject* m_Parent = nullptr;
-	std::vector<Pointer> m_Children;
+	RawPointer m_Parent = nullptr;
+	ChildrenType m_Children;
 	inline static std::atomic<size_t> LastGenID = 0;
-	inline static std::unordered_map<size_t, Lobject*> AllLobjects;
+	inline static std::unordered_map<size_t, RawPointer> AllLobjects;
 
 	template<size_t Ty>
 	void _SetFlag(bool f) {
