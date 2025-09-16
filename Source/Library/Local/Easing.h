@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Common/Common.h"
+#include "Library/Common/CommonInclude.h"
 
 namespace Easing {
 

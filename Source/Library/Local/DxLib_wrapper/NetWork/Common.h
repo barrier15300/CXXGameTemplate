@@ -5,7 +5,7 @@
 #include <utility>
 #include <type_traits>
 
-#include "Library/Common/Common.h"
+#include "Library/Common/CommonInclude.h"
 
 template<class T>
 constexpr size_t GetTypeHashCode() {

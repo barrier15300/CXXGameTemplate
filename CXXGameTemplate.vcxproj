@@ -304,7 +304,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\EntryPoint.cpp" />
-    <ClCompile Include="Source\Game\GameMain.cpp" />
+    <ClCompile Include="Source\Game\GameMain_leg.cpp" />
     <ClCompile Include="Source\Game\Scenes\SampleScene.cpp" />
     <ClCompile Include="Source\Game\Scenes\Wips\function_ref.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -313,6 +313,7 @@
     <ClInclude Include="..\..\制作してたもの\FreedomBarrierStyle\FreedomBarrierStyle_Old\Source\System\Library\ExLib\ExString\strconv.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Source\Game\GameMain.h" />
+    <ClInclude Include="Source\Game\GameMain_leg.h" />
     <ClInclude Include="Source\Game\Scenes\SampleScene.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\ClientTest.h" />
     <ClInclude Include="Source\Game\Scenes\Wips\CommonProtocol.h" />
@@ -323,8 +324,11 @@
     <ClInclude Include="Source\Include.hpp" />
     <ClInclude Include="Source\Library\Common\boost_include.h" />
     <ClInclude Include="Source\Library\LibraryInclude.h" />
-    <ClInclude Include="Source\Library\Common\Common.h" />
+    <ClInclude Include="Source\Library\Common\CommonInclude.h" />
     <ClInclude Include="Source\Library\Common\Concepts.h" />
+    <ClInclude Include="Source\Library\Lobject\LobjectInclude.h" />
+    <ClInclude Include="Source\Library\Lobject\SceneLobject.h" />
+    <ClInclude Include="Source\Library\Lobject\SceneManager.h" />
     <ClInclude Include="Source\Library\Local\Composite.h" />
     <ClInclude Include="Source\Library\Local\Console.h" />
     <ClInclude Include="Source\Library\Local\ContainerLINQ.h" />
@@ -374,10 +378,8 @@
     <ClInclude Include="Source\Library\Local\DxLib_wrapper\Input\Input.h" />
     <ClInclude Include="Source\Library\Common\function_ref.h" />
     <ClInclude Include="Source\Library\Local\HandlerList.h" />
-    <ClInclude Include="Source\Library\Local\IncludeLocal.h" />
+    <ClInclude Include="Source\Library\Local\LocalInclude.h" />
     <ClInclude Include="Source\Library\Local\ObjectBase.h" />
-    <ClInclude Include="Source\Lobject\Lobject.h" />
-    <ClInclude Include="Source\Lobject\SceneBase.h" />
     <ClInclude Include="Source\Library\Local\Properties.h" />
     <ClInclude Include="Source\Library\Local\Result.h" />
     <ClInclude Include="Source\Library\Local\RingBuffer.h" />

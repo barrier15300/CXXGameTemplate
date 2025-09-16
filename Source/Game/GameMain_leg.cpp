@@ -1,7 +1,7 @@
-﻿#include "GameMain.h"
+﻿#include "GameMain_leg.h"
 #include "Scenes/SampleScene.h"
 
-bool Game::Init() {
+bool Game_leg::Init() {
 
 	SetGraphMode(ScreenSize.x, ScreenSize.y, ColorBit);
 
@@ -36,7 +36,7 @@ bool Game::Init() {
 	return true;
 }
 
-void Game::Proc() {
+void Game_leg::Proc() {
 	while (ProcessMessage() == 0) {
 		Scene->Proc();
 		Scene->Draw();
@@ -45,10 +45,10 @@ void Game::Proc() {
 	}
 }
 
-void Game::Draw() {
+void Game_leg::Draw() {
 	// notuse
 }
 
-void Game::End() {
+void Game_leg::End() {
 	DXSystem.End();
 }

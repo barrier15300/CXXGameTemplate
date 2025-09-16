@@ -5,6 +5,7 @@
 #include <functional>
 #include <cstddef>
 #include <memory>
+#include <mutex>
 
 class function_ref_unique_func_impl {
 protected:
@@ -21,9 +22,13 @@ protected:
 	};
 
 	static inline std::vector<std::unique_ptr<_uniquefunc_base>> unique_functions;
+	static inline std::mutex mutex;
+
+	using Lock = std::lock_guard<std::mutex>;
 
 	template <class F>
 	static constexpr F* store_lambda(F&& f) noexcept {
+		Lock lock(mutex);
 		unique_functions.push_back(std::make_unique<_uniquefunc<F>>(new F(std::forward<F>(f))));
 		return static_cast<_uniquefunc<F>*>(unique_functions.back().get())->func_ptr;
 	}

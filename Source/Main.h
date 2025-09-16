@@ -1,5 +1,6 @@
 #pragma once
 #include "Include.hpp"
+#include "Game/GameMain_leg.h"
 #include "Game/GameMain.h"
 
 class Main {
@@ -21,7 +22,8 @@ public:
 
 	int Proc();
 
-	Game GameMain;
+	Game_leg GameMain;
+	SceneManager RootManager;
 
 	bool InitSuccessFlag = false;
 };

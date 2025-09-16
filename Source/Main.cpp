@@ -1,14 +1,15 @@
 ﻿#include "Main.h"
 
 void Main::Init() {
-	InitSuccessFlag = GameMain.Init();
+	RootManager.Regist<Game>();
+	InitSuccessFlag = true;
 }
 
 void Main::End() {
-	GameMain.End();
+	;
 }
 
 int Main::Proc() {
-	GameMain.Proc();
+	RootManager.Clock();
 	return 0;
 }

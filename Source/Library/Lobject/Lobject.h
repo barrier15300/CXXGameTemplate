@@ -9,45 +9,30 @@
 
 /// Layer Object (Lobject)
 
+class SceneLobject;
+class SceneManager;
+
 class Lobject {
+	friend SceneLobject;
+
 public:
 
 	using RawPointer = Lobject*;
 	using Pointer = std::unique_ptr<Lobject>;
 	using ChildrenType = std::vector<Pointer>;
 
-	template<void(Lobject::* pfunc)()>
-	static void RecusiveInvoke(Pointer& target) {
-		thread_local std::deque<Pointer&> queue;
-
-		if (!target) [[unlikely]] {
-			throw std::runtime_error("target is nullptr");
-		}
-
-		queue.push_back(target);
-
-		while (!queue.empty()) {
-			auto&& cur = queue.back();
-			queue.pop_back();
-
-			for (auto&& child : std::ranges::reverse_view(cur->m_Children)) {
-				queue.push_back(child);
-			}
-
-			cur->CommonInvoke<pfunc>();
-		}
-	}
-
 	template<std::derived_from<Lobject> T>
 	static Pointer Make(bool active = true) {
-		return Pointer(new T(active));
+		auto ret = Pointer(new T());
+		ret->_SetFlag<IsActive>(active);
+		return ret;
 	}
 
 	template<std::derived_from<Lobject> T>
 	static Pointer Make(bool active, std::initializer_list<Pointer&&>&& list) {
-		auto ret = new T(active);
+		auto ret = Make<T>(active);
 		for (auto&& p : list) {
-			ret->RegistChild(p);
+			ret->RegistChild(std::move(p));
 		}
 		return Pointer(ret);
 	}
@@ -57,7 +42,27 @@ public:
 		return Make(true, std::move(list));
 	}
 
-protected:
+	template<void(Lobject::* pfunc)()>
+	static void RecusiveInvoke(Pointer& target) {
+		thread_local std::deque<RawPointer> queue;
+
+		if (!target) [[unlikely]] {
+			throw std::runtime_error("target is nullptr");
+		}
+
+		queue.push_back(target.get());
+
+		while (!queue.empty()) {
+			auto&& cur = queue.back();
+			queue.pop_back();
+
+			for (auto&& child : std::ranges::reverse_view(cur->m_Children)) {
+				queue.push_back(child.get());
+			}
+
+			cur->CommonInvoke<pfunc>();
+		}
+	}
 
 	template<void(Lobject::* pfunc)()>
 	void CommonInvoke() {
@@ -68,9 +73,14 @@ protected:
 				}
 				_SetFlag<IsInitialized>(true);
 			}
-			this->*pfunc();
+			std::invoke(pfunc, *this);
 		}
 	}
+
+	/// TODO:
+	///		Left()関数の呼び出しを自然に行わなければいけない
+	///		または明示的に呼び出せるようにする方法を考える
+	/// 
 
 	virtual bool CommonInit() {
 		return Init();
@@ -90,15 +100,15 @@ protected:
 	virtual void Draw() = 0;
 	virtual void Left() = 0;
 
-	Lobject(bool active = true) {
-		_SetFlag<IsActive>(active);
+protected:
+
+	Lobject() {
 		IDRegister();
 	}
 
 public:
 
 	virtual ~Lobject() {
-		Left();
 		IDUnregister();
 	}
 
@@ -112,6 +122,12 @@ public:
 		m_Children.push_back(std::move(child));
 	}
 
+	void DestroyChild(size_t idx) {
+		auto&& target = m_Children[idx];
+		auto it = std::remove(m_Children.begin(), m_Children.end(), target);
+		m_Children.erase(it, m_Children.end());
+	}
+
 	template<std::derived_from<Lobject> T>
 	T* UpCast() const {
 		return static_cast<T*>(this);
@@ -122,7 +138,7 @@ public:
 		if (it == AllLobjects.end()) {
 			return nullptr;
 		}
-		return it->second;
+		return it->second.m_This;
 	}
 	const ChildrenType& GetChildren() const {
 		return m_Children;
@@ -134,13 +150,18 @@ public:
 		return m_Children[idx].get();
 	}
 	const RawPointer GetParent() const {
-		return m_Parent;
+		return GetInfo().m_Parent;
+	}
+
+	SceneLobject* GetScene() const {
+		return GetInfo().m_Scene;
 	}
 
 	/// Flag Types 
 	enum FlagType : size_t {
 		/// private flags
 		IsInitialized = 0,
+		DestroyQueue,
 		PrivateFlagEnd,
 
 		/// public flags
@@ -153,15 +174,26 @@ public:
 		if constexpr (Ty < IsActive) {
 			throw std::runtime_error("private flag accessed");
 		}
-		m_Flags[Ty] = f;
+		GetInfo().m_Flags[Ty] = f;
 	}
-
 	template<size_t Ty>
 	bool GetFlag() const {
-		return m_Flags[Ty];
+		return GetInfo().m_Flags[Ty];
+	}
+	template<size_t Ty>
+	auto GetFlagRef() const {
+		if constexpr (Ty < IsActive) {
+			throw std::runtime_error("private flag accessed");
+		}
+		return GetInfo().m_Flags[Ty];
 	}
 
 private:
+
+	template<size_t Ty>
+	void _SetFlag(bool f) {
+		GetInfo().m_Flags[Ty] = f;
+	}
 
 	void IDRegister() {
 		while (true) {
@@ -181,20 +213,34 @@ private:
 	}
 
 	void AttachParent(Pointer& child) {
-		child->m_Parent = this;
+		child->GetInfo().m_Parent = this;
 	}
 
-	std::bitset<64> m_Flags;
+	struct _Info {
+		_Info() {}
+		_Info(RawPointer _this) : m_This(_this) {}
+		
+		std::bitset<64> m_Flags;
+		RawPointer m_Parent = nullptr;
+		RawPointer m_This = nullptr;
+		SceneLobject* m_Scene = nullptr;
+	};
+
+	_Info& GetInfo() const {
+		return AllLobjects[m_ID];
+	}
+
 	size_t m_ID = 0;
-	RawPointer m_Parent = nullptr;
 	ChildrenType m_Children;
 	inline static std::atomic<size_t> LastGenID = 0;
-	inline static std::unordered_map<size_t, RawPointer> AllLobjects;
-
-	template<size_t Ty>
-	void _SetFlag(bool f) {
-		m_Flags[Ty] = f;
-	}
-	
+	inline static std::unordered_map<size_t, _Info> AllLobjects;
 };
 
+class RootLobject : public Lobject {
+
+	virtual bool Init() { return true; };
+	virtual void Proc() { std::cout << __FUNCTION__ << std::endl; };
+	virtual void Draw() { std::cout << __FUNCTION__ << std::endl; };
+	virtual void Left() { std::cout << __FUNCTION__ << std::endl; };
+
+};

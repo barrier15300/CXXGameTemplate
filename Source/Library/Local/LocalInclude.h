@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Library/Common/Common.h"
 #include "ObjectBase.h"
 #include "DataStorage.h"
 #include "Easing.h"

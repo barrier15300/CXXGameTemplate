@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <fstream>
 #include <string>
-#include "Common/Common.h"
+#include "Library/Common/CommonInclude.h"
 
 template<size_t Size>
 class static_string {
